@@ -1,0 +1,31 @@
+@import './reset.scss';
+
+body {
+  height: 100%;
+  overflow: hidden;
+  background: #EFF1F5;
+}
+
+#app {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  font-size: 24px;
+}
+
+.fa-icon {
+  width: auto;
+  height: 1em; /* 或任意其它字体大小相对值 */
+
+  /* 要在 Safari 中正常工作，需要再引入如下两行代码 */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.disabled, [class*="--disabled"] {
+  color: $--color-disabled;
+
+  * {
+    color: $--color-disabled;
+  }
+}
