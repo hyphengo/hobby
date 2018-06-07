@@ -39,6 +39,7 @@ const mutations = {
 const actions = {
   setUser({ commit, dispatch }, data: any) {
     commit(ActionType.IS_AUTH, true)
+    commit(ActionType.SET_TOKEN, data)
   },
   clearAuth({ commit }) {
     commit(ActionType.CLEAR_USER)

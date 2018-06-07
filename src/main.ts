@@ -19,7 +19,8 @@ import {
   Row,
   Col,
   Card,
-  Checkbox
+  Checkbox,
+  Icon
 } from 'vant'
 import './assets/index.scss'
 
@@ -27,16 +28,6 @@ const unsync = sync(store, router) // eslint-disable-line
 
 Vue.config.productionTip = false
 
-// 注册组件
-const vant: any = {
-  Loading,
-  Dialog,
-  Toast,
-  Row,
-  Col,
-  Card,
-  Checkbox,
-}
 // Vue.use(vant)
 
 Vue.prototype.$toast = Toast
@@ -47,7 +38,14 @@ fontawesome.library.add(solid)
 fontawesome.library.add(regular)
 fontawesome.library.add(brands)
 
+// 注册组件
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('van-icon', Icon)
+Vue.component('van-loading', Loading)
+Vue.component('van-row', Row)
+Vue.component('van-col', Col)
+Vue.component('van-card', Card)
+Vue.component('van-checkbox', Checkbox)
 
 new Vue({
   el: '#app',
@@ -55,7 +53,6 @@ new Vue({
   store,
   components: {
     App,
-    ...vant
   },
   template: '<App/>'
 })

@@ -52,3 +52,6 @@ http.response(
 
 // wx jssdk
 export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
+
+// 获取首页信息
+export const getHome = () => http.get('/home/loadNewHome')
