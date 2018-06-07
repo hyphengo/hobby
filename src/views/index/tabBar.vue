@@ -2,7 +2,9 @@
   <div
     class="index"
   >
-    <div class="aaa">jahah</div>
+    <transition :name="pageTransition">
+      <router-view class="transition-router-view" />
+    </transition>
     <tabbar v-model="active">
       <tabbar-item icon="wap-home">首页</tabbar-item>
       <tabbar-item icon="gift" dot>逛逛</tabbar-item>
@@ -25,11 +27,26 @@ import { Tabbar, TabbarItem } from 'vant';
 })
 export default class Index extends Vue {
   active: number = 0
+  pageTransition: string = 'slide-left'
 }
 </script>
 
 <style lang="scss">
-.aaa{
-  font-size: 24px;
+.transition-router-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: all .5s cubic-bezier(.55,0,.1,1);
+}
+
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  transform: translate(60px, 0);
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  transform: translate(-60px, 0);
 }
 </style>

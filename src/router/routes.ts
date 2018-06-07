@@ -1,5 +1,6 @@
 import Layout from '@/components/layout/Layout.vue'
 import NotFound from '@/components/layout/NotFound.vue'
+import TabBar from '@/views/index/tabBar.vue'
 
 const constantRoutes = [
 
@@ -15,6 +16,26 @@ const asyncRoutes = [
         name: '首页',
         component: () => import('@/views/home/index.vue'),
       },
+      {
+        path: 'browse',
+        name: '逛逛',
+      }
+    ]
+  },
+  {
+    path: '/index',
+    component: TabBar,
+    children: [
+      {
+        path: 'home',
+        name: '首页',
+        component: () => import('@/views/index/home.vue'),
+      },
+      {
+        path: 'browse',
+        name: '逛逛',
+        component: () => import('@/views/index/browse.vue'),
+      }
     ]
   },
   {
