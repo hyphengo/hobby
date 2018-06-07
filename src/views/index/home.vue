@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Swipe, SwipeItem } from 'vant';
+import { Swipe, SwipeItem } from 'vant'
 
 @Component({
   components: {
