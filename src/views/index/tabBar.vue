@@ -73,7 +73,7 @@ export default class Index extends Vue {
 
 <style lang="scss">
 .transition-router-view {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
   width: 100%;
@@ -88,5 +88,8 @@ export default class Index extends Vue {
 .slide-left-leave-active, .slide-right-enter {
   opacity: 0;
   transform: translate(-60px, 0);
+}
+.index{
+  padding-bottom: 100px;
 }
 </style>

@@ -17,22 +17,14 @@ import {
   Dialog,
   Toast,
   Row,
-  Col
+  Col,
+  Icon
 } from 'vant'
 import './assets/index.scss'
 
 const unsync = sync(store, router) // eslint-disable-line
 
 Vue.config.productionTip = false
-
-// 注册组件
-const vant: object = {
-  Loading,
-  Dialog,
-  Toast,
-  Row,
-  Col
-}
 // Vue.use(vant)
 
 Vue.prototype.$toast = Toast
@@ -43,7 +35,12 @@ fontawesome.library.add(solid)
 fontawesome.library.add(regular)
 fontawesome.library.add(brands)
 
+// 注册组件
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('van-icon', Icon)
+Vue.component('van-loading', Loading)
+Vue.component('van-row', Row)
+Vue.component('van-col', Col)
 
 new Vue({
   el: '#app',
@@ -51,7 +48,6 @@ new Vue({
   store,
   components: {
     App,
-    ...vant
   },
   template: '<App/>'
 })
