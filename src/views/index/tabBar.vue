@@ -47,6 +47,24 @@ export default class Index extends Vue {
         this.$router.push('/index/my')
         break
       default:
+        this.$router.push('/index/home')
+        break
+    }
+  }
+
+  mounted() {
+    switch (this.$route.name) {
+      case '首页':
+        this.active = 0
+        break
+      case '逛逛':
+        this.active = 1
+        break
+      case '购物车':
+        this.active = 2
+        break
+      case '我的':
+        this.active = 3
         break
     }
   }

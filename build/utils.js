@@ -49,7 +49,7 @@ exports.cssLoaders = function (options) {
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
-    if (options.usePostCSS) {
+    if (!loader) {
       loaders.push(vantRem)
     } else {
       // For Mobile
