@@ -8,21 +8,6 @@ const constantRoutes = [
 
 const asyncRoutes = [
   {
-    path: '/home',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: '首页',
-        component: () => import('@/views/home/index.vue'),
-      },
-      {
-        path: 'browse',
-        name: '逛逛',
-      }
-    ]
-  },
-  {
     path: '/index',
     component: TabBar,
     children: [
@@ -35,7 +20,17 @@ const asyncRoutes = [
         path: 'browse',
         name: '逛逛',
         component: () => import('@/views/index/browse.vue'),
-      }
+      },
+      {
+        path: 'cart',
+        name: '购物车',
+        component: () => import('@/views/index/cart.vue'),
+      },
+      {
+        path: 'my',
+        name: '我的',
+        component: () => import('@/views/index/my.vue'),
+      },
     ]
   },
   {

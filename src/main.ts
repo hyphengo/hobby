@@ -17,7 +17,9 @@ import {
   Dialog,
   Toast,
   Row,
-  Col
+  Col,
+  Card,
+  Checkbox
 } from 'vant'
 import './assets/index.scss'
 
@@ -26,12 +28,14 @@ const unsync = sync(store, router) // eslint-disable-line
 Vue.config.productionTip = false
 
 // 注册组件
-const vant: object = {
+const vant: any = {
   Loading,
   Dialog,
   Toast,
   Row,
-  Col
+  Col,
+  Card,
+  Checkbox,
 }
 // Vue.use(vant)
 
