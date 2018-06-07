@@ -2,7 +2,7 @@
   <div
     class="index"
   >
-    <div class="aaa">jahah</div>
+    <div class="aaa">test</div>
     <tabbar>
       <tabbar-item icon="shop">标签</tabbar-item>
       <tabbar-item icon="chat" dot>标签</tabbar-item>
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Tabbar, TabbarItem } from 'vant';
+import { Tabbar, TabbarItem } from 'vant'
 
 @Component({
   components: {
