@@ -1,9 +1,9 @@
 import Http from '@/util/http'
-import ls from '@/util/localStorage'
+// import ls from '@/util/localStorage'
 import store from '@/store'
 
-const retryCount = 2
-const retryKey = 'COCOWA_SALES_RETRY'
+// const retryCount = 2
+// const retryKey = 'COCOWA_SALES_RETRY'
 const http = new Http()
 
 http.request(
@@ -20,14 +20,14 @@ if (process.env.CONTEXT === 'test') {
   http.axios.defaults.withCredentials = true
 }
 
-function isWeiXin() {
-  var ua = window.navigator.userAgent.toLowerCase()
-  if (ua.match(/MicroMessenger/i) === 'micromessenger') {
-    return true
-  } else {
-    return false
-  }
-}
+// function isWeiXin() {
+//   var ua = window.navigator.userAgent.toLowerCase()
+//   if (ua.match(/MicroMessenger/i) === 'micromessenger') {
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
 function wxAuth(callback) {
   store.dispatch('auth/setUser', '806865a6-9e8b-4792-b20d-a1db3da152ad')

@@ -14,15 +14,15 @@
         :autoplay="5000"
       >
         <swipe-item
-          v-for="(item, index) in data.carouselItems"
+          v-for="(item) in data.carouselItems"
           :key="item.id"
         >
-          <img :src="item.image"></img>
+          <img :src="item.image" />
         </swipe-item>
       </swipe>
       <div class="home-quiki">
         <div
-          v-for="(item, index) in data.quikiNavig"
+          v-for="(item) in data.quikiNavig"
           :key="item.id"
         >
           <img :src="item.image" />
@@ -38,8 +38,8 @@
         <div class="home-card-hot">
           <div
             class="home-card-hot-item"
-            v-for="(sales, index) in item.hotSales"
-            :key="item.productId"
+            v-for="(sales) in item.hotSales"
+            :key="sales.productId"
           >
             <img :src="sales.productImg" />
             <p class="van-ellipsis">{{sales.productName}}</p>
