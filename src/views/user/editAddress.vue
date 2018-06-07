@@ -1,23 +1,29 @@
 <template>
   <div class="index">
-    <div class="user">
-      <img src="" alt="">
-      <p>黄龙真人</p>
-    </div>
     <cell-group>
-      <cell value="更多订单" is-link>
+      <cell value="选择小区" is-link>
         <template slot="title">
-          <span class="cell-text">我的订单</span>
+          <span class="cell-text">小区</span>
         </template>
       </cell>
       <cell is-link>
         <template slot="title">
-          <span class="cell-text">我的地址</span>
+          <span class="cell-text">门牌号</span>
         </template>
       </cell>
-      <cell is-link>
+    </cell-group>
+    <cell-group>
+      <cell>
         <template slot="title">
-          <span class="cell-text">优惠卷</span>
+          <span class="cell-text">联系人</span>
+        </template>
+      </cell>
+      <cell>
+        <template slot="title">
+          <span class="cell-text">手机号码</span>
+        </template>
+        <template slot="value">
+          <span class="cell-text">手机号码</span>
         </template>
       </cell>
     </cell-group>
@@ -41,7 +47,11 @@ export default class Index extends Vue {
 </script>
 
 <style lang="scss">
-.aaa{
-  font-size: 24px;
+.address{
+  display: flex;
+  flex-flow: row;
+  .edit{
+    width: 30px;
+  }
 }
 </style>

@@ -1,15 +1,10 @@
 <template>
   <div class="index">
-    <nav-bar
-      title="绑定手机号"
-      left-arrow
-    />
     <cell-group>
       <vant-field
         v-model="phone"
         label="手机号"
         placeholder="请填写手机号码"
-        error
       />
       <vant-field
         center
@@ -28,11 +23,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { NavBar, Field, CellGroup, Button } from 'vant'
+import { Field, CellGroup, Button } from 'vant'
 
 @Component({
   components: {
-    NavBar,
     'VantField': Field,
     CellGroup,
     'VantButton': Button

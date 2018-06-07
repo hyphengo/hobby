@@ -52,6 +52,16 @@ const asyncRoutes = [
         name: '绑定手机号',
         component: () => import('@/views/user/bind.vue'),
       },
+      {
+        path: 'address',
+        name: '地址管理',
+        component: () => import('@/views/user/address.vue'),
+      },
+      {
+        path: 'edit',
+        name: '编辑地址',
+        component: () => import('@/views/user/editAddress.vue'),
+      },
     ]
   },
   {
