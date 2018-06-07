@@ -5,7 +5,10 @@
     <transition :name="pageTransition">
       <router-view class="transition-router-view" />
     </transition>
-    <tabbar v-model="active">
+    <tabbar
+      v-model="active"
+      @change="tabChange"
+    >
       <tabbar-item icon="wap-home">首页</tabbar-item>
       <tabbar-item icon="gift" dot>逛逛</tabbar-item>
       <tabbar-item icon="cart" info="5">购物车</tabbar-item>
@@ -28,6 +31,24 @@ import { Tabbar, TabbarItem } from 'vant';
 export default class Index extends Vue {
   active: number = 0
   pageTransition: string = 'slide-left'
+
+  tabChange(key) {
+    switch (key) {
+      case 0:
+        this.$router.push('/index/home')
+        break;
+      case 1:
+        this.$router.push('/index/browse')
+        break;
+      case 2:
+        this.$router.push('/index/cart')
+        break;
+      case 3:
+        this.$router.push('/index/my')
+      default:
+        break;
+    }
+  }
 }
 </script>
 

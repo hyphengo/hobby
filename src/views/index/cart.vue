@@ -1,8 +1,8 @@
 <template>
   <div
-    class="browse"
+    class="cart"
   >
-    Browse
+    购物车
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Browse extends Vue {
+export default class Cart extends Vue {
 
 }
 </script>

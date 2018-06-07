@@ -22,8 +22,7 @@ import { Swipe, SwipeItem } from 'vant';
   }
 })
 export default class Index extends Vue {
-  active: number = 0
-  pageTransition: string = 'slide-left'
+
 }
 </script>
 
