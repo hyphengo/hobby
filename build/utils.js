@@ -30,6 +30,14 @@ exports.cssLoaders = function (options) {
     }
   }
 
+  const vantRem = {
+    loader: 'px2rem-loader',
+    options: {
+      remUnit: 37.5,
+      baseDpr: 1
+    }
+  }
+
   const postcssLoader = {
     loader: 'postcss-loader',
     options: {
@@ -41,8 +49,12 @@ exports.cssLoaders = function (options) {
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
-    // For Mobile
-    loaders.push(px2remLoader)
+    if (options.usePostCSS) {
+      loaders.push(vantRem)
+    } else {
+      // For Mobile
+      loaders.push(px2remLoader)
+    }
 
     if (loader) {
       loaders.push({

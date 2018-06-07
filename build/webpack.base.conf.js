@@ -39,12 +39,10 @@ const webpackConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'velvet': resolve('velvet/packages'),
       'assets': resolve('src/assets'),
     },
     modules: [
       resolve('src'),
-      resolve('velvet'),
       resolve('node_modules')
     ],
   },
@@ -86,7 +84,6 @@ const webpackConfig = {
         // exclude: /node_modules\/(?!(_*webpack-dev-server))/,
         include: [
           resolve('src'),
-          resolve('velvet'),
           resolve('test'),
         ]
       },
