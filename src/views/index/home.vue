@@ -1,60 +1,60 @@
 <template>
-  <van-loading color="white" v-if="!data" />
-  <div
-    v-else
-    class="home"
-  >
-    <pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <div class="home-top">
-        <p class="home-title">可可蛙-{{data.communityName}}</p>
-        <p class="home-search"><van-icon name="search" />搜索商品、服务</p>
-      </div>
-      <swipe
-        class="home-swipe"
-        :autoplay="5000"
-      >
-        <swipe-item
-          v-for="(item) in data.carouselItems"
-          :key="item.id"
-        >
-          <img :src="item.image" />
-        </swipe-item>
-      </swipe>
-      <div class="home-quiki">
-        <div
-          v-for="(item) in data.quikiNavig"
-          :key="item.id"
-        >
-          <img :src="item.image" />
-          <p>{{item.name}}</p>
+  <div>
+    <van-loading color="white" v-if="!data" />
+    <div
+      v-else
+      class="home"
+    >
+      <pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <div class="home-top">
+          <p class="home-title">可可蛙-{{data.communityName}}</p>
+          <search />
         </div>
-      </div>
-      <div
-        class="home-card"
-        v-for="(item, index) in data.floorVos"
-        :key="index"
-      >
-        <img :src="item.bannerAds.image" >
-        <div class="home-card-hot">
-          <div
-            class="home-card-hot-item"
-            v-for="(sales) in item.hotSales"
-            :key="sales.productId"
+        <swipe
+          class="home-swipe"
+          :autoplay="5000"
+        >
+          <swipe-item
+            v-for="(item) in data.carouselItems"
+            :key="item.id"
           >
-            <img :src="sales.productImg" />
-            <p class="van-ellipsis">{{sales.productName}}</p>
-            <van-row>
-              <van-col :span="20" class="home-card-price">
-                {{sales.salePrice}}元
-              </van-col>
-              <van-col :span="4">
-                +
-              </van-col>
-            </van-row>
+            <img :src="item.image" />
+          </swipe-item>
+        </swipe>
+        <div class="home-quiki">
+          <div
+            v-for="(item) in data.quikiNavig"
+            :key="item.id"
+          >
+            <img :src="item.image" />
+            <p>{{item.name}}</p>
           </div>
         </div>
-      </div>
-    </pull-refresh>
+        <div
+          class="home-card"
+          v-for="(item, index) in data.floorVos"
+          :key="index"
+        >
+          <img :src="item.bannerAds.image" >
+          <div class="home-card-hot">
+            <div
+              class="home-card-hot-item"
+              v-for="(sales) in item.hotSales"
+              :key="sales.productId"
+            >
+              <img :src="sales.productImg" />
+              <p class="van-ellipsis">{{sales.productName}}</p>
+              <div class="home-card-add">
+                <span class="home-card-price">
+                  {{sales.salePrice}}元
+                </span>
+                <add-button />
+              </div>
+            </div>
+          </div>
+        </div>
+      </pull-refresh>
+    </div>
   </div>
 </template>
 
@@ -62,12 +62,16 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Swipe, SwipeItem, PullRefresh } from 'vant'
 import { getHome } from '@/api'
+import AddButton from '@/components/add-button/index.vue'
+import Search from '@/components/search/index.vue'
 
 @Component({
   components: {
     Swipe,
     SwipeItem,
-    PullRefresh
+    PullRefresh,
+    AddButton,
+    Search
   }
 })
 export default class Index extends Vue {
@@ -89,6 +93,8 @@ export default class Index extends Vue {
 
 <style lang="scss">
 .home{
+  overflow: auto;
+  height: 100%;
   &-top{
     background-color:: $--color-white;
     padding: 18px 20px;
@@ -98,21 +104,6 @@ export default class Index extends Vue {
     color: $--color-black;
     text-align: center;
     margin-bottom: 54px;
-  }
-  &-search{
-    background-color: #EDF0F2;
-    color: #B2B2B2;
-    border-radius:10px;
-    text-align: center;
-    height: 56px;
-    line-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .van-icon{
-      margin-right: 10px;
-    }
   }
   &-swipe{
     padding: 10px 20px;
@@ -175,8 +166,14 @@ export default class Index extends Vue {
       }
     }
 
+    &-add{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     &-price{
-      color: #FC7818;
+      color: $--color-price;
       font-size: 32px;
       font-family: PingFang-SC-Bold;
     }

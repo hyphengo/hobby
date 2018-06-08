@@ -55,3 +55,6 @@ export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')
+
+// 搜索所有二级分类
+export const searchCategories = () => http.get('product/searchCategories')
