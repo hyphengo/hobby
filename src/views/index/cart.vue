@@ -10,13 +10,6 @@
         :key="item.id"
         :name="item.id"
       >
-        <!--<vant-card
-          :title="item.title"
-          :desc="item.desc"
-          :num="item.num"
-          :price="formatPrice(item.price)"
-          :thumb="item.thumb"
-        />-->
         <goods-card
           :title="item.title"
           :num="item.num"
@@ -26,7 +19,11 @@
         />
       </vant-checkbox>
     </checkbox-group>
-
+    <!-- <div>
+      <span>全选</span>
+      <span>¥{{formatPrice(totalPrice)}}</span>
+      <span>去买单</span>
+    </div> -->
     <submit-bar
       :price="totalPrice"
       :button-text="submitBarText"
@@ -104,10 +101,10 @@ export default class Cart extends Vue {
   background-color: #fff;
   &__item {
     position: relative;
-    background-color: #fafafa;
+    background-color: #fff;
     .van-checkbox__label {
       width: 100%;
-      padding: 0 10px 0 15px;
+      padding-left: 40px;
       box-sizing: border-box;
     }
     .van-checkbox__icon {
@@ -117,9 +114,7 @@ export default class Cart extends Vue {
       position: absolute;
       margin-top: -10px;
     }
-    .van-card__price {
-      color: #f44;
-    }
+
   }
 }
 </style>

@@ -9,7 +9,8 @@
                 {{title}}
             </div>
             <div class="goodscard-price">
-                ￥{{price}}/{{unit}}
+              <span style="color: #FC7818">￥{{price}}</span>
+              <span style="color: #C6C6C6">/{{unit}}</span>
             </div>
         </div>
       </div>
@@ -46,24 +47,62 @@ export default class GoodsCard extends Vue {
 
 <style lang="scss">
 .goodscard {
-  border: 1px solid #ebeef5;
   height: 146px;
+  padding: 34px 20px;
+  margin-right: 24px;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
 
   &-left {
+    display: flex;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+
+    .van-stepper__minus,
+    .van-stepper__plus {
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+    }
+    .van-stepper__plus {
+      background: #3ACBCC;
+      border: none;
+    }
+    .van-stepper__minus::after, .van-stepper__minus::before {
+      background: #3ACBCC;
+    }
+    .van-stepper__plus::after, .van-stepper__plus::before{
+      background: #fff;
+    }
+    // .stepper__plus::after {
+    //   background: #fff;
+    // }
+
+    .van-stepper__input {
+      border: none;
+    }
   }
 
   &-thumb {
       width: 70px;
       height: 78px;
+      margin-right: 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+  }
+  &-content {
+    font-size: 24px;
+    color: #000;
+    text-align: left;
   }
 
-  &-right {
-    padding: 15px;
-  }
-
-  .boxer-action {
-    padding: 4px !important;
-  }
 }
 </style>
 
