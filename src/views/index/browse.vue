@@ -13,6 +13,7 @@
               'active': item.categoryId === active
             }]"
             v-for="(item) in twoClass"
+            :key="item.categoryId"
             @click="handleItem(item)"
           >
             {{item.name}}
@@ -45,7 +46,6 @@ export default class Browse extends Vue {
 
   handleItem(item) {
     this.active = item.categoryId
-
   }
 
   mounted() {
