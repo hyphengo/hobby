@@ -84,10 +84,15 @@ export default class Cart extends Vue {
 
 
   get totalPrice() {
-    return this.goods.reduce((total, item) =>
-      total + (this.checkedGoods.indexOf(item.id) !== -1
-        ? item.price
-        : 0), 0)
+    let total = 0
+    this.goods.map(sub => {
+      sub.commerceItems.map(item => {
+        if (item.selected) {
+          total += item.salePrice * item.quantity
+        }
+      })
+    })
+    return total
   }
 
   changeItem(value) {
