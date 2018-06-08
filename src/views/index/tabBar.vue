@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Tabbar, TabbarItem } from 'vant';
+import { Tabbar, TabbarItem } from 'vant'
 
 @Component({
   components: {
@@ -36,17 +36,36 @@ export default class Index extends Vue {
     switch (key) {
       case 0:
         this.$router.push('/index/home')
-        break;
+        break
       case 1:
         this.$router.push('/index/browse')
-        break;
+        break
       case 2:
         this.$router.push('/index/cart')
-        break;
+        break
       case 3:
         this.$router.push('/index/my')
+        break
       default:
-        break;
+        this.$router.push('/index/home')
+        break
+    }
+  }
+
+  mounted() {
+    switch (this.$route.name) {
+      case '首页':
+        this.active = 0
+        break
+      case '逛逛':
+        this.active = 1
+        break
+      case '购物车':
+        this.active = 2
+        break
+      case '我的':
+        this.active = 3
+        break
     }
   }
 }
@@ -60,6 +79,7 @@ export default class Index extends Vue {
   width: 100%;
   height: 100%;
   transition: all .5s cubic-bezier(.55,0,.1,1);
+  padding-bottom: 100px;
 }
 
 .slide-left-enter, .slide-right-leave-active {

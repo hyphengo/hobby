@@ -12,7 +12,7 @@ module.exports = {
   test: {
     proxyTable: {
       '/api': {
-        target: 'https://xxx.xx.xx',
+        target: 'https://test-ec-api.cocowa.com.cn',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

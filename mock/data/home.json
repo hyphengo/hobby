@@ -1,0 +1,152 @@
+{
+    "timestamp": 1528383338293,
+    "code": 200,
+    "message": {},
+    "data": {
+        "communityName": "南阳盛世",
+        "carouselItems": [
+            {
+                "id": "62",
+                "name": "轮播1",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/activity/banner1.png",
+                "url": "https://mp.weixin.qq.com/s/iCzDISxhppI7YsEkk7i1QA"
+            },
+            {
+                "id": "64",
+                "name": "轮播2",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/activity/banner2.png",
+                "url": "https://mp.weixin.qq.com/s/iCzDISxhppI7YsEkk7i1QA"
+            }
+        ],
+        "quikiNavig": [
+            {
+                "id": "54",
+                "name": "酒水",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/category/jiusui.png",
+                "url": "/pages/category?id=23"
+            },
+            {
+                "id": "48",
+                "name": "早餐",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/category/sushi.png",
+                "url": "/pages/category?id=5"
+            },
+            {
+                "id": "46",
+                "name": "优选",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/category/liangyou.png",
+                "url": "/pages/category?id=38"
+            },
+            {
+                "id": "42",
+                "name": "干洗",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/category/dryclean.png",
+                "url": "/pages/category?id=26"
+            },
+            {
+                "id": "50",
+                "name": "快递",
+                "title": null,
+                "image": "http://test-img.cocowa.com.cn/category/kuaidi.png",
+                "url": "/pages/category?id=11"
+            }
+        ],
+        "floorVos": [
+            {
+                "bannerAds": {
+                    "id": "68",
+                    "name": "横幅21111",
+                    "title": null,
+                    "image": "http://test-img.cocowa.com.cn/activity/banner1.png",
+                    "url": "https://mp.weixin.qq.com/s/lQBpXRvJ8y5fQOa6d2sXZQ"
+                },
+                "hotSales": [
+                    {
+                        "id": null,
+                        "productId": "1000016948960100078",
+                        "productName": "百威啤酒罐装500ml",
+                        "productCode": "100157",
+                        "productImg": "http://test-img.cocowa.com.cn/product/5PACVP97V59QPAAUH.jpg",
+                        "quantity": null,
+                        "salePrice": 7,
+                        "type": null,
+                        "unit": "罐"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016901285991219",
+                        "productName": "怡宝饮用纯净水555ml",
+                        "productCode": "100168",
+                        "productImg": "http://test-img.cocowa.com.cn/product/5AX64LA9RF8YGA2MC.jpg",
+                        "quantity": null,
+                        "salePrice": 2,
+                        "type": null,
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016954767430386",
+                        "productName": "雪碧3CAN罐装饮料300ml",
+                        "productCode": "100119",
+                        "productImg": "http://test-img.cocowa.com.cn/product/1X5A99R7T38XYR1Y6.jpg",
+                        "quantity": null,
+                        "salePrice": 2,
+                        "type": null,
+                        "unit": "罐"
+                    }
+                ]
+            },
+            {
+                "bannerAds": {
+                    "id": "66",
+                    "name": "横幅1",
+                    "title": null,
+                    "image": "http://test-img.cocowa.com.cn/activity/banner2.png",
+                    "url": "https://mp.weixin.qq.com/s/lQBpXRvJ8y5fQOa6d2sXZQ"
+                },
+                "hotSales": [
+                    {
+                        "id": null,
+                        "productId": "1000016940553360036",
+                        "productName": "百事可乐汽水2L",
+                        "productCode": "100156",
+                        "productImg": "http://test-img.cocowa.com.cn/product/3118PGE5GD8PPTHN0.jpg",
+                        "quantity": null,
+                        "salePrice": 8,
+                        "type": null,
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016954767423579",
+                        "productName": "可口可乐零度500ml",
+                        "productCode": "100172",
+                        "productImg": "http://test-img.cocowa.com.cn/product/749LE7LSA99AG8V6A.jpg",
+                        "quantity": null,
+                        "salePrice": 3,
+                        "type": null,
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016920153500292",
+                        "productName": "天地精华矿泉水350ml",
+                        "productCode": "100275",
+                        "productImg": "http://test-img.cocowa.com.cn/product/758D8Y87E495TTP4K.jpg",
+                        "quantity": null,
+                        "salePrice": 2,
+                        "type": null,
+                        "unit": "瓶"
+                    }
+                ]
+            }
+        ]
+    },
+    "success": true
+}
