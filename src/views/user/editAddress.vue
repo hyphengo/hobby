@@ -1,30 +1,29 @@
 <template>
   <div class="edit">
     <cell-group>
-      <vant-cell value="选择小区" is-link>
+      <van-cell value="community" is-link>
         <template slot="title">
           <span class="cell-text">小区</span>
-          <span class="community">{{address}}</span>
         </template>
-      </vant-cell>
-      <vant-field
+      </van-cell>
+      <van-field
         v-model="card"
         label="门牌号"
         placeholder="几栋几单元几室，如8栋2单元2204室"
-      ></vant-field>
+      />
       <div class="blank"></div>
-      <vant-field
+      <van-field
         v-model="name"
         label="联系人"
         placeholder="请填写您的姓名"
-      ></vant-field>
-      <vant-field
+      />
+      <van-field
         v-model="phone"
         label="手机号码"
         placeholder="请填写您的手机号码"
-      ></vant-field>
+      />
       <div class="save-box">
-        <vant-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</vant-button>
+        <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
       </div>
     </cell-group>
   </div>
@@ -33,38 +32,37 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Cell, CellGroup, Field, Button, Toast } from 'vant'
+import { Cell, CellGroup, Field } from 'vant'
 
 @Component({
   components: {
-    'VantCell': Cell,
+    'VanCell': Cell,
     CellGroup,
-    'VantField': Field,
-    'VantButton': Button
+    'VanField': Field,
   }
 })
 export default class Edit extends Vue {
-  address: string = ''
+  community: string = '选择小区'
   card: string = ''
   name: string = ''
   phone: string = ''
   saveClick() {
-    if (!this.address) {
-      Toast('请选择小区')
+    if (this.community === '选择小区') {
+      this.$toast('请选择小区')
     } else if (!this.card) {
-      Toast('请填写门牌号')
+      this.$toast('请填写门牌号')
     } else if (this.card.length > 15) {
-      Toast('门牌号不得大于15个字')
+      this.$toast('门牌号不得大于15个字')
     } else if (!this.name) {
-      Toast('请填写联系人')
+      this.$toast('请填写联系人')
     } else if (this.name.length > 8) {
-      Toast('联系人不得大于8个字')
+      this.$toast('联系人不得大于8个字')
     } else if (!this.phone) {
-      Toast('请填写手机号码')
+      this.$toast('请填写手机号码')
     } else if (!/^[1][1-9][0-9]{9}$/.test(this.phone)) {
-      Toast('请填写11位手机号码')
+      this.$toast('请填写11位手机号码')
     } else {
-      Toast('保存')
+      this.$toast('保存')
     }
   }
 }

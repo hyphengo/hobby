@@ -1,39 +1,44 @@
 <template>
   <div class="address">
-    <div class="address-info">
-      <div class="info">
-        <p>用户姓名  13209209301</p>
-        <span>宏达世纪城 7栋5单元3302室</span>
-      </div>
-      <div class="edit">
-        <vant-icon name="edit" />
-      </div>
-    </div>
-    <div class="address-info">
-      <div class="info">
-        <p>用户姓名  13209209301</p>
-        <span>宏达世纪城 7栋5单元3302室</span>
-      </div>
-      <div class="edit">
-        <vant-icon name="edit" />
-      </div>
-    </div>
-    <vant-button class="add-btn" size="large" type="primary" @click="addClick">+ 新增地址</vant-button>
+    <address-list
+      v-model="chosenAddressId"
+      :list="list"
+      @add="onAdd"
+      @edit="onEdit"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Icon, Button } from 'vant'
+import { AddressList } from 'vant'
 
 @Component({
   components: {
-    'VantIcon': Icon,
-    'VantButton': Button
+    AddressList
   }
 })
 export default class Address extends Vue {
-  addClick() {
+  chosenAddressId: string = '1'
+  list: any = [
+    {
+      id: '1',
+      name: '张三',
+      tel: '13000000000',
+      address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
+    },
+    {
+      id: '2',
+      name: '李四',
+      tel: '1310000000',
+      address: '浙江省杭州市拱墅区莫干山路 50 号'
+    }
+  ]
+  onAdd() {
+    this.$router.push('/my/edit')
+  }
+  onEdit(item, index) {
+    this.$toast('编辑收货地址:' + index)
     this.$router.push('/my/edit')
   }
 }
