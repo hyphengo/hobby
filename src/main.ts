@@ -16,10 +16,10 @@ import {
   Loading,
   Dialog,
   Toast,
-  Row,
-  Col,
   Icon
 } from 'vant'
+import Row from '@/components/row'
+import Col from '@/components/col'
 import './assets/index.scss'
 
 const unsync = sync(store, router) // eslint-disable-line
