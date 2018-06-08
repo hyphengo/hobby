@@ -59,6 +59,9 @@ export const getHome = () => http.get('/home/loadNewHome')
 // 搜索所有二级分类
 export const searchCategories = () => http.get('product/searchCategories')
 
+// 根据二级分类查询商品列表
+export const searchProductList = (params) => http.post('/product/searchProductList', params)
+
 /**
  * 添加商品到购物车
  * @param id  => productId
