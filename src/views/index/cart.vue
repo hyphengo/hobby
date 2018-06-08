@@ -1,45 +1,47 @@
 <template>
   <div class="cart">
-    <template v-if="hasgoods">
-      <div v-for="(data,index) in goods" :key="index">
-        <div class="cart-list-title">
-          <vant-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
-            {{data.groupName}}
-          </vant-checkbox>
-          <div class="font-24">满88免配送费，还差**元</div>
-        </div>
-        <div class="card-goods">
-          <vant-checkbox
-            class="card-goods-item"
-            v-for="item in data.commerceItems"
-            v-model="item.selected"
-            :key="item.productCode"
-            :name="item.productCode"
-            :label-disabled="true"
-            @change="changeItem"
-          >
-            <goods-card
-              :title="item.productName"
-              :price="item.salePrice"
-              :thumb="item.productImg"
-              :unit="item.unit"
-            />
-            <div class="card-goods-step">
-              <vant-stepper
-                v-model="item.quantity"
-                @overlimit="deleteItem"
+    <div v-if="hasgoods">
+      <div class="list">
+        <div v-for="(data,index) in goods" :key="index">
+          <div class="cart-list-title">
+            <vant-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
+              {{data.groupName}}
+            </vant-checkbox>
+            <div class="font-24">满88免配送费，还差**元</div>
+          </div>
+          <div class="cart-goods">
+            <vant-checkbox
+              class="cart-goods-item"
+              v-for="item in data.commerceItems"
+              v-model="item.selected"
+              :key="item.productCode"
+              :name="item.productCode"
+              :label-disabled="true"
+              @change="changeItem"
+            >
+              <goods-card
+                :title="item.productName"
+                :price="item.salePrice"
+                :thumb="item.productImg"
+                :unit="item.unit"
               />
-            </div>
-          </vant-checkbox>
-        </div>
-        <div class="card-goods-btn">
-          <vant-checkbox v-model="checkedAll" @change="handleCheckAll">全选</vant-checkbox>
-          <div class="totalprice">¥{{totalPrice}}</div>
-          <div class="pay-btn" @click="onSubmit">去买单</div>
+              <div class="cart-goods-step">
+                <vant-stepper
+                  v-model="item.quantity"
+                  @overlimit="deleteItem"
+                />
+              </div>
+            </vant-checkbox>
+          </div>
         </div>
       </div>
-    </template>
-    <div v-else class="card-nogoods">
+      <div class="cart-goods-btn">
+        <vant-checkbox v-model="checkedAll" @change="handleCheckAll">全选</vant-checkbox>
+        <div class="totalprice">¥{{totalPrice}}</div>
+        <div class="pay-btn" @click="onSubmit">去买单</div>
+      </div>
+    </div>
+    <div v-else class="cart-nogoods">
       <div class="tips">
         <vant-icon name="shop" />
         <p>没商品哦，快去搞点吧～</p>
@@ -157,6 +159,11 @@ export default class Cart extends Vue {
 </script>
 
 <style lang="scss">
+.cart {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 200px;
+}
 .cart-list-title {
   display: flex;
   width: 100%;
@@ -172,7 +179,7 @@ export default class Cart extends Vue {
     font-size: $--base-font;
   }
 }
-.card-goods {
+.cart-goods {
   padding: 10px 20px;
   background-color: #fff;
   margin-bottom: 15px;
@@ -232,7 +239,7 @@ export default class Cart extends Vue {
     height: 98px;
     line-height: 98px;
     background: #fff;
-    position: absolute;
+    position: fixed;
     bottom: 98px;
     display: flex;
     justify-content: space-between;
@@ -252,7 +259,7 @@ export default class Cart extends Vue {
   }
 }
 
-.card-nogoods {
+.cart-nogoods {
   text-align: center;
   height: 100%;
   padding-top: 50%;
