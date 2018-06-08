@@ -22,7 +22,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import './../../assets/var.scss'
 
 @Component
 export default class GoodsCard extends Vue {
