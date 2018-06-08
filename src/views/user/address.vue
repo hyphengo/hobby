@@ -1,7 +1,7 @@
 <template>
   <div class="address">
-    <div class="info"></div>
-    <div class="edit"></div>
+    <div class="info">左</div>
+    <div class="edit">右</div>
   </div>
 
 </template>
@@ -25,8 +25,11 @@ export default class Address extends Vue {
 .address{
   display: flex;
   flex-flow: row;
+  .info{
+    flex-grow: 1;
+  }
   .edit{
-    width: 30px;
+    width: 200px;
   }
 }
 </style>
