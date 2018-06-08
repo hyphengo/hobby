@@ -16,10 +16,9 @@
       >
         <vant-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</vant-button>
       </vant-field>
-      <vant-button size="large" :disabled="define" @click="defineClick" >确定</vant-button>
+      <vant-button size="large" type="primary" :disabled="define" @click="defineClick" >确定</vant-button>
     </cell-group>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -75,7 +74,11 @@ export default class Bind extends Vue {
 </script>
 
 <style lang="scss">
-.aaa{
-  font-size: 24px;
-}
+  .bind{
+    .add-btn{
+      color: $--color-white;
+      background-color: $--color-base;
+      border: 2px solid $--color-base;
+    }
+  }
 </style>

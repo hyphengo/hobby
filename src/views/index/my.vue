@@ -49,6 +49,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell, CellGroup, Icon } from 'vant'
 
+
 @Component({
   components: {
     Cell,
@@ -96,7 +97,7 @@ export default class Info extends Vue {
     }
     .blank{
       height: 15px;
-      background-color: #F5F5F7;
+      background-color: $--color-body;
     }
     .order-type{
       display: flex;
