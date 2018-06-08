@@ -3,7 +3,7 @@
     <template v-if="hasgoods">
       <div v-for="(data,index) in goods" :key="index">
         <div class="cart-list-title">
-          <vant-checkbox v-model="data.selectAll">
+          <vant-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
             {{data.groupName}}
           </vant-checkbox>
           <div class="font-24">满88免配送费，还差**元</div>
@@ -27,7 +27,7 @@
             <div class="card-goods-step">
               <vant-stepper
                 v-model="item.quantity"
-                @overlimit="deletemodal"
+                @overlimit="deleteItem"
               />
             </div>
           </vant-checkbox>
@@ -73,7 +73,6 @@ import { loadCart } from '@/api'
 export default class Cart extends Vue {
   checkedGoods: any = []
   hasgoods: boolean = false
-  checkItemAll: boolean = false
   checkedAll: boolean = false
   goods: any = []
 
@@ -114,8 +113,15 @@ export default class Cart extends Vue {
     return (price / 100).toFixed(2)
   }
 
-  deletemodal() {
-    Toast('确认删除商品')
+  deleteItem() {
+    this.$dialog.confirm({
+      message: '确认删除商品'
+    }).then(() => {
+
+    }).catch(() => {
+      // on cancel
+      this.$dialog.close()
+    })
   }
   onSubmit() {
     Toast('点击结算')
@@ -125,8 +131,20 @@ export default class Cart extends Vue {
     Toast('qukankan')
   }
 
-  handleCheckAll() {
-
+  handleCheckAll(value) {
+    this.goods.map(sub => {
+      sub.commerceItems.map(item => {
+        item.selected = value
+      })
+    })
+  }
+  checkItemAll(value) {
+    Toast(value)
+    //  this.goods.map(sub => {
+    //     sub.commerceItems.map(item => {
+    //       item.selected = value
+    //     })
+    // })
   }
 
   created() {

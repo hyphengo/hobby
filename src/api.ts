@@ -77,3 +77,8 @@ export const loadCart = () => http.get('/cart/loadCart')
 
 // 选择或者不选择购物车中的商品
 export const selectItem = (params) => http.post('/cart/selectItem', params)
+
+// 删除购物车中商品
+export const removeItem = (id, type) => http.post('/cart/removeItem', {
+  productId: id, productType: type
+})
