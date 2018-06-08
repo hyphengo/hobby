@@ -139,12 +139,11 @@ export default class Cart extends Vue {
     })
   }
   checkItemAll(value) {
-    Toast(value)
-    //  this.goods.map(sub => {
-    //     sub.commerceItems.map(item => {
-    //       item.selected = value
-    //     })
-    // })
+    this.goods.map(sub => {
+      sub.commerceItems.map(item => {
+        item.selected = value
+      })
+    })
   }
 
   created() {
