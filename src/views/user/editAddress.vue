@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <cell-group>
-      <van-cell value="community" is-link>
+      <van-cell :value="community" is-link>
         <template slot="title">
           <span class="cell-text">小区</span>
         </template>

@@ -70,10 +70,5 @@ export default class Address extends Vue {
       font-size: 50px;
     }
   }
-  .add-btn{
-    color: $--color-white;
-    background-color: $--color-base;
-    border: 2px solid $--color-base;
-  }
 }
 </style>
