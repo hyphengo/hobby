@@ -39,8 +39,8 @@ fontawesome.library.add(brands)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('van-icon', Icon)
 Vue.component('van-loading', Loading)
-Vue.component('van-row', Row)
-Vue.component('van-col', Col)
+Vue.component('ve-row', Row)
+Vue.component('ve-col', Col)
 
 new Vue({
   el: '#app',
