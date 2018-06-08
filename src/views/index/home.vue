@@ -43,14 +43,12 @@
           >
             <img :src="sales.productImg" />
             <p class="van-ellipsis">{{sales.productName}}</p>
-            <van-row>
-              <van-col :span="20" class="home-card-price">
+            <div class="home-card-add">
+              <span class="home-card-price">
                 {{sales.salePrice}}元
-              </van-col>
-              <van-col :span="4">
-                +
-              </van-col>
-            </van-row>
+              </span>
+              <add-button />
+            </div>
           </div>
         </div>
       </div>
@@ -62,12 +60,14 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Swipe, SwipeItem, PullRefresh } from 'vant'
 import { getHome } from '@/api'
+import AddButton from '@/components/add-button/index.vue'
 
 @Component({
   components: {
     Swipe,
     SwipeItem,
-    PullRefresh
+    PullRefresh,
+    AddButton
   }
 })
 export default class Index extends Vue {
@@ -175,8 +175,14 @@ export default class Index extends Vue {
       }
     }
 
+    &-add{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     &-price{
-      color: #FC7818;
+      color: $--color-price;
       font-size: 32px;
       font-family: PingFang-SC-Bold;
     }
