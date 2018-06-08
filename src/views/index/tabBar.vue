@@ -11,7 +11,7 @@
     >
       <tabbar-item icon="wap-home">首页</tabbar-item>
       <tabbar-item icon="gift">逛逛</tabbar-item>
-      <tabbar-item icon="cart" :info="cartCount">购物车</tabbar-item>
+      <tabbar-item icon="cart" :info="cartCount || null">购物车</tabbar-item>
       <tabbar-item icon="contact">我的</tabbar-item>
     </tabbar>
   </div>

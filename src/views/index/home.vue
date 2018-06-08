@@ -87,7 +87,7 @@ export default class Index extends Vue {
       id: sales.productId,
       num: 1
     }).then(res => {
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.$toast('添加购物车成功~')
       }
     })
