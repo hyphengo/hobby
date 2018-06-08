@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { Tabbar, TabbarItem } from 'vant'
 
@@ -55,9 +55,9 @@ export default class Index extends Vue {
     }
   }
 
-  mounted() {
-    this.getCount()
-    switch (this.$route.name) {
+  @Watch('$route.name')
+  changeActive(val) {
+    switch (val) {
       case '首页':
         this.active = 0
         break
@@ -71,6 +71,11 @@ export default class Index extends Vue {
         this.active = 3
         break
     }
+  }
+
+  mounted() {
+    this.getCount()
+    this.changeActive(this.$route.name)
   }
 }
 </script>

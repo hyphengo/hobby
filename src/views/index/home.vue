@@ -18,13 +18,14 @@
             v-for="(item) in data.carouselItems"
             :key="item.id"
           >
-            <img :src="item.image" />
+            <img :src="item.image" @click="handleJump(item)" />
           </swipe-item>
         </swipe>
         <div class="home-quiki">
           <div
             v-for="(item) in data.quikiNavig"
             :key="item.id"
+            @click="handleJump(item)"
           >
             <img :src="item.image" />
             <p>{{item.name}}</p>
@@ -35,7 +36,7 @@
           v-for="(item, index) in data.floorVos"
           :key="index"
         >
-          <img :src="item.bannerAds.image" >
+          <img :src="item.bannerAds.image" @click="handleJump(item.bannerAds)" >
           <div class="home-card-hot">
             <div
               class="home-card-hot-item"
@@ -65,6 +66,7 @@ import { Swipe, SwipeItem, PullRefresh } from 'vant'
 import { getHome } from '@/api'
 import AddButton from '@/components/add-button/index.vue'
 import Search from '@/components/search/index.vue'
+import { IsURL } from '@/util/util'
 
 @Component({
   components: {
@@ -91,6 +93,31 @@ export default class Index extends Vue {
         this.$toast('添加购物车成功~')
       }
     })
+  }
+
+  /**
+   * 判断是否是完整URL
+   *
+   * 完整的URL直接跳外链
+   *
+   * 非完整 正则取出一级分类ID 跳转分类页面
+   */
+  judgeType(url) {
+    const type = IsURL(url)
+
+    if (type) {
+      window.location.href = url
+    } else {
+      const id = url.replace(/^.*?id=(\d+).*$/, '$1')
+      this.$router.push({
+        path: '/index/browse',
+        query: { id }
+      })
+    }
+  }
+
+  handleJump(item) {
+    this.judgeType(item.url)
   }
 
   onRefresh() {

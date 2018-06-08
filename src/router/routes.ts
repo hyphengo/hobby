@@ -60,6 +60,17 @@ const asyncRoutes = [
     ]
   },
   {
+    path: '/product',
+    component: Layout,
+    children: [
+      {
+        path: 'search',
+        name: '搜索',
+        component: () => import('@/views/product/search.vue'),
+      },
+    ]
+  },
+  {
     path: '/404',
     name: '404',
     component: NotFound
