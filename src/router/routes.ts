@@ -34,22 +34,6 @@ const asyncRoutes = [
     ]
   },
   {
-    path: '/cart',
-    component: TabBar,
-    children: [
-      // {
-      //   path: 'index',
-      //   name: '购物车',
-      //   component: () => import('@/views/cart/cart.vue'),
-      // },
-      {
-        path: 'browse',
-        name: '逛逛',
-        component: () => import('@/views/index/browse.vue'),
-      }
-    ]
-  },
-  {
     path: '/user',
     component: Layout,
     children: [

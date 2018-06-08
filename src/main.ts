@@ -16,7 +16,6 @@ import {
   Loading,
   Dialog,
   Toast,
-  Card,
   Checkbox,
   Icon
 } from 'vant'
@@ -42,9 +41,8 @@ fontawesome.library.add(brands)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('van-icon', Icon)
 Vue.component('van-loading', Loading)
-Vue.component('van-row', Row)
-Vue.component('van-col', Col)
-Vue.component('van-card', Card)
+Vue.component('ve-row', Row)
+Vue.component('ve-col', Col)
 Vue.component('van-checkbox', Checkbox)
 
 new Vue({
