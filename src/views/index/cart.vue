@@ -66,7 +66,7 @@ export default class Cart extends Vue {
     title: '陕西蜜梨',
     unit: '约600g',
     price: 690,
-    num: 1,
+    num: 3,
     thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
   }, {
     id: '3',

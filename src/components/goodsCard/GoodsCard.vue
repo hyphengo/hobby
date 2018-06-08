@@ -22,14 +22,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Stepper } from 'vant'
 
-@Component({
-  components: {
-    'VantStepper': Stepper
-  }
-})
-
+@Component
 export default class GoodsCard extends Vue {
   @Prop({ default: '' }) thumb: string
   @Prop({ default: null }) price: Number
@@ -49,35 +43,6 @@ export default class GoodsCard extends Vue {
 
   &-left {
     display: flex;
-  }
-
-  &-right {
-    display: flex;
-    align-items: center;
-
-    .van-stepper__minus,
-    .van-stepper__plus {
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-    }
-    .van-stepper__plus {
-      background: #3ACBCC;
-      border: none;
-    }
-    .van-stepper__minus::after, .van-stepper__minus::before {
-      background: #3ACBCC;
-    }
-    .van-stepper__plus::after, .van-stepper__plus::before{
-      background: #fff;
-    }
-    // .stepper__plus::after {
-    //   background: #fff;
-    // }
-
-    .van-stepper__input {
-      border: none;
-    }
   }
 
   &-thumb {
