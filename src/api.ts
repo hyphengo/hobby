@@ -68,3 +68,6 @@ export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, q
 
 // 获取购物车商品总数
 export const loadCartCount = () => http.get('/cart/loadCartCount')
+
+// 加载购物车
+export const loadCart = () => http.get('/cart/loadCart')

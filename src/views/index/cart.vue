@@ -1,37 +1,47 @@
 <template>
   <div class="cart">
-    <div v-if="!hasgoods">
-      <div class="cart-list-title">
-        <vant-checkbox v-model="checkItemAll">干洗衣物</vant-checkbox>
-        <div class="font-24">满88免配送费，还差**元</div>
-      </div>
-      <checkbox-group
-        class="card-goods"
-        v-model="checkedGoods"
-      >
-        <vant-checkbox
-          class="card-goods__item"
-          v-for="item in goods"
-          :key="item.id"
-          :name="item.id"
+    <template v-if="hasgoods">
+      <div v-for="(data,index) in goods" :key="index">
+        <div class="cart-list-title">
+          <vant-checkbox v-model="data.selectAll">
+            {{data.groupName}}
+          </vant-checkbox>
+          <div class="font-24">满88免配送费，还差**元</div>
+        </div>
+        <checkbox-group
+          class="card-goods"
+          v-model="checkedGoods"
+          @change="checkboxchange"
         >
-          <goods-card
-            :title="item.title"
-            :price="formatPrice(item.price)"
-            :thumb="item.thumb"
-            :unit="item.unit"
-          />
-          <div class="card-goods-step">
-            <vant-stepper v-model="item.num" />
-          </div>
-        </vant-checkbox>
-      </checkbox-group>
-      <div class="card-goods-btn">
-        <vant-checkbox v-model="checkedAll">全选</vant-checkbox>
-        <div class="totalprice">¥{{formatPrice(totalPrice)}}</div>
-        <div class="pay-btn" @click="onSubmit">去买单</div>
+          <vant-checkbox
+            class="card-goods-item"
+            v-model="item.selected"
+            v-for="item in data.commerceItems"
+            :key="item.productCode"
+            :name="item.productCode"
+            :label-disabled="true"
+          >
+            <goods-card
+              :title="item.productName"
+              :price="item.salePrice"
+              :thumb="item.productImg"
+              :unit="item.unit"
+            />
+            <div class="card-goods-step">
+              <vant-stepper
+                v-model="item.quantity"
+                @overlimit="deletemodal"
+              />
+            </div>
+          </vant-checkbox>
+        </checkbox-group>
+        <div class="card-goods-btn">
+          <vant-checkbox v-model="checkedAll">全选</vant-checkbox>
+          <div class="totalprice">¥{{formatPrice(totalPrice)}}</div>
+          <div class="pay-btn" @click="onSubmit">去买单</div>
+        </div>
       </div>
-    </div>
+    </template>
     <div v-else class="card-nogoods">
       <div class="tips">
         <vant-icon name="shop" />
@@ -49,6 +59,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast, Stepper, Icon, Button } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
+import { loadCart, getHome } from '@/api'
 
 @Component({
   components: {
@@ -63,35 +74,11 @@ import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
   }
 })
 export default class Cart extends Vue {
-  checkedGoods: any = ['1', '2', '3']
+  checkedGoods: any = []
   hasgoods: boolean = false
   checkItemAll: boolean = false
   checkedAll: boolean = false
-  goods: any = [
-    {
-      id: '1',
-      title: '进口香蕉',
-      desc: '约250g，2根',
-      unit: '根',
-      price: 200,
-      num: 1,
-      thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/2f9a36046449dafb8608e99990b3c205.jpeg'
-    }, {
-      id: '2',
-      title: '陕西蜜梨',
-      unit: '约600g',
-      price: 690,
-      num: 3,
-      thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
-    }, {
-      id: '3',
-      title: '美国伽力果',
-      unit: '3个',
-      price: 2680,
-      num: 1,
-      thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
-    }
-  ]
+  goods: any = []
 
   get submitBarText() {
     const count = this.checkedGoods.length
@@ -99,13 +86,23 @@ export default class Cart extends Vue {
   }
 
   get totalPrice() {
-    return this.goods.reduce((total, item) => total + (this.checkedGoods.indexOf(item.id) !== -1 ? item.price : 0), 0)
+    return this.goods.reduce((total, item) =>
+    total + (this.checkedGoods.indexOf(item.id) !== -1
+      ? item.price
+      : 0), 0)
+  }
+
+  checkboxchange() {
+    console.log(this.checkedGoods)
   }
 
   formatPrice(price) {
     return (price / 100).toFixed(2)
   }
 
+  deletemodal(){
+    console.log('确认删除商品')
+  }
   onSubmit() {
     console.log('点击结算')
   }
@@ -114,7 +111,14 @@ export default class Cart extends Vue {
     console.log('qukankan')
   }
 
-
+  created() {
+    loadCart().then(res => {
+      this.goods = res.data.items
+      this.hasgoods = res.data.cartCount > 0
+      console.log(this.goods)
+    })
+  }
+  
 }
 
 </script>
@@ -140,7 +144,7 @@ export default class Cart extends Vue {
   background-color: #fff;
   margin-bottom: 15px;
 
-  &__item {
+  &-item {
     position: relative;
     background-color: #fff;
     .van-checkbox__label {
