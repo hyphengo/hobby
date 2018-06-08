@@ -9,8 +9,8 @@
                 {{title}}
             </div>
             <div class="goodscard-price">
-              <span style="color: #FC7818">￥{{price}}</span>
-              <span style="color: #C6C6C6">/{{unit}}</span>
+              <span class="price">￥{{price}}</span>
+              <span class="unit">/{{unit}}</span>
             </div>
         </div>
       </div>
@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import './../../assets/var.scss'
 
 @Component
 export default class GoodsCard extends Vue {
@@ -59,6 +60,15 @@ export default class GoodsCard extends Vue {
     font-size: 24px;
     color: #000;
     text-align: left;
+
+    .goodscard-price {
+      .price {
+        color: $--color-price;
+      }
+      .unit {
+        color: #C6C6C6;
+      }
+    }
   }
 
 }
