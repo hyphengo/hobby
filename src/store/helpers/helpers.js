@@ -23,8 +23,8 @@ export function pageList(state, result, key, viewModel) {
 
   // 先转换一次后端数据
   const data = {
-    items: res.data,
-    page: res.current_page,
+    items: res.records,
+    page: res.pageNum,
     total: res.total
   }
 

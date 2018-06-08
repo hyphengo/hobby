@@ -1,22 +1,17 @@
 <template>
   <div class="goodscard">
-      <div class="goodscard-left">
-        <div class="goodscard-thumb">
-            <img :src="thumb" class="img" >
+    <div class="goodscard-thumb">
+        <img :src="thumb" class="img" >
+    </div>
+    <div class="goodscard-content">
+        <div class="goodscard-title">
+            {{title}}
         </div>
-        <div class="goodscard-content">
-            <div :class="title">
-                {{title}}
-            </div>
-            <div class="goodscard-price">
-              <span class="price">￥{{price}}</span>
-              <span class="unit">/{{unit}}</span>
-            </div>
+        <div class="goodscard-price">
+          <span class="price">￥{{price}}</span>
+          <span class="unit">/{{unit}}</span>
         </div>
-      </div>
-      <!-- <div class="goodscard-right">
-        <vant-stepper v-model="num" />
-      </div> -->
+    </div>
   </div>
 </template>
 
@@ -34,31 +29,33 @@ export default class GoodsCard extends Vue {
 
 <style lang="scss">
 .goodscard {
-  height: 146px;
-  padding: 34px 20px;
+  padding: 29px 35px;
   margin-right: 24px;
   display: flex;
-  justify-content: space-between;
   background: #fff;
 
-  &-left {
-    display: flex;
-  }
-
   &-thumb {
-      width: 70px;
-      height: 78px;
-      margin-right: 10px;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
 
-      img {
-        width: 100%;
-        height: 100%;
-      }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &-title{
+    @include ellipsis(2)
   }
   &-content {
-    font-size: 24px;
+    width: 100%;
+    font-size: $--base-font;
     color: #000;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .goodscard-price {
       .price {
