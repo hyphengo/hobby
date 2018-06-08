@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="info">
     <div class="user">
       <img src="" alt="">
       <p>黄龙真人</p>
@@ -35,7 +35,7 @@ import { Cell, CellGroup } from 'vant'
     CellGroup
   }
 })
-export default class Index extends Vue {
+export default class Info extends Vue {
 
 }
 </script>

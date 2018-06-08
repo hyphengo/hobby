@@ -1,9 +1,7 @@
 <template>
-  <div class="index">
-    <div class="address">
-      <div class="info"></div>
-      <div class="edit"></div>
-    </div>
+  <div class="address">
+    <div class="info"></div>
+    <div class="edit"></div>
   </div>
 
 </template>
@@ -18,7 +16,7 @@ import { Cell, CellGroup } from 'vant'
     CellGroup
   }
 })
-export default class Index extends Vue {
+export default class Address extends Vue {
 
 }
 </script>

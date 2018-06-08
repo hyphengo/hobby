@@ -57,6 +57,11 @@ const asyncRoutes = [
         name: '编辑地址',
         component: () => import('@/views/user/editAddress.vue'),
       },
+      {
+        path: 'coupon',
+        name: '优惠卷',
+        component: () => import('@/views/user/coupon.vue'),
+      },
     ]
   },
   {

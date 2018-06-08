@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="edit">
     <cell-group>
       <cell value="选择小区" is-link>
         <template slot="title">
@@ -41,7 +41,7 @@ import { Cell, CellGroup } from 'vant'
     CellGroup
   }
 })
-export default class Index extends Vue {
+export default class Edit extends Vue {
 
 }
 </script>
