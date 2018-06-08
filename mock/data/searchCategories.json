@@ -1,0 +1,158 @@
+{
+    "timestamp": 1528434285584,
+    "code": 200,
+    "message": {},
+    "data": [
+        {
+            "name": "牛奶面包",
+            "categoryId": "cate102",
+            "iconImgUrl": null,
+            "dimValId": "288"
+        },
+        {
+            "name": "饮用水",
+            "categoryId": "cate6",
+            "iconImgUrl": null,
+            "dimValId": "69"
+        },
+        {
+            "name": "酒",
+            "categoryId": "cate5",
+            "iconImgUrl": null,
+            "dimValId": "71"
+        },
+        {
+            "name": "饮料",
+            "categoryId": "cate7",
+            "iconImgUrl": null,
+            "dimValId": "73"
+        },
+        {
+            "name": "风味小食",
+            "categoryId": "cate32",
+            "iconImgUrl": null,
+            "dimValId": "10"
+        },
+        {
+            "name": "坚果炒货",
+            "categoryId": "cate33",
+            "iconImgUrl": null,
+            "dimValId": "12"
+        },
+        {
+            "name": "面包糕点",
+            "categoryId": "cate35",
+            "iconImgUrl": null,
+            "dimValId": "14"
+        },
+        {
+            "name": "膨化食品",
+            "categoryId": "cate15",
+            "iconImgUrl": null,
+            "dimValId": "4"
+        },
+        {
+            "name": "糖果饼干",
+            "categoryId": "cate16",
+            "iconImgUrl": null,
+            "dimValId": "6"
+        },
+        {
+            "name": "蜜饯干果",
+            "categoryId": "cate31",
+            "iconImgUrl": null,
+            "dimValId": "8"
+        },
+        {
+            "name": "冰淇淋/果冻",
+            "categoryId": "cate14",
+            "iconImgUrl": null,
+            "dimValId": "16"
+        },
+        {
+            "name": "牛奶/鲜奶",
+            "categoryId": "cate8",
+            "iconImgUrl": null,
+            "dimValId": "22"
+        },
+        {
+            "name": "酸奶/乳酸菌",
+            "categoryId": "cate9",
+            "iconImgUrl": null,
+            "dimValId": "24"
+        },
+        {
+            "name": "粮油酱醋",
+            "categoryId": "cate21",
+            "iconImgUrl": null,
+            "dimValId": "60"
+        },
+        {
+            "name": "方便速食",
+            "categoryId": "cate22",
+            "iconImgUrl": null,
+            "dimValId": "62"
+        },
+        {
+            "name": "冲调谷物",
+            "categoryId": "cate36",
+            "iconImgUrl": null,
+            "dimValId": "64"
+        },
+        {
+            "name": "冷藏冻品",
+            "categoryId": "cate37",
+            "iconImgUrl": null,
+            "dimValId": "66"
+        },
+        {
+            "name": "个人护理",
+            "categoryId": "cate24",
+            "iconImgUrl": null,
+            "dimValId": "42"
+        },
+        {
+            "name": "成人用品",
+            "categoryId": "cate25",
+            "iconImgUrl": null,
+            "dimValId": "44"
+        },
+        {
+            "name": "家居生活",
+            "categoryId": "cate10",
+            "iconImgUrl": null,
+            "dimValId": "49"
+        },
+        {
+            "name": "纸制品",
+            "categoryId": "cate11",
+            "iconImgUrl": null,
+            "dimValId": "51"
+        },
+        {
+            "name": "数码办公",
+            "categoryId": "cate12",
+            "iconImgUrl": null,
+            "dimValId": "53"
+        },
+        {
+            "name": "清洁用品",
+            "categoryId": "cate13",
+            "iconImgUrl": null,
+            "dimValId": "55"
+        },
+        {
+            "name": "餐厨用品",
+            "categoryId": "cate34",
+            "iconImgUrl": null,
+            "dimValId": "57"
+        },
+        {
+            "name": "新鲜水果",
+            "categoryId": "cate39",
+            "iconImgUrl": null,
+            "dimValId": "19"
+        }
+    ],
+    "success": true
+}
