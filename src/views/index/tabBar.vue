@@ -11,7 +11,7 @@
     >
       <tabbar-item icon="wap-home">首页</tabbar-item>
       <tabbar-item icon="gift">逛逛</tabbar-item>
-      <tabbar-item icon="cart" info="5">购物车</tabbar-item>
+      <tabbar-item icon="cart" :info="cartCount">购物车</tabbar-item>
       <tabbar-item icon="contact">我的</tabbar-item>
     </tabbar>
   </div>
@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Getter, Action } from 'vuex-class'
 import { Tabbar, TabbarItem } from 'vant'
 
 @Component({
@@ -29,6 +30,8 @@ import { Tabbar, TabbarItem } from 'vant'
   }
 })
 export default class Index extends Vue {
+  @Getter('cart/count') cartCount: number
+  @Action('cart/getCount') getCount: Function
   active: number = 0
   pageTransition: string = 'slide-left'
 
@@ -53,6 +56,7 @@ export default class Index extends Vue {
   }
 
   mounted() {
+    this.getCount()
     switch (this.$route.name) {
       case '首页':
         this.active = 0

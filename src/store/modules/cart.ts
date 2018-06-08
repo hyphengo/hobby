@@ -1,5 +1,5 @@
 
-import { addItem } from '@/api'
+import { addItem, loadCartCount } from '@/api'
 
 const ActionType = {
   SET_CART_COUNT: 'SET_CART_COUNT',
@@ -28,6 +28,11 @@ const actions = {
 
     return res
   },
+  async getCount({ commit, dispatch }) {
+    const res = await loadCartCount()
+
+    commit(ActionType.SET_CART_COUNT, res.data.cartCount)
+  }
 }
 
 const getters = {
