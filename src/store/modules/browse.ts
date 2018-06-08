@@ -7,6 +7,7 @@ interface StateType {
 
 const ActionType = {
   GOT_PRODUCT_LIST: 'GOT_PRODUCT_LIST',
+  CLEAR_PRODUCT_LIST: 'CLEAR_PRODUCT_LIST',
 }
 
 const state = {
@@ -17,11 +18,13 @@ const mutations = {
   [ActionType.GOT_PRODUCT_LIST](state: StateType, payload: ListType) {
     state.list = pageList(state, payload, 'list')
   },
+  [ActionType.CLEAR_PRODUCT_LIST](state: StateType) {
+    state.list = initListData
+  }
 }
 
 const actions = {
   async searchProductList({ commit }, params) {
-    console.log(params)
     const res = await searchProductList({
       pageNum: params.page,
       pageSize: params.size,
@@ -32,6 +35,9 @@ const actions = {
 
     return res
   },
+  clearProductList({ commit }) {
+    commit(ActionType.CLEAR_PRODUCT_LIST)
+  }
 }
 
 const getters = {

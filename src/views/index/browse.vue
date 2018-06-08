@@ -49,12 +49,12 @@
           </div>
           <p
             class="browse-list-scroll-tip"
-            v-if="!pageConfig.empty && pageConfig.finished"
+            v-if="!pageConfig.loading && !pageConfig.empty && pageConfig.finished"
           >
             别看了，真的没有了~
           </p>
           <div
-            v-if="pageConfig.empty"
+            v-if="!pageConfig.loading && pageConfig.empty"
             class="browse-list-scroll-tip"
           >
             真想不到，竟然没有商品诶~
@@ -87,6 +87,7 @@ import AddButton from '@/components/add-button/index.vue'
 })
 export default class Browse extends Vue {
   @Action('browse/searchProductList') searchProductList: any
+  @Action('browse/clearProductList') clearProductList: any
   @Getter('browse/list') list: any
   @Action('cart/addCart') addCart: any
   active: string = null
@@ -120,6 +121,7 @@ export default class Browse extends Vue {
   }
 
   changeClass(ids) {
+    this.clearProductList()
     this.pageConfig.others.query = {
       dimensionIds: ids
     }
