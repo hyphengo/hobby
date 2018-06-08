@@ -17,7 +17,8 @@ import {
   Dialog,
   Toast,
   Checkbox,
-  Icon
+  Icon,
+  Button
 } from 'vant'
 import Row from '@/components/row'
 import Col from '@/components/col'
@@ -44,6 +45,7 @@ Vue.component('van-loading', Loading)
 Vue.component('ve-row', Row)
 Vue.component('ve-col', Col)
 Vue.component('van-checkbox', Checkbox)
+Vue.component('van-button', Button)
 
 new Vue({
   el: '#app',

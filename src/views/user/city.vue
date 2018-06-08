@@ -1,23 +1,6 @@
 <template>
-  <div class="bind">
-    <cell-group>
-      <van-field
-        v-model="phone"
-        label="手机号"
-        placeholder="请填写手机号码"
-      />
-      <van-field
-        center
-        v-model="sms"
-        label="短信验证码"
-        placeholder="请输入短信验证码"
-        icon="clear"
-        @click-icon="sms = ''"
-      >
-        <van-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</van-button>
-      </van-field>
-      <van-button size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
-    </cell-group>
+  <div class="city">
+
   </div>
 </template>
 
@@ -73,4 +56,10 @@ export default class Bind extends Vue {
 </script>
 
 <style lang="scss">
+  .bind{
+    .add-btn{
+      color: $--color-white;
+      background-color: $--color-base;
+    }
+  }
 </style>

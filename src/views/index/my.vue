@@ -16,16 +16,16 @@
       </cell>
       <div class="order-type">
         <div>
-          <vant-icon name="pending-payment" />
+          <van-icon name="pending-payment" />
           <p>待付款</p>
           <span class="order-mark"></span>
         </div>
         <div>
-          <vant-icon name="pending-orders" />
+          <van-icon name="pending-orders" />
           <p>待接单</p>
         </div>
         <div>
-          <vant-icon name="pending-deliver" />
+          <van-icon name="pending-deliver" />
           <p>已完成</p>
         </div>
       </div>
@@ -47,13 +47,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Cell, CellGroup, Icon } from 'vant'
+import { Cell, CellGroup } from 'vant'
+
 
 @Component({
   components: {
     Cell,
-    CellGroup,
-    'VantIcon': Icon
+    CellGroup
   }
 })
 export default class Info extends Vue {
@@ -96,7 +96,7 @@ export default class Info extends Vue {
     }
     .blank{
       height: 15px;
-      background-color: #F5F5F7;
+      background-color: $--color-body;
     }
     .order-type{
       display: flex;
