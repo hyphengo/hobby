@@ -16,6 +16,7 @@ import {
   Loading,
   Dialog,
   Toast,
+  Checkbox,
   Icon
 } from 'vant'
 import Row from '@/components/row'
@@ -25,6 +26,7 @@ import './assets/index.scss'
 const unsync = sync(store, router) // eslint-disable-line
 
 Vue.config.productionTip = false
+
 // Vue.use(vant)
 
 Vue.prototype.$toast = Toast
@@ -41,6 +43,7 @@ Vue.component('van-icon', Icon)
 Vue.component('van-loading', Loading)
 Vue.component('ve-row', Row)
 Vue.component('ve-col', Col)
+Vue.component('van-checkbox', Checkbox)
 
 new Vue({
   el: '#app',
