@@ -1,12 +1,12 @@
 <template>
   <div class="bind">
     <cell-group>
-      <vant-field
+      <van-field
         v-model="phone"
         label="手机号"
         placeholder="请填写手机号码"
-      ></vant-field>
-      <vant-field
+      />
+      <van-field
         center
         v-model="sms"
         label="短信验证码"
@@ -14,23 +14,21 @@
         icon="clear"
         @click-icon="sms = ''"
       >
-        <vant-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</vant-button>
-      </vant-field>
-      <vant-button size="large" :disabled="define" @click="defineClick" >确定</vant-button>
+        <van-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</van-button>
+      </van-field>
+      <van-button size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
     </cell-group>
   </div>
-
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { Field, CellGroup, Button, Toast } from 'vant'
+import { Field, CellGroup } from 'vant'
 
 @Component({
   components: {
-    'VantField': Field,
-    CellGroup,
-    'VantButton': Button
+    'VanField': Field,
+    CellGroup
   }
 })
 export default class Bind extends Vue {
@@ -53,7 +51,7 @@ export default class Bind extends Vue {
     }, 1000)
   }
   defineClick() {
-    Toast('验证码不对，请换个姿势~')
+    this.$toast('验证码不对，请换个姿势~')
   }
   get defineBtn() {
     const { verify, sms } = this
@@ -75,7 +73,4 @@ export default class Bind extends Vue {
 </script>
 
 <style lang="scss">
-.aaa{
-  font-size: 24px;
-}
 </style>

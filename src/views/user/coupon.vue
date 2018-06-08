@@ -41,7 +41,7 @@ import { Popup, CouponList } from 'vant'
 
 @Component({
   components: {
-    'VantPopup': Popup,
+    'VanPopup': Popup,
     CouponList
   }
 })

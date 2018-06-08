@@ -57,6 +57,27 @@ const asyncRoutes = [
         name: '优惠卷',
         component: () => import('@/views/user/coupon.vue'),
       },
+      {
+        path: 'city',
+        name: '选择城市',
+        component: () => import('@/views/user/city.vue'),
+      },
+      {
+        path: 'community',
+        name: '选择小区',
+        component: () => import('@/views/user/city.vue'),
+      },
+    ]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [
+      {
+        path: 'search',
+        name: '搜索',
+        component: () => import('@/views/product/search.vue'),
+      },
     ]
   },
   {

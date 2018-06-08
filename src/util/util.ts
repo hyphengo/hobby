@@ -126,3 +126,11 @@ export function setWXTitle(title) {
   }
   document.body.appendChild(i)
 }
+
+export function IsURL (URL) {
+  const str = URL
+  const Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/
+  const objExp = new RegExp(Expression)
+
+  return objExp.test(str)
+}

@@ -8,7 +8,7 @@ function get(key: string): any {
   return JSON.parse(ls.getItem(key))
 }
 
-function set(key: string, value: string): boolean {
+function set(key: string, value: any): boolean {
   try {
     ls.setItem(key, JSON.stringify(value))
     return true
