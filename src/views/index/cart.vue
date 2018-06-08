@@ -12,11 +12,13 @@
       >
         <goods-card
           :title="item.title"
-          :num="item.num"
           :price="formatPrice(item.price)"
           :thumb="item.thumb"
           :unit="item.unit"
         />
+        <div class="card-goods-step">
+          <vant-stepper v-model="item.num" />
+        </div>
       </vant-checkbox>
     </checkbox-group>
     <!-- <div>
@@ -35,8 +37,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast } from 'vant'
-// import { NavBar, Field, CellGroup, Button } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast, Stepper } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
 
 @Component({
@@ -45,7 +46,8 @@ import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
     CheckboxGroup,
     'VantCard': Card,
     SubmitBar,
-    GoodsCard
+    GoodsCard,
+    'VantStepper': Stepper
   }
 })
 export default class Cart extends Vue {
@@ -103,6 +105,7 @@ export default class Cart extends Vue {
     position: relative;
     background-color: #fff;
     .van-checkbox__label {
+      position: relative;
       width: 100%;
       padding-left: 40px;
       box-sizing: border-box;
@@ -116,5 +119,36 @@ export default class Cart extends Vue {
     }
 
   }
+      &-step {
+        display: inline-block;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        margin-top: -22px;
+
+        .van-stepper__minus,
+        .van-stepper__plus {
+          border-radius: 50%;
+          width: 44px;
+          height: 44px;
+        }
+
+        .van-stepper__plus {
+          background: #3ACBCC;
+          border: none;
+        }
+
+        .van-stepper__minus::after, .van-stepper__minus::before {
+          background: #3ACBCC;
+        }
+
+        .van-stepper__plus::after, .van-stepper__plus::before{
+          background: #fff;
+        }
+
+        .van-stepper__input {
+          border: none;
+        }
+      }
 }
 </style>

@@ -14,9 +14,9 @@
             </div>
         </div>
       </div>
-      <div class="goodscard-right">
+      <!-- <div class="goodscard-right">
         <vant-stepper v-model="num" />
-      </div>
+      </div> -->
   </div>
 </template>
 
@@ -32,16 +32,9 @@ import { Stepper } from 'vant'
 
 export default class GoodsCard extends Vue {
   @Prop({ default: '' }) thumb: string
-  //   @Prop({ default: () => {} }) onAction: Function
-  @Prop({ default: null }) num: Number
   @Prop({ default: null }) price: Number
   @Prop({ default: '' }) title: string
   @Prop({ default: '' }) unit: string
-
-  handleClick() {
-    // this.onAction()
-    // this.$emit('action')
-  }
 }
 </script>
 
