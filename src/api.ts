@@ -58,3 +58,10 @@ export const getHome = () => http.get('/home/loadNewHome')
 
 // 搜索所有二级分类
 export const searchCategories = () => http.get('product/searchCategories')
+
+/**
+ * 添加商品到购物车
+ * @param id  => productId
+ * @param num => 数量
+ */
+export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, quantity: num} )

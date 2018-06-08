@@ -1,5 +1,9 @@
 <template>
-  <van-icon class="add-button" name="add" />
+  <van-icon
+    class="add-button"
+    name="add"
+    @click="hanleClick"
+  />
 </template>
 
 <script lang="ts">
@@ -7,6 +11,9 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AddButton extends Vue {
+  hanleClick() {
+    this.$emit('click')
+  }
   mounted() {
 
   }

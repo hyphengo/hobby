@@ -48,7 +48,7 @@
                 <span class="home-card-price">
                   {{sales.salePrice}}元
                 </span>
-                <add-button />
+                <add-button @click="handleToCart(sales)" />
               </div>
             </div>
           </div>
@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 import { Swipe, SwipeItem, PullRefresh } from 'vant'
 import { getHome } from '@/api'
 import AddButton from '@/components/add-button/index.vue'
@@ -75,14 +76,30 @@ import Search from '@/components/search/index.vue'
   }
 })
 export default class Index extends Vue {
+  @Action('cart/addCart') addCart: any
+
   isLoading: boolean = false
   data: Object = null
+
+  // 添加到购物车
+  handleToCart(sales) {
+    this.addCart({
+      id: sales.productId,
+      num: 1
+    }).then(res => {
+      if(res.code === 200) {
+        this.$toast('添加购物车成功~')
+      }
+    })
+  }
+
   onRefresh() {
     getHome().then(res => {
       this.data = res.data
       this.isLoading = false
     })
   }
+
   mounted() {
     getHome().then(res => {
       this.data = res.data
