@@ -8,18 +8,15 @@
           </vant-checkbox>
           <div class="font-24">满88免配送费，还差**元</div>
         </div>
-        <checkbox-group
-          class="card-goods"
-          v-model="checkedGoods"
-          @change="checkboxchange"
-        >
+        <div class="card-goods">
           <vant-checkbox
             class="card-goods-item"
-            v-model="item.selected"
             v-for="item in data.commerceItems"
+            v-model="item.selected"
             :key="item.productCode"
             :name="item.productCode"
             :label-disabled="true"
+            @change="changeItem"
           >
             <goods-card
               :title="item.productName"
@@ -34,10 +31,10 @@
               />
             </div>
           </vant-checkbox>
-        </checkbox-group>
+        </div>
         <div class="card-goods-btn">
-          <vant-checkbox v-model="checkedAll">全选</vant-checkbox>
-          <div class="totalprice">¥{{formatPrice(totalPrice)}}</div>
+          <vant-checkbox v-model="checkedAll" @change="handleCheckAll">全选</vant-checkbox>
+          <div class="totalprice">¥{{totalPrice}}</div>
           <div class="pay-btn" @click="onSubmit">去买单</div>
         </div>
       </div>
@@ -85,6 +82,7 @@ export default class Cart extends Vue {
     return '去买单' + (count ? `(${count})` : '')
   }
 
+
   get totalPrice() {
     return this.goods.reduce((total, item) =>
       total + (this.checkedGoods.indexOf(item.id) !== -1
@@ -92,8 +90,19 @@ export default class Cart extends Vue {
         : 0), 0)
   }
 
-  checkboxchange() {
-    Toast(this.checkedGoods)
+  changeItem(value) {
+    this.checkedAll = true
+    this.goods.map(sub => {
+      sub.selectAll = true
+      sub.commerceItems.map(item => {
+        if (!item.selected) {
+          sub.selectAll = false
+        }
+      })
+      if (!sub.selectAll) {
+        this.checkedAll = false
+      }
+    })
   }
 
   formatPrice(price) {
@@ -109,6 +118,10 @@ export default class Cart extends Vue {
 
   goTosee() {
     Toast('qukankan')
+  }
+
+  handleCheckAll() {
+
   }
 
   created() {

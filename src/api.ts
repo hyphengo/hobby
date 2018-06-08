@@ -74,3 +74,6 @@ export const loadCartCount = () => http.get('/cart/loadCartCount')
 
 // 加载购物车
 export const loadCart = () => http.get('/cart/loadCart')
+
+// 选择或者不选择购物车中的商品
+export const selectItem = (params) => http.post('/cart/selectItem', params)
