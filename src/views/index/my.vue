@@ -30,12 +30,12 @@
         </div>
       </div>
       <div class="blank"></div>
-      <cell is-link to="/user/address">
+      <cell is-link to="/my/address">
         <template slot="title">
           <span class="cell-text">我的地址</span>
         </template>
       </cell>
-      <cell is-link to="/user/coupon">
+      <cell is-link to="/my/coupon">
         <template slot="title">
           <span class="cell-text">优惠卷</span>
         </template>
@@ -77,7 +77,7 @@ export default class Info extends Vue {
       .username{
         padding-top: 58px;
         flex-grow: 1;
-        color: #fff;
+        color: $--color-white;
         .name{
           font-size:32px;
           line-height: 32px;
@@ -92,7 +92,7 @@ export default class Info extends Vue {
       color: #B2B2B2;
     }
     .cell-text{
-      color: #000000;
+      color: $--color-black;
     }
     .blank{
       height: 15px;
@@ -116,7 +116,7 @@ export default class Info extends Vue {
           margin-left: 18px;
           width: 9px;
           height: 9px;
-          border: 2px solid #ffffff;
+          border: 2px solid $--color-white;
           background-color: #F12C20;
           border-radius: 50%;
         }
