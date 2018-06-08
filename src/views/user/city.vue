@@ -1,65 +1,32 @@
 <template>
   <div class="city">
-
+    <van-cell class="van-hairline--bottom" title="单元格" is-link />
+    <div class="blank"></div>
+    <van-cell value="单元格" />
+    <van-cell value="单元格" />
+    <van-cell value="单元格" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { Field, CellGroup } from 'vant'
+import { Component, Vue } from 'vue-property-decorator'
+import { Cell } from 'vant'
 
 @Component({
   components: {
-    'VanField': Field,
-    CellGroup
+    'VanCell': Cell,
   }
 })
-export default class Bind extends Vue {
-  verify: boolean = true
-  define: boolean = true
-  phone: string = ''
-  sms: string = ''
-  verifying: string = '发送验证码'
-  verifyClick() {
-    this.verify = true
-    let iTime = 60
-    this.verifying = `${iTime}S后重新获取`
-    let interval = setInterval(() => {
-      this.verifying = `${iTime - 1}S后重新获取`
-      if (iTime-- <= 0) {
-        this.verify = false
-        this.verifying = '重新获取验证码'
-        clearInterval(interval)
-      }
-    }, 1000)
-  }
-  defineClick() {
-    this.$toast('验证码不对，请换个姿势~')
-  }
-  get defineBtn() {
-    const { verify, sms } = this
-    return {
-      verify,
-      sms
-    }
-  }
-  @Watch('phone')
-  phoneChange(newValue) {
-    this.verify = !/^[1][1-9][0-9]{9}$/.test(newValue)
-  }
-  @Watch('defineBtn')
-  defineBtnChange(newValue) {
-    let smsVerify = !/^[0-9]{6}$/.test(newValue.sms)
-    this.define = !(newValue.verify && !smsVerify)
-  }
+export default class City extends Vue {
+
 }
 </script>
 
 <style lang="scss">
-  .bind{
-    .add-btn{
-      color: $--color-white;
-      background-color: $--color-base;
+  .city{
+    .blank{
+      height: 15px;
+      background-color: $--color-body;
     }
   }
 </style>
