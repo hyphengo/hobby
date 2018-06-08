@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Emit } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Field, CellGroup, Button, Toast } from 'vant'
 
 @Component({
@@ -39,7 +39,6 @@ export default class Bind extends Vue {
   phone: string = ''
   sms: string = ''
   verifying: string = '发送验证码'
-  @Emit()
   verifyClick() {
     this.verify = true
     let iTime = 60
@@ -53,7 +52,6 @@ export default class Bind extends Vue {
       }
     }, 1000)
   }
-  @Emit()
   defineClick() {
     Toast('验证码不对，请换个姿势~')
   }
