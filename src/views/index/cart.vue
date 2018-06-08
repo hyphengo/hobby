@@ -57,9 +57,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast, Stepper, Icon, Button } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Icon, Button, Toast } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart, getHome } from '@/api'
+import { loadCart } from '@/api'
 
 @Component({
   components: {
@@ -87,38 +87,36 @@ export default class Cart extends Vue {
 
   get totalPrice() {
     return this.goods.reduce((total, item) =>
-    total + (this.checkedGoods.indexOf(item.id) !== -1
-      ? item.price
-      : 0), 0)
+      total + (this.checkedGoods.indexOf(item.id) !== -1
+        ? item.price
+        : 0), 0)
   }
 
   checkboxchange() {
-    console.log(this.checkedGoods)
+    Toast(this.checkedGoods)
   }
 
   formatPrice(price) {
     return (price / 100).toFixed(2)
   }
 
-  deletemodal(){
-    console.log('确认删除商品')
+  deletemodal() {
+    Toast('确认删除商品')
   }
   onSubmit() {
-    console.log('点击结算')
+    Toast('点击结算')
   }
 
   goTosee() {
-    console.log('qukankan')
+    Toast('qukankan')
   }
 
   created() {
     loadCart().then(res => {
       this.goods = res.data.items
       this.hasgoods = res.data.cartCount > 0
-      console.log(this.goods)
     })
   }
-  
 }
 
 </script>
@@ -230,7 +228,6 @@ export default class Cart extends Vue {
       line-height: 4;
       color: #666;
     }
-    
   }
   .van-icon {
     color: #666;

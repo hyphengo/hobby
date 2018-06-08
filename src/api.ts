@@ -64,7 +64,7 @@ export const searchCategories = () => http.get('product/searchCategories')
  * @param id  => productId
  * @param num => 数量
  */
-export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, quantity: num} )
+export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, quantity: num})
 
 // 获取购物车商品总数
 export const loadCartCount = () => http.get('/cart/loadCartCount')
