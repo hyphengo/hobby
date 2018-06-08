@@ -34,14 +34,9 @@ const asyncRoutes = [
     ]
   },
   {
-    path: '/user',
+    path: '/my',
     component: Layout,
     children: [
-      {
-        path: 'info',
-        name: '我的',
-        component: () => import('@/views/user/info.vue'),
-      },
       {
         path: 'bind',
         name: '绑定手机号',
