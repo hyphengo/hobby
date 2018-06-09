@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Getter, Action } from 'vuex-class'
 import { searchCategories } from '@/api'
 import Search from '@/components/search/index.vue'
 import ProductList from '@/components/productList/index.vue'
@@ -42,20 +43,23 @@ import ProductList from '@/components/productList/index.vue'
   }
 })
 export default class Browse extends Vue {
-  active: string = null
+  @Action('browse/setActive') setActive: any
+  @Getter('browse/active') active: any
   twoClass: any = null
   ids: Array<any> = []
 
   handleItem(item) {
-    this.active = item.categoryId
+    this.setActive(item.categoryId)
     this.ids = [`${item.dimValId}`]
   }
 
   mounted() {
     searchCategories().then(res => {
       this.twoClass = res.data
-      this.active = res.data[0].categoryId
-      this.ids = [`${res.data[0].dimValId}`]
+      if (!this.active) {
+        this.setActive(res.data[0].categoryId)
+        this.ids = [`${res.data[0].dimValId}`]
+      }
     })
   }
 }

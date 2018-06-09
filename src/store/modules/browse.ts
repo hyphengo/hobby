@@ -1,47 +1,29 @@
-import { searchProductList } from '@/api'
-import { pageList, initListData, ListType } from '../helpers'
-
 interface StateType {
-  list?: ListType;
+  active?: string;
 }
 
 const ActionType = {
-  GOT_PRODUCT_LIST: 'GOT_PRODUCT_LIST',
-  CLEAR_PRODUCT_LIST: 'CLEAR_PRODUCT_LIST',
+  SET_ACTIVE: 'SET_ACTIVE',
 }
 
 const state = {
-  list: initListData,
+  active: null,
 }
 
 const mutations = {
-  [ActionType.GOT_PRODUCT_LIST](state: StateType, payload: ListType) {
-    state.list = pageList(state, payload, 'list')
+  [ActionType.SET_ACTIVE](state: StateType, payload: string) {
+    state.active = payload
   },
-  [ActionType.CLEAR_PRODUCT_LIST](state: StateType) {
-    state.list = initListData
-  }
 }
 
 const actions = {
-  async searchProductList({ commit }, params) {
-    const res = await searchProductList({
-      pageNum: params.page,
-      pageSize: params.size,
-      ...params.query
-    })
-
-    commit(ActionType.GOT_PRODUCT_LIST, res.data)
-
-    return res
-  },
-  clearProductList({ commit }) {
-    commit(ActionType.CLEAR_PRODUCT_LIST)
+  setActive({ commit }, active: any) {
+    commit(ActionType.SET_ACTIVE, active)
   }
 }
 
 const getters = {
-  list: (state: StateType) => state.list,
+  active: (state: StateType) => state.active,
 }
 
 export default {
