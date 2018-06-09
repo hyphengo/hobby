@@ -37,3 +37,16 @@ body {
 .van-pull-refresh__head{
   padding-top: 20px;
 }
+
+.van-swipe__indicators{
+  bottom: 30px !important;
+}
+
+.van-swipe__indicator{
+  background-color: $--color-white !important;
+  opacity: 0.5 !important;
+}
+
+.van-swipe__indicator--active{
+  opacity: 1 !important;
+}

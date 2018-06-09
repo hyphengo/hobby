@@ -140,7 +140,7 @@ export default class Index extends Vue {
   overflow: auto;
   height: 100%;
   &-top{
-    background-color:: $--color-white;
+    background-color: $--color-white;
     padding: 18px 20px;
   }
   &-title{
@@ -154,19 +154,6 @@ export default class Index extends Vue {
 
     img{
       border-radius: 10px;
-    }
-
-    .van-swipe__indicators{
-      bottom: 30px;
-    }
-
-    .van-swipe__indicator{
-      background-color: $--color-white;
-      opacity: 0.5;
-    }
-
-    .van-swipe__indicator--active{
-      opacity: 1;
     }
   }
 

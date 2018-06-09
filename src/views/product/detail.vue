@@ -120,5 +120,17 @@ export default class Detail extends Vue {
     position: fixed;
     bottom: 0;
   }
+
+  &-swipe{
+    width: 750px;
+    height: 750px;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+
 }
 </style>
