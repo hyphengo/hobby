@@ -24,7 +24,7 @@
           slot="right-icon"
           name="delete"
           class="van-cell__right-icon"
-          @click="handleDelete(index)"
+          @click.stop="handleDelete(index)"
         />
       </van-cell>
     </cell-group>
