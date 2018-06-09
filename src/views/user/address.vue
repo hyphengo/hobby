@@ -29,15 +29,15 @@ import { Action } from 'vuex-class'
   }
 })
 export default class Address extends Vue {
-  @Action('address/getEditAddress') getEditAddress: Function
+  @Action('address/setEditAddress') setEditAddress: Function
   list: any = []
   onEdit(item) {
-    this.getEditAddress(item).then(() => {
+    this.setEditAddress(item).then(() => {
       this.$router.push('/my/edit')
     })
   }
   addEdit() {
-    this.getEditAddress({}).then(() => {
+    this.setEditAddress({}).then(() => {
       this.$router.push('/my/edit')
     })
   }

@@ -44,7 +44,7 @@ const actions = {
     return community
   },
   // 编辑地址时的地址信息
-  async getEditAddress({ commit }, addressInfo) {
+  async setEditAddress({ commit }, addressInfo) {
     commit(ActionType.SET_EDIT_ADDRESS, addressInfo)
     return addressInfo
   }

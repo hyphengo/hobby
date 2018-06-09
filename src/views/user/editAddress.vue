@@ -7,24 +7,24 @@
         </template>
       </van-cell>
       <van-field
-        v-model="detailAddress"
+        v-model="addressInfo.detailAddress"
         label="门牌号"
         placeholder="几栋几单元几室，如8栋2单元2204室"
       />
       <div class="blank"></div>
       <van-field
-        v-model="consigneeName"
+        v-model="addressInfo.consigneeName"
         label="联系人"
         placeholder="请填写您的姓名"
       />
       <van-field
-        v-model="phoneNumber"
+        v-model="addressInfo.phoneNumber"
         label="手机号码"
         placeholder="请填写您的手机号码"
       />
       <div class="blank"></div>
       <van-cell title="设为默认地址" >
-        <van-checkbox v-model="defaultAddress" />
+        <van-checkbox v-model="addressInfo.defaultAddress" />
       </van-cell>
       <div class="save-box">
         <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
@@ -51,24 +51,20 @@ import { addAddress } from '@/api'
 export default class Edit extends Vue {
   @Getter('address/community') community: any
   @Getter('address/addressInfo') addressInfo: any
-  detailAddress: string = this.addressInfo.detailAddress
-  consigneeName: string = this.addressInfo.consigneeName
-  phoneNumber: string = this.addressInfo.phoneNumber
-  defaultAddress: boolean = this.addressInfo.defaultAddress
   saveClick() {
     if (!this.community.name) {
       this.$toast('请选择小区')
-    } else if (!this.detailAddress) {
+    } else if (!this.addressInfo.detailAddress) {
       this.$toast('请填写门牌号')
-    } else if (this.detailAddress.length > 15) {
+    } else if (this.addressInfo.detailAddress.length > 15) {
       this.$toast('门牌号不得大于15个字')
-    } else if (!this.consigneeName) {
+    } else if (!this.addressInfo.consigneeName) {
       this.$toast('请填写联系人')
-    } else if (this.consigneeName.length > 8) {
+    } else if (this.addressInfo.consigneeName.length > 8) {
       this.$toast('联系人不得大于8个字')
-    } else if (!this.phoneNumber) {
+    } else if (!this.addressInfo.phoneNumber) {
       this.$toast('请填写手机号码')
-    } else if (!/^[1][1-9][0-9]{9}$/.test(this.phoneNumber)) {
+    } else if (!/^[1][1-9][0-9]{9}$/.test(this.addressInfo.phoneNumber)) {
       this.$toast('请填写11位手机号码')
     } else {
       let params = {
@@ -77,11 +73,11 @@ export default class Edit extends Vue {
         district: this.community.districtId,
         communityId: this.community.id,
         communityName: this.community.name,
-        detailAddress: this.detailAddress,
+        detailAddress: this.addressInfo.detailAddress,
         postcode: '',
-        consigneeName: this.consigneeName,
-        phoneNumber: this.phoneNumber,
-        defaultAddress: this.defaultAddress
+        consigneeName: this.addressInfo.consigneeName,
+        phoneNumber: this.addressInfo.phoneNumber,
+        defaultAddress: this.addressInfo.defaultAddress
       }
       addAddress(params).then(() => {
         this.$router.push('/my/address')
