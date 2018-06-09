@@ -39,6 +39,7 @@
             class="home-card-hot-item"
             v-for="(sales) in item.hotSales"
             :key="sales.productId"
+            @click="handleToDetail(sales)"
           >
             <img :src="sales.productImg" />
             <p class="van-ellipsis">{{sales.productName}}</p>
@@ -89,6 +90,11 @@ export default class Index extends Vue {
         this.$toast('添加购物车成功~')
       }
     })
+  }
+
+  // 跳转至商品详情
+  handleToDetail(sales) {
+    this.$router.push(`/product/detail/${sales.productId}`)
   }
 
   /**
@@ -177,9 +183,15 @@ export default class Index extends Vue {
       display: flex;
       justify-content: space-between;
       margin-top: 32px;
+      overflow-x: auto;
 
       &-item{
         width: 200px;
+        margin-right: 20px;
+
+        &:last-child{
+          margin-right: 0;
+        }
       }
 
       p{

@@ -24,10 +24,10 @@
         <ve-col
           :span="4"
           textAlign="right"
-          v-if="detail.productType !== 0"
+          v-if="detail.productType !== '0'"
         >
-          <van-tag plain type="danger" v-if="detail.productType === 1">干洗</van-tag>
-          <van-tag plain type="danger" v-if="detail.productType === 2">预售</van-tag>
+          <van-tag plain type="danger" v-if="detail.productType === '1'">干洗</van-tag>
+          <van-tag plain type="danger" v-if="detail.productType === '2'">预售</van-tag>
         </ve-col>
       </ve-row>
       <p>

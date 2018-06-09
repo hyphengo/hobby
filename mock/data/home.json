@@ -99,6 +99,28 @@
                         "salePrice": 2,
                         "type": null,
                         "unit": "罐"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016954767430386",
+                        "productName": "雪碧3CAN罐装饮料300ml",
+                        "productCode": "100119",
+                        "productImg": "http://test-img.cocowa.com.cn/product/1X5A99R7T38XYR1Y6.jpg",
+                        "quantity": null,
+                        "salePrice": 2,
+                        "type": null,
+                        "unit": "罐"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016954767430386",
+                        "productName": "雪碧3CAN罐装饮料300ml",
+                        "productCode": "100119",
+                        "productImg": "http://test-img.cocowa.com.cn/product/1X5A99R7T38XYR1Y6.jpg",
+                        "quantity": null,
+                        "salePrice": 2,
+                        "type": null,
+                        "unit": "罐"
                     }
                 ]
             },
