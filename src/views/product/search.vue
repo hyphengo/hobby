@@ -58,22 +58,25 @@ export default class SearchPage extends Vue {
   // 控制显示搜索历史还是商品列表 true 为历史 flase 为商品列表
   isShowType: boolean = true
   // 当前搜索文字
-  term: string = ''
+  term: string = '.'
 
   onSearch() {
     // 本地存储历史逻辑
     const indexKey = this.searchHistory.indexOf(this.value)
+    const val = this.value.replace(/(^\s+)|(\s+$)/g, '').replace(/\s/g, '')
 
-    if (indexKey === -1) {
-      this.searchHistory.unshift(this.value)
-      ls.set(lsSearchKey, this.searchHistory)
-    } else {
-      const advance = this.searchHistory.splice(indexKey, 1)
-      this.searchHistory.unshift(advance[0])
-      ls.set(lsSearchKey, this.searchHistory)
+    if (val.length > 0) {
+      if (indexKey === -1) {
+        this.searchHistory.unshift(val)
+        ls.set(lsSearchKey, this.searchHistory)
+      } else {
+        const advance = this.searchHistory.splice(indexKey, 1)
+        this.searchHistory.unshift(advance[0])
+        ls.set(lsSearchKey, this.searchHistory)
+      }
     }
 
-    this.term = this.value
+    this.term = val
     this.isShowType = false
   }
 
