@@ -1,61 +1,57 @@
 <template>
-  <div>
-    <van-loading color="white" v-if="!data" />
-    <div
-      v-else
-      class="home"
-    >
-      <pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <div class="home-top">
-          <p class="home-title">可可蛙-{{data.communityName}}</p>
-          <search />
-        </div>
-        <swipe
-          class="home-swipe"
-          :autoplay="5000"
+  <div
+    class="home"
+  >
+    <pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <div class="home-top">
+        <p class="home-title">可可蛙-{{data.communityName}}</p>
+        <search />
+      </div>
+      <swipe
+        class="home-swipe"
+        :autoplay="5000"
+      >
+        <swipe-item
+          v-for="(item) in data.carouselItems"
+          :key="item.id"
         >
-          <swipe-item
-            v-for="(item) in data.carouselItems"
-            :key="item.id"
-          >
-            <img :src="item.image" @click="handleJump(item)" />
-          </swipe-item>
-        </swipe>
-        <div class="home-quiki">
-          <div
-            v-for="(item) in data.quikiNavig"
-            :key="item.id"
-            @click="handleJump(item)"
-          >
-            <img :src="item.image" />
-            <p>{{item.name}}</p>
-          </div>
-        </div>
+          <img :src="item.image" @click="handleJump(item)" />
+        </swipe-item>
+      </swipe>
+      <div class="home-quiki">
         <div
-          class="home-card"
-          v-for="(item, index) in data.floorVos"
-          :key="index"
+          v-for="(item) in data.quikiNavig"
+          :key="item.id"
+          @click="handleJump(item)"
         >
-          <img :src="item.bannerAds.image" @click="handleJump(item.bannerAds)" >
-          <div class="home-card-hot">
-            <div
-              class="home-card-hot-item"
-              v-for="(sales) in item.hotSales"
-              :key="sales.productId"
-            >
-              <img :src="sales.productImg" />
-              <p class="van-ellipsis">{{sales.productName}}</p>
-              <div class="home-card-add">
-                <span class="home-card-price">
-                  {{sales.salePrice}}元
-                </span>
-                <add-button @click="handleToCart(sales)" />
-              </div>
+          <img :src="item.image" />
+          <p>{{item.name}}</p>
+        </div>
+      </div>
+      <div
+        class="home-card"
+        v-for="(item, index) in data.floorVos"
+        :key="index"
+      >
+        <img :src="item.bannerAds.image" @click="handleJump(item.bannerAds)" >
+        <div class="home-card-hot">
+          <div
+            class="home-card-hot-item"
+            v-for="(sales) in item.hotSales"
+            :key="sales.productId"
+          >
+            <img :src="sales.productImg" />
+            <p class="van-ellipsis">{{sales.productName}}</p>
+            <div class="home-card-add">
+              <span class="home-card-price">
+                {{sales.salePrice}}元
+              </span>
+              <add-button @click="handleToCart(sales)" />
             </div>
           </div>
         </div>
-      </pull-refresh>
-    </div>
+      </div>
+    </pull-refresh>
   </div>
 </template>
 
@@ -81,7 +77,7 @@ export default class Index extends Vue {
   @Action('cart/addCart') addCart: any
 
   isLoading: boolean = false
-  data: Object = null
+  data: Object = {}
 
   // 添加到购物车
   handleToCart(sales) {
