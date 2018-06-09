@@ -67,7 +67,13 @@ export const searchProductList = (params) => http.post('/product/searchProductLi
  * @param id  => productId
  * @param num => 数量
  */
-export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, quantity: num} )
+export const addItem = (id, num) => http.post('/cart/addItem', {productId: id, quantity: num})
 
 // 获取购物车商品总数
 export const loadCartCount = () => http.get('/cart/loadCartCount')
+
+// 获取所有城市
+export const getCities = () => http.get('/home/getCities')
+
+// 获取所选城市下的小区
+export const getCommunities = (params) => http.get('/home/getCommunities', params)

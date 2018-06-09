@@ -1,16 +1,15 @@
 <template>
   <div class="city">
-    <van-cell class="van-hairline--bottom" title="单元格" is-link />
-    <div class="blank"></div>
-    <van-cell value="单元格" />
-    <van-cell value="单元格" />
-    <van-cell value="单元格" />
+    <van-cell v-for="item in cityList" :key="item.code" :value="item.regionName" @click="selectCity(item)"/>
+    <p class="more">更多城市开发中~</p>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell } from 'vant'
+import { Action } from 'vuex-class'
+import { getCities } from '@/api'
 
 @Component({
   components: {
@@ -18,15 +17,27 @@ import { Cell } from 'vant'
   }
 })
 export default class City extends Vue {
-
+  cityList: any = null
+  @Action('address/setCity') setCity: Function
+  selectCity(item) {
+    this.setCity({cityCode: item.code, cityName: item.regionName}).then(res => {
+      this.$router.push('/my/community')
+    })
+  }
+  mounted() {
+    getCities().then(res => {
+      this.cityList = res.data
+    })
+  }
 }
 </script>
 
 <style lang="scss">
   .city{
-    .blank{
-      height: 15px;
-      background-color: $--color-body;
+    .more{
+      text-align: center;
+      padding-top: 22px;
+      font-size: 22px;
     }
   }
 </style>

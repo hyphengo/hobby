@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <cell-group>
-      <van-cell :value="community" is-link>
+      <van-cell :value="getCommunityName?getCommunityName:'选择小区'" is-link to="/my/city">
         <template slot="title">
           <span class="cell-text">小区</span>
         </template>
@@ -33,6 +33,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell, CellGroup, Field } from 'vant'
+import { Getter } from 'vuex-class'
 
 @Component({
   components: {
@@ -42,12 +43,12 @@ import { Cell, CellGroup, Field } from 'vant'
   }
 })
 export default class Edit extends Vue {
-  community: string = '选择小区'
+  @Getter('address/getCommunityName') getCommunityName: string
   card: string = ''
   name: string = ''
   phone: string = ''
   saveClick() {
-    if (this.community === '选择小区') {
+    if (!this.getCommunityName) {
       this.$toast('请选择小区')
     } else if (!this.card) {
       this.$toast('请填写门牌号')
