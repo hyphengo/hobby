@@ -1,35 +1,18 @@
 <template>
   <div class="coupon">
-    <div class="coupon-bg coupon-bg-1">
+    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='expired', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
       <div class="coupon-left">
         <div>
-          <p><span>￥</span>100</p>
-          <span>满100可用</span>
+          <p><span>￥</span>{{item.discount}}</p>
+          <span>{{item.promotionName}}</span>
         </div>
       </div>
       <div class="coupon-right">
         <div>
-          <p>全品类券，随便买</p>
-          <span>2018.01.02-2018.09.02</span>
+          <p>{{item.promotionDiscription}}</p>
+          <span>{{item.startDate}}-{{item.endDate}}</span>
         </div>
       </div>
-    </div>
-    <div class="coupon-bg coupon-bg-2">
-      <div class="coupon-left">
-        <div>
-          <p><span>￥</span>100</p>
-          <span>满100可用</span>
-        </div>
-      </div>
-      <div class="coupon-right">
-        <div>
-          <p>全品类券，随便买</p>
-          <span>2018.01.02-2018.09.02</span>
-        </div>
-      </div>
-    </div>
-    <div :class="[{'coupon-bg1': item.e, 'coupon-bg2': !item.e}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
-      {{item.a}}
     </div>
   </div>
 
@@ -38,6 +21,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Popup, CouponList } from 'vant'
+import { getCoupons } from '@/api'
 
 @Component({
   components: {
@@ -47,6 +31,11 @@ import { Popup, CouponList } from 'vant'
 })
 export default class Coupon extends Vue {
   couponList: any = null
+  mounted() {
+    getCoupons().then(res => {
+      this.couponList = res.data
+    })
+  }
 }
 </script>
 
@@ -64,6 +53,9 @@ export default class Coupon extends Vue {
       }
       &-2{
         background-image: url("../../assets/images/user/coupon-bg2.png");
+      }
+      &-3{
+        background-image: url("../../assets/images/user/coupon-bg3.png");
       }
       .coupon-left{
         width: 168px;

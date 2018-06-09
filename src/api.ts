@@ -77,3 +77,6 @@ export const getCities = () => http.get('/home/getCities')
 
 // 获取所选城市下的小区
 export const getCommunities = (params) => http.get('/home/getCommunities', params)
+
+// 获取用户的优惠卷
+export const getCoupons = () => http.get('/coupon/getCoupons')
