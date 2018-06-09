@@ -2,49 +2,58 @@
 const ActionType = {
   SET_CITY: 'SET_CITY',
   SET_COMMUNITY: 'SET_COMMUNITY',
+  SET_EDIT_ADDRESS: 'SET_EDIT_ADDRESS',
 }
 
 type StateType = {
-  cityCode?: string;
-  cityName?: string;
-  communityName?: string;
+  city?: any;
+  community?: any;
+  addressInfo?: any;
 }
 
 const state: StateType = {
-  cityCode: '',
-  cityName: '',
-  communityName: '',
+  city: {},
+  community: {},
+  addressInfo: {},
 }
 
 const mutations = {
   // 城市信息
   [ActionType.SET_CITY](state: StateType, city: any) {
-    state.cityCode = city.cityCode
-    state.cityName = city.cityName
+    state.city = city
   },
   // 小区信息
   [ActionType.SET_COMMUNITY](state: StateType, community: any) {
-    state.communityName = community.name
+    state.community = community
+  },
+  // 编辑地址时的地址信息
+  [ActionType.SET_EDIT_ADDRESS](state: StateType, addressInfo: any) {
+    state.addressInfo = addressInfo
   }
 }
 
 const actions = {
   // 城市信息
-  async setCity({ commit }, city) {
+  async getCity({ commit }, city) {
     commit(ActionType.SET_CITY, city)
     return city
   },
   // 小区信息
-  async setCommunity({ commit }, community) {
+  async getCommunity({ commit }, community) {
     commit(ActionType.SET_COMMUNITY, community)
     return community
+  },
+  // 编辑地址时的地址信息
+  async getEditAddress({ commit }, addressInfo) {
+    commit(ActionType.SET_EDIT_ADDRESS, addressInfo)
+    return addressInfo
   }
 }
 
 const getters = {
-  getCityCode: (state: StateType) => state.cityCode,
-  getCityName: (state: StateType) => state.cityName,
-  getCommunityName: (state: StateType) => state.communityName,
+  city: (state: StateType) => state.city,
+  community: (state: StateType) => state.community,
+  addressInfo: (state: StateType) => state.addressInfo,
 }
 
 export default {
