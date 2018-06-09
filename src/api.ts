@@ -80,3 +80,9 @@ export const getCommunities = (params) => http.get('/home/getCommunities', param
 
 // 获取用户的优惠卷
 export const getCoupons = () => http.get('/coupon/getCoupons')
+
+/**
+ * 获取商品详情
+ * @param id 商品id productId
+ */
+export const getProductDetail = (id) => http.get('/product/getProductDetail', {id})

@@ -1,17 +1,20 @@
-import { searchProductList } from '@/api'
+import { searchProductList, getProductDetail } from '@/api'
 import { pageList, initListData, ListType } from '../helpers'
 
 interface StateType {
   list?: ListType;
+  detail?: Object
 }
 
 const ActionType = {
   GOT_PRODUCT_LIST: 'GOT_PRODUCT_LIST',
   CLEAR_PRODUCT_LIST: 'CLEAR_PRODUCT_LIST',
+  GOT_PRODUCT_DETAIL: 'GOT_PRODUCT_DETAIL'
 }
 
 const state = {
   list: initListData,
+  detail: {}
 }
 
 const mutations = {
@@ -20,6 +23,9 @@ const mutations = {
   },
   [ActionType.CLEAR_PRODUCT_LIST](state: StateType) {
     state.list = initListData
+  },
+  [ActionType.GOT_PRODUCT_DETAIL](state: StateType, payload: Object) {
+    state.detail = payload
   }
 }
 
@@ -37,11 +43,17 @@ const actions = {
   },
   clearProductList({ commit }) {
     commit(ActionType.CLEAR_PRODUCT_LIST)
+  },
+  async getProductDetail({ commit }, id) {
+    const res = await getProductDetail(id)
+
+    commit(ActionType.GOT_PRODUCT_DETAIL, res.data)
   }
 }
 
 const getters = {
   list: (state: StateType) => state.list,
+  detail: (state: StateType) => state.detail,
 }
 
 export default {
