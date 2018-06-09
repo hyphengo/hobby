@@ -8,7 +8,7 @@
             {{title}}
         </div>
         <div class="goodscard-price">
-          <span class="price">￥{{price}}</span>
+          <span class="price">￥{{priceTurn(price)}}</span>
           <span class="unit">/{{unit}}</span>
         </div>
     </div>
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { price } from '@/util/util'
 
 @Component
 export default class GoodsCard extends Vue {
@@ -25,6 +26,8 @@ export default class GoodsCard extends Vue {
   @Prop({ default: '' }) title: string
   @Prop({ default: '' }) unit: string
   @Prop() id: string
+
+  priceTurn = price
 
   handleToDetail() {
     this.$router.push(`/product/detail/${this.id}`)

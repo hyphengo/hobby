@@ -109,7 +109,8 @@ export function price(num: string | number, digit: number = 2) {
     p = toFixed(p)
   }
 
-  p = p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  // 转换为 1,000.00 格式
+  // p = p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
   return p
 }

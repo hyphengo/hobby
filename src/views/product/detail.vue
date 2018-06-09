@@ -11,23 +11,51 @@
         <img :src="item" />
       </swipe-item>
     </swipe>
+    <div class="detail-title">
+      <ve-row
+        align="center"
+      >
+        <ve-col
+          :span="20"
+          class="detail-title-name"
+        >
+          {{detail.saleName}}
+        </ve-col>
+        <ve-col
+          :span="4"
+          textAlign="right"
+          v-if="detail.productType !== 0"
+        >
+          <van-tag plain type="danger" v-if="detail.productType === 1">干洗</van-tag>
+          <van-tag plain type="danger" v-if="detail.productType === 2">预售</van-tag>
+        </ve-col>
+      </ve-row>
+      <p>
+        <span class="detail-price">￥{{price(detail.salePrice)}}</span>
+        <span class="detail-unit">/{{detail.minUnit}}</span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import { Swipe, SwipeItem } from 'vant'
+import { Swipe, SwipeItem, Tag } from 'vant'
+import { price } from '@/util/util'
 
 @Component({
   components: {
     Swipe,
     SwipeItem,
+    'van-tag': Tag
   }
 })
 export default class Detail extends Vue {
   @Action('product/getProductDetail') getProductDetail: any
   @Getter('product/detail') detail: Object
+
+  price = price
 
   mounted() {
     this.getProductDetail(this.$route.params.id)
@@ -37,6 +65,28 @@ export default class Detail extends Vue {
 
 <style lang="scss">
 .detail{
+  &-title{
+    background-color: $--color-white;
+    padding: 10px 20px;
 
+    &-name{
+      font-size: 38px;
+      @include ellipsis(2)
+    }
+
+    .van-tag--plain{
+      font-size: 28px;
+    }
+  }
+
+  &-price{
+    color: $--color-price;
+    font-size: 38px;
+  }
+
+  &-unit{
+    color: $--color-unit;
+    font-size: 28px;
+  }
 }
 </style>
