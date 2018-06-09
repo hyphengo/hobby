@@ -35,6 +35,14 @@
         <span class="detail-unit">/{{detail.minUnit}}</span>
       </p>
     </div>
+    <van-button
+      class="detail-button"
+      bottom-action
+      @click="handleAddCart"
+      :loading="btnLoding"
+    >
+      加入购物车
+    </van-button>
   </div>
 </template>
 
@@ -53,9 +61,27 @@ import { price } from '@/util/util'
 })
 export default class Detail extends Vue {
   @Action('product/getProductDetail') getProductDetail: any
-  @Getter('product/detail') detail: Object
+  @Action('cart/addCart') addCart: any
+  @Getter('product/detail') detail: any
+
+  btnLoding: boolean = false
 
   price = price
+
+  handleAddCart() {
+    this.btnLoding = true
+
+    this.addCart({
+      id: this.detail.id,
+      num: 1
+    }).then(res => {
+      if (res.code === 200) {
+        this.$toast('添加购物车成功~')
+      }
+
+      this.btnLoding = false
+    })
+  }
 
   mounted() {
     this.getProductDetail(this.$route.params.id)
@@ -87,6 +113,12 @@ export default class Detail extends Vue {
   &-unit{
     color: $--color-unit;
     font-size: 28px;
+  }
+
+  &-button{
+    background-color: $--color-base;
+    position: fixed;
+    bottom: 0;
   }
 }
 </style>
