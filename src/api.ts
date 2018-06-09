@@ -81,6 +81,15 @@ export const getCommunities = (params) => http.get('/home/getCommunities', param
 // 获取用户的优惠卷
 export const getCoupons = () => http.get('/coupon/getCoupons')
 
+// 获取地址列表
+export const getAddress = () => http.get('/user/getAddress')
+
+// 新增地址
+export const addAddress = (params) => http.post('/user/addAddress', params)
+
+// 修改地址信息
+export const updateAddress = (params) => http.post('/user/updateAddress', params)
+
 /**
  * 获取商品详情
  * @param id 商品id productId

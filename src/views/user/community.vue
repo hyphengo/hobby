@@ -1,6 +1,6 @@
 <template>
   <div class="community">
-    <van-cell class="van-hairline--bottom" :title="getCityName" is-link to="/my/community"/>
+    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/my/community"/>
     <div class="blank"></div>
     <van-cell v-for="item in communityList" :key="item.id" :value="item.name" @click="selectCommunity(item)"/>
     <p class="more">更多城市开发中~</p>
@@ -20,16 +20,15 @@ import { getCommunities } from '@/api'
 })
 export default class Community extends Vue {
   communityList: any = null
-  @Getter('address/getCityCode') getCityCode: String
-  @Getter('address/getCityName') getCityName: String
-  @Action('address/setCommunity') setCommunity: Function
+  @Getter('address/city') city: any
+  @Action('address/getCommunity') getCommunity: Function
   selectCommunity(community) {
-    this.setCommunity(community).then(res => {
+    this.getCommunity(community).then(res => {
       this.$router.push('/my/edit')
     })
   }
   mounted() {
-    getCommunities({cityCode: this.getCityCode}).then(res => {
+    getCommunities({cityCode: this.city.code}).then(res => {
       this.communityList = res.data
     })
   }
