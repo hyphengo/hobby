@@ -10,10 +10,10 @@
         <ul>
           <li
             :class="['browse-list-item', {
-              'active': item.categoryId === active
+              'active': item.dimValId === active
             }]"
             v-for="(item) in twoClass"
-            :key="item.categoryId"
+            :key="item.dimValId"
             @click="handleItem(item)"
           >
             {{item.name}}
@@ -49,7 +49,7 @@ export default class Browse extends Vue {
   ids: Array<any> = []
 
   handleItem(item) {
-    this.setActive(item.categoryId)
+    this.setActive(item.dimValId)
     this.ids = [`${item.dimValId}`]
   }
 
@@ -57,9 +57,9 @@ export default class Browse extends Vue {
     searchCategories().then(res => {
       this.twoClass = res.data
       if (!this.active) {
-        this.setActive(res.data[0].categoryId)
-        this.ids = [`${res.data[0].dimValId}`]
+        this.setActive(res.data[0].dimValId)
       }
+      this.ids = [`${this.active}`]
     })
   }
 }
