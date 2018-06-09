@@ -2,9 +2,9 @@
   <div class="cart">
     <div v-if="hasgoods">
       <div class="list">
-        <div v-for="(data,index) in goods" :key="index">
+        <div v-for="(data,index) in goods.items" :key="index">
           <div class="cart-list-title">
-            <van-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
+            <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
               {{data.groupName}}
             </van-checkbox>
             <!-- <div class="font-24">满88免配送费，还差**元</div> -->
@@ -13,11 +13,11 @@
             <van-checkbox
               class="cart-goods-item"
               v-for="item in data.commerceItems"
-              v-model="item.selected"
+              :value="item.selected"
               :key="item.productCode"
               :name="item.productCode"
               :label-disabled="true"
-              @change="changeItem"
+              @input="changeItem(item, data.groupType)"
             >
               <goods-card
                 class="cart-goods-card"
@@ -29,7 +29,7 @@
               />
               <div class="cart-goods-step">
                 <van-stepper
-                  v-model="item.quantity"
+                  :value="item.quantity"
                   @overlimit="deleteItem"
                 />
               </div>
@@ -39,7 +39,7 @@
       </div>
       <div class="cart-goods-btn van-hairline--top">
         <van-checkbox v-model="checkedAll" @change="handleCheckAll">全选</van-checkbox>
-        <div class="totalprice">¥{{totalPrice}}</div>
+        <div class="totalprice">¥{{price(goods.amount)}}</div>
         <div class="pay-btn" @click="onSubmit">去买单</div>
       </div>
     </div>
@@ -60,7 +60,8 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart } from '@/api'
+import { loadCart, selectItem, selectGroup } from '@/api'
+import { price } from '@/util/util'
 
 @Component({
   components: {
@@ -74,45 +75,32 @@ import { loadCart } from '@/api'
 })
 export default class Cart extends Vue {
   checkedGoods: any = []
-  hasgoods: boolean = false
+  // 购物车是否有商品
+  hasgoods: boolean = true
   checkedAll: boolean = false
   goods: any = []
+
+  price = price
 
   get submitBarText() {
     const count = this.checkedGoods.length
     return '去买单' + (count ? `(${count})` : '')
   }
 
-
-  get totalPrice() {
-    let total = 0
-    this.goods.map(sub => {
-      sub.commerceItems.map(item => {
-        if (item.selected) {
-          total += item.salePrice * item.quantity
-        }
-      })
-    })
-    return total
+  // 全选
+  checkItemAll(data) {
+    selectGroup({
+      groupType: data.groupType,
+      select: data.selectAll ? 0 : 1,
+    }).then(this.gotCart)
   }
 
-  changeItem(value) {
-    this.checkedAll = true
-    this.goods.map(sub => {
-      sub.selectAll = true
-      sub.commerceItems.map(item => {
-        if (!item.selected) {
-          sub.selectAll = false
-        }
-      })
-      if (!sub.selectAll) {
-        this.checkedAll = false
-      }
-    })
-  }
-
-  formatPrice(price) {
-    return (price / 100).toFixed(2)
+  changeItem(item, groupType) {
+    selectItem({
+      productId: item.productId,
+      productType: groupType,
+      select: item.selected ? 0 : 1
+    }).then(this.gotCart)
   }
 
   deleteItem() {
@@ -125,6 +113,7 @@ export default class Cart extends Vue {
       this.$dialog.close()
     })
   }
+
   onSubmit() {
     this.$toast('点击结算')
   }
@@ -134,25 +123,16 @@ export default class Cart extends Vue {
   }
 
   handleCheckAll(value) {
-    this.goods.map(sub => {
-      sub.commerceItems.map(item => {
-        item.selected = value
-      })
-    })
+
   }
-  checkItemAll(value) {
-    this.goods.map(sub => {
-      sub.commerceItems.map(item => {
-        item.selected = value
-      })
-    })
+
+  gotCart(res) {
+    this.goods = res.data
+    this.hasgoods = res.data.cartCount > 0
   }
 
   created() {
-    loadCart().then(res => {
-      this.goods = res.data.items
-      this.hasgoods = res.data.cartCount > 0
-    })
+    loadCart().then(this.gotCart)
   }
 }
 
