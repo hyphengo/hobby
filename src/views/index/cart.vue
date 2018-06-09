@@ -4,13 +4,13 @@
       <div class="list">
         <div v-for="(data,index) in goods" :key="index">
           <div class="cart-list-title">
-            <vant-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
+            <van-checkbox v-model="data.selectAll" :name="data.groupName" @change="checkItemAll">
               {{data.groupName}}
-            </vant-checkbox>
-            <div class="font-24">满88免配送费，还差**元</div>
+            </van-checkbox>
+            <!-- <div class="font-24">满88免配送费，还差**元</div> -->
           </div>
           <div class="cart-goods">
-            <vant-checkbox
+            <van-checkbox
               class="cart-goods-item"
               v-for="item in data.commerceItems"
               v-model="item.selected"
@@ -20,33 +20,35 @@
               @change="changeItem"
             >
               <goods-card
+                class="cart-goods-card"
                 :title="item.productName"
                 :price="item.salePrice"
                 :thumb="item.productImg"
                 :unit="item.unit"
+                :id="item.productId"
               />
               <div class="cart-goods-step">
-                <vant-stepper
+                <van-stepper
                   v-model="item.quantity"
                   @overlimit="deleteItem"
                 />
               </div>
-            </vant-checkbox>
+            </van-checkbox>
           </div>
         </div>
       </div>
-      <div class="cart-goods-btn">
-        <vant-checkbox v-model="checkedAll" @change="handleCheckAll">全选</vant-checkbox>
+      <div class="cart-goods-btn van-hairline--top">
+        <van-checkbox v-model="checkedAll" @change="handleCheckAll">全选</van-checkbox>
         <div class="totalprice">¥{{totalPrice}}</div>
         <div class="pay-btn" @click="onSubmit">去买单</div>
       </div>
     </div>
     <div v-else class="cart-nogoods">
       <div class="tips">
-        <vant-icon name="shop" />
+        <van-icon name="shop" />
         <p>没商品哦，快去搞点吧～</p>
       </div>
-      <vant-button
+      <van-button
         text="去看看"
         @click="goTosee"
       />
@@ -56,20 +58,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Icon, Button, Toast } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
 import { loadCart } from '@/api'
 
 @Component({
   components: {
-    'VantCheckbox': Checkbox,
+    'VanCheckbox': Checkbox,
     CheckboxGroup,
-    'VantCard': Card,
+    'VanCard': Card,
     SubmitBar,
     GoodsCard,
-    'VantStepper': Stepper,
-    'VantIcon': Icon,
-    'VantButton': Button
+    'VanStepper': Stepper,
   }
 })
 export default class Cart extends Vue {
@@ -126,11 +126,11 @@ export default class Cart extends Vue {
     })
   }
   onSubmit() {
-    Toast('点击结算')
+    this.$toast('点击结算')
   }
 
   goTosee() {
-    Toast('qukankan')
+    this.$toast('qukankan')
   }
 
   handleCheckAll(value) {
@@ -184,30 +184,30 @@ export default class Cart extends Vue {
   background-color: #fff;
   margin-bottom: 15px;
 
-  &-item {
-    position: relative;
-    background-color: #fff;
-    .van-checkbox__label {
-      position: relative;
-      width: 100%;
-      padding-left: 40px;
-      box-sizing: border-box;
-    }
-    .van-checkbox__icon {
-      top: 50%;
-      left: 10px;
-      z-index: 1;
-      position: absolute;
-      margin-top: -10px;
-    }
-
+  &-card{
+    flex-grow: 1;
+    padding-left: 0 !important;
   }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding-left: 20px;
+  }
+
+  .van-checkbox__icon{
+    flex-shrink: 0;
+  }
+
+  .van-checkbox__label{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
   &-step {
-    display: inline-block;
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    margin-top: -22px;
+    flex-shrink: 0;
 
     .van-stepper__minus,
     .van-stepper__plus {
