@@ -32,6 +32,9 @@ const actions = {
     const res = await loadCartCount()
 
     commit(ActionType.SET_CART_COUNT, res.data.cartCount)
+  },
+  async setCartCount({ commit, dispatch }, num) {
+    commit(ActionType.SET_CART_COUNT, num)
   }
 }
 

@@ -47,7 +47,7 @@
               <span class="home-card-price">
                 {{sales.salePrice}}元
               </span>
-              <add-button @click="handleToCart(sales)" />
+              <add-button @click.stop="handleToCart(sales)" />
             </div>
           </div>
         </div>

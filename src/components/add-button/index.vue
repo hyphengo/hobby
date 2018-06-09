@@ -2,7 +2,7 @@
   <van-icon
     class="add-button"
     name="add"
-    @click.stop="hanleClick"
+    v-on="$listeners"
   />
 </template>
 

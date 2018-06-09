@@ -2,7 +2,11 @@
   <div class="cart">
     <div v-if="hasgoods">
       <div class="list">
-        <div v-for="(data,index) in goods.items" :key="index">
+        <div
+          v-for="(data, index) in goods.items"
+          :key="index"
+          v-if="data.commerceItems.length > 0"
+        >
           <div class="cart-list-title">
             <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
               {{data.groupName}}
@@ -30,7 +34,8 @@
               <div class="cart-goods-step">
                 <van-stepper
                   :value="item.quantity"
-                  @overlimit="deleteItem"
+                  @overlimit="deleteItem(item, data.groupType)"
+                  @change="(val) => handleQuantity(val, item, data.groupType)"
                 />
               </div>
             </van-checkbox>
@@ -58,22 +63,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart, selectItem, selectGroup } from '@/api'
+import { loadCart, selectItem, selectGroup, updateItem, removeItem } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
   components: {
     'VanCheckbox': Checkbox,
-    CheckboxGroup,
     'VanCard': Card,
+    'VanStepper': Stepper,
+    CheckboxGroup,
     SubmitBar,
     GoodsCard,
-    'VanStepper': Stepper,
   }
 })
 export default class Cart extends Vue {
+  @Action('cart/setCartCount') setCartCount: Function
+
   checkedGoods: any = []
   // 购物车是否有商品
   hasgoods: boolean = true
@@ -103,11 +111,22 @@ export default class Cart extends Vue {
     }).then(this.gotCart)
   }
 
-  deleteItem() {
+  handleQuantity(val, item, groupType) {
+    updateItem({
+      productId: item.productId,
+      quantity: val,
+      productType: groupType
+    }).then(this.gotCart)
+  }
+
+  deleteItem(item, groupType) {
     this.$dialog.confirm({
       message: '确认删除商品'
     }).then(() => {
-
+      removeItem({
+        productId: item.productId,
+        productType: groupType
+      }).then(this.gotCart)
     }).catch(() => {
       // on cancel
       this.$dialog.close()
@@ -129,6 +148,7 @@ export default class Cart extends Vue {
   gotCart(res) {
     this.goods = res.data
     this.hasgoods = res.data.cartCount > 0
+    this.setCartCount(res.data.cartCount)
   }
 
   created() {

@@ -106,6 +106,7 @@ export const selectItem = (params) => http.post('/cart/selectItem', params)
 export const selectGroup = (params) => http.post('/cart/selectGroup', params)
 
 // 删除购物车中商品
-export const removeItem = (id, type) => http.post('/cart/removeItem', {
-  productId: id, productType: type
-})
+export const removeItem = (params) => http.post('/cart/removeItem', params)
+
+// 修改购物车中的商品数量
+export const updateItem = (params) => http.post('/cart/updateItem', params)
