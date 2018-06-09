@@ -21,45 +21,9 @@
         </ul>
       </div>
       <div class="browse-list-right">
-        <van-list
-          class="browse-list-scroll"
-          v-model="pageConfig.loading"
-          :finished="pageConfig.finished"
-          @load="pullRefreshAction"
-          :immediate-check="false"
-        >
-          <div
-            v-if="list.items.length > 0"
-            v-for="(item) in list.items"
-            :key="item.productId"
-          >
-            <ve-row align="center">
-              <ve-col :span="21">
-                <goods-card
-                  :thumb="item.smallImage"
-                  :price="item.price"
-                  :title="item.name"
-                  :unit="item.minUnit"
-                />
-              </ve-col>
-              <ve-col :span="3" @click="handleAddCart(item)">
-                <add-button />
-              </ve-col>
-            </ve-row>
-          </div>
-          <p
-            class="browse-list-scroll-tip"
-            v-if="!pageConfig.loading && !pageConfig.empty && pageConfig.finished"
-          >
-            别看了，真的没有了~
-          </p>
-          <div
-            v-if="!pageConfig.loading && pageConfig.empty"
-            class="browse-list-scroll-tip"
-          >
-            真想不到，竟然没有商品诶~
-          </div>
-        </van-list>
+        <product-list
+          :ids="ids"
+        />
       </div>
     </div>
   </div>
@@ -67,72 +31,31 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Getter, Action } from 'vuex-class'
-import { Badge, BadgeGroup, List } from 'vant'
-import HelperPullRefresh from '@/helper/HelperPullRefresh'
 import { searchCategories } from '@/api'
 import Search from '@/components/search/index.vue'
-import goodsCard from '@/components/goodsCard/GoodsCard.vue'
-import AddButton from '@/components/add-button/index.vue'
+import ProductList from '@/components/productList/index.vue'
 
 @Component({
   components: {
     Search,
-    Badge,
-    BadgeGroup,
-    'van-list': List,
-    goodsCard,
-    AddButton
+    ProductList
   }
 })
 export default class Browse extends Vue {
-  @Action('browse/searchProductList') searchProductList: any
-  @Action('browse/clearProductList') clearProductList: any
-  @Getter('browse/list') list: any
-  @Action('cart/addCart') addCart: any
   active: string = null
   twoClass: any = null
-
-  pageConfig: any = {
-    others: {
-      query: ''
-    }
-  }
-
-  @HelperPullRefresh('searchProductList', 'list')
-  pullRefreshAction(page: number = 1) {
-
-  }
+  ids: Array<any> = []
 
   handleItem(item) {
     this.active = item.categoryId
-    this.changeClass([`${item.dimValId}`])
-  }
-
-  handleAddCart(item) {
-    this.addCart({
-      id: item.productId,
-      num: 1
-    }).then(res => {
-      if (res.code === 200) {
-        this.$toast('添加购物车成功~')
-      }
-    })
-  }
-
-  changeClass(ids) {
-    this.clearProductList()
-    this.pageConfig.others.query = {
-      dimensionIds: ids
-    }
-    this.pullRefreshAction(0)
+    this.ids = [`${item.dimValId}`]
   }
 
   mounted() {
     searchCategories().then(res => {
       this.twoClass = res.data
       this.active = res.data[0].categoryId
-      this.changeClass([`${res.data[0].dimValId}`])
+      this.ids = [`${res.data[0].dimValId}`]
     })
   }
 }
@@ -140,7 +63,7 @@ export default class Browse extends Vue {
 
 <style lang="scss">
 .browse{
-  background-color:: $--color-white;
+  background-color: $--color-white;
 
   &-search{
     padding: 18px 20px;
