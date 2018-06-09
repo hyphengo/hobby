@@ -9,10 +9,30 @@
       v-model="active"
       @change="tabChange"
     >
-      <tabbar-item icon="wap-home">首页</tabbar-item>
-      <tabbar-item icon="gift">逛逛</tabbar-item>
-      <tabbar-item icon="cart" :info="cartCount || null">购物车</tabbar-item>
-      <tabbar-item icon="contact">我的</tabbar-item>
+      <tabbar-item>
+        首页
+        <template slot="icon" slot-scope="props">
+          <img :src="props.active ? require('assets/images/home_active.png') : require('assets/images/home.png')" />
+        </template>
+      </tabbar-item>
+      <tabbar-item>
+        逛逛
+        <template slot="icon" slot-scope="props">
+          <img :src="props.active ? require('assets/images/browse_active.png') : require('assets/images/browse.png')" />
+        </template>
+      </tabbar-item>
+      <tabbar-item :info="cartCount || null">
+        购物车
+        <template slot="icon" slot-scope="props">
+          <img :src="props.active ? require('assets/images/cart_active.png') : require('assets/images/cart.png')" />
+        </template>
+      </tabbar-item>
+      <tabbar-item icon="contact">
+        我的
+        <template slot="icon" slot-scope="props">
+          <img :src="props.active ? require('assets/images/my_active.png') : require('assets/images/my.png')" />
+        </template>
+      </tabbar-item>
     </tabbar>
   </div>
 
@@ -98,5 +118,15 @@ export default class Index extends Vue {
 .slide-left-leave-active, .slide-right-enter {
   opacity: 0;
   transform: translate(-60px, 0);
+}
+.van-tabbar-item--active{
+  color: $--color-base;
+}
+.van-tabbar-item__icon{
+  margin-bottom: 0;
+
+  img{
+    height: 50px;
+  }
 }
 </style>

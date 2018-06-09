@@ -86,6 +86,17 @@ const asyncRoutes = [
     ]
   },
   {
+    path: '/order',
+    component: Layout,
+    children: [
+      {
+        path: 'list',
+        name: '我的订单',
+        component: () => import('@/views/order/list.vue'),
+      }
+    ]
+  },
+  {
     path: '/404',
     name: '404',
     component: NotFound
