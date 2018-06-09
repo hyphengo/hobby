@@ -78,6 +78,11 @@ const asyncRoutes = [
         name: '搜索',
         component: () => import('@/views/product/search.vue'),
       },
+      {
+        path: 'detail/:id',
+        name: '商品详情',
+        component: () => import('@/views/product/detail.vue'),
+      }
     ]
   },
   {

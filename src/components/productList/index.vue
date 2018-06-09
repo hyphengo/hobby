@@ -18,6 +18,7 @@
             :price="item.price"
             :title="item.name"
             :unit="item.minUnit"
+            :id="item.productId"
           />
         </ve-col>
         <ve-col :span="3" @click="handleAddCart(item)">

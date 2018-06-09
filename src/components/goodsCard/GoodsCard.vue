@@ -1,5 +1,5 @@
 <template>
-  <div class="goodscard">
+  <div class="goodscard" @click="handleToDetail">
     <div class="goodscard-thumb">
         <img :src="thumb" class="img" >
     </div>
@@ -24,6 +24,11 @@ export default class GoodsCard extends Vue {
   @Prop({ default: null }) price: Number
   @Prop({ default: '' }) title: string
   @Prop({ default: '' }) unit: string
+  @Prop() id: string
+
+  handleToDetail() {
+    this.$router.push(`/product/detail/${this.id}`)
+  }
 }
 </script>
 
