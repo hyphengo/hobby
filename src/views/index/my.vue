@@ -1,34 +1,30 @@
 <template>
   <div class="info">
     <div class="user">
-      <img class="avatar" src="" alt="">
+      <img class="avatar" :src="userInfo.image" alt="">
       <div class="username">
-        <p class="name">微信昵称</p>
+        <p class="name">{{userInfo.nickName}}</p>
         <span class="subtitle">可可蛙社区服务</span>
       </div>
     </div>
     <cell-group>
+      <cell class="bind-phone" is-link to="/my/bind">
+        <template slot="title">
+          <span class="bind-text">我蛙：我们还能好好做朋友嘛~ 你手机号都不告诉我</span>
+        </template>
+        <span class="all-order">绑定手机号</span>
+      </cell>
       <cell is-link>
         <template slot="title">
           <span class="cell-text">我的订单</span>
         </template>
         <span class="all-order">全部订单</span>
       </cell>
-      <div class="order-type">
-        <div>
-          <van-icon name="pending-payment" />
-          <p>待付款</p>
-          <span class="order-mark"></span>
-        </div>
-        <div>
-          <van-icon name="pending-orders" />
-          <p>待接单</p>
-        </div>
-        <div>
-          <van-icon name="pending-deliver" />
-          <p>已完成</p>
-        </div>
-      </div>
+      <tabbar>
+        <tabbar-item icon="pending-payment">待付款</tabbar-item>
+        <tabbar-item icon="pending-orders" dot>待接单</tabbar-item>
+        <tabbar-item icon="pending-deliver">已完成</tabbar-item>
+      </tabbar>
       <div class="blank"></div>
       <cell is-link to="/my/address">
         <template slot="title">
@@ -47,17 +43,27 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Cell, CellGroup } from 'vant'
-
+import { Cell, CellGroup, Tabbar, TabbarItem } from 'vant'
+import { loadUserCenter } from '@/api'
 
 @Component({
   components: {
     Cell,
-    CellGroup
+    CellGroup,
+    Tabbar,
+    TabbarItem
   }
 })
 export default class Info extends Vue {
-
+  userInfo: any = {
+    image: '',
+    nickName: ''
+  }
+  mounted() {
+    loadUserCenter().then(res => {
+      this.userInfo = res.data
+    })
+  }
 }
 </script>
 
@@ -66,6 +72,7 @@ export default class Info extends Vue {
     .user{
       display: flex;
       flex-flow: row;
+      align-items: center;
       background: linear-gradient(to right, #2DC3C4, #72D8D9);
       .avatar{
         width: 100px;
@@ -75,17 +82,27 @@ export default class Info extends Vue {
         margin: 50px 40px;
       }
       .username{
-        padding-top: 58px;
         flex-grow: 1;
         color: $--color-white;
         .name{
           font-size:32px;
-          line-height: 32px;
+          line-height: 1.5;
         }
         .subtitle{
           font-size:22px;
           line-height: 22px;
         }
+      }
+    }
+    .bind-phone{
+      align-items: center;
+      .bind-text{
+        font-size: 22px;
+      }
+      .van-cell__value{
+        flex: inherit;
+        width: 140px;
+        padding-top: 3px;
       }
     }
     .all-order{
@@ -98,29 +115,15 @@ export default class Info extends Vue {
       height: 15px;
       background-color: $--color-body;
     }
-    .order-type{
-      display: flex;
-      flex-flow: row;
-      text-align: center;
+    .van-tabbar--fixed{
+      position: relative;
+    }
+    .van-tabbar{
       height: 140px;
-      & > div{
-        position: relative;
-        padding-top: 30px;
-        flex-grow: 1;
-        p{
-          font-size: 22px;
-        }
-        .order-mark{
-          position: absolute;
-          top: 30px;
-          margin-left: 18px;
-          width: 9px;
-          height: 9px;
-          border: 2px solid $--color-white;
-          background-color: #F12C20;
-          border-radius: 50%;
-        }
-      }
+      padding: 0 10px;
+    }
+    .van-tabbar-item__icon{
+      margin-bottom: 15px;
     }
   }
 </style>
