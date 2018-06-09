@@ -65,7 +65,7 @@ const asyncRoutes = [
       {
         path: 'community',
         name: '选择小区',
-        component: () => import('@/views/user/city.vue'),
+        component: () => import('@/views/user/community.vue'),
       },
     ]
   },
