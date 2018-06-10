@@ -119,3 +119,6 @@ export const moveToCheckout = (params) => http.post('/cart/moveToCheckout', para
 
 // 购物车中选择某一类型商品去结算。当购物车中存在同时结算多个类型商品时调用
 export const selectToCheckout = (params) => http.post('/cart/selectToCheckout', params)
+
+// 加载确认订单信息（商品，送货地址）
+export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
