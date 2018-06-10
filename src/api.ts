@@ -90,6 +90,9 @@ export const addAddress = (params) => http.post('/user/addAddress', params)
 // 修改地址信息
 export const updateAddress = (params) => http.post('/user/updateAddress', params)
 
+// 加载个人中心主页
+export const loadUserCenter = () => http.get('/user/loadUserCenter')
+
 /**
  * 获取商品详情
  * @param id 商品id productId

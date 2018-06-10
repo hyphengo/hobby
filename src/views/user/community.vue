@@ -21,9 +21,9 @@ import { getCommunities } from '@/api'
 export default class Community extends Vue {
   communityList: any = null
   @Getter('address/city') city: any
-  @Action('address/getCommunity') getCommunity: Function
+  @Action('address/setCommunity') setCommunity: Function
   selectCommunity(community) {
-    this.getCommunity(community).then(res => {
+    this.setCommunity(community).then(res => {
       this.$router.push('/my/edit')
     })
   }

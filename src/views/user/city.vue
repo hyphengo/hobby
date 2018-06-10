@@ -18,9 +18,9 @@ import { getCities } from '@/api'
 })
 export default class City extends Vue {
   cityList: any = null
-  @Action('address/getCity') getCity: Function
+  @Action('address/setCity') setCity: Function
   selectCity(item) {
-    this.getCity(item).then(res => {
+    this.setCity(item).then(res => {
       this.$router.push('/my/community')
     })
   }

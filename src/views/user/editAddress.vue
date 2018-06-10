@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <cell-group>
-      <van-cell :value="community.name?community.name:'选择小区'" is-link to="/my/city">
+      <van-cell :value="community.name?community.name:(addressInfo.communityName?addressInfo.communityName:'选择小区')" is-link to="/my/city">
         <template slot="title">
           <span class="cell-text">小区</span>
         </template>
@@ -38,7 +38,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell, CellGroup, Field, CheckboxGroup } from 'vant'
 import { Getter } from 'vuex-class'
-import { addAddress } from '@/api'
+import { addAddress, updateAddress } from '@/api'
 
 @Component({
   components: {
@@ -52,7 +52,7 @@ export default class Edit extends Vue {
   @Getter('address/community') community: any
   @Getter('address/addressInfo') addressInfo: any
   saveClick() {
-    if (!this.community.name) {
+    if (!this.community.name && !this.addressInfo.communityName) {
       this.$toast('请选择小区')
     } else if (!this.addressInfo.detailAddress) {
       this.$toast('请填写门牌号')
@@ -68,20 +68,27 @@ export default class Edit extends Vue {
       this.$toast('请填写11位手机号码')
     } else {
       let params = {
-        province: this.community.provinceId,
-        city: this.community.cityId,
-        district: this.community.districtId,
-        communityId: this.community.id,
-        communityName: this.community.name,
+        id: this.addressInfo.id,
+        province: this.community.provinceId || this.addressInfo.province,
+        city: this.community.cityId || this.addressInfo.city,
+        district: this.community.districtId || this.addressInfo.district,
+        communityId: this.community.id || this.addressInfo.communityId,
+        communityName: this.community.name || this.addressInfo.communityName,
         detailAddress: this.addressInfo.detailAddress,
         postcode: '',
         consigneeName: this.addressInfo.consigneeName,
         phoneNumber: this.addressInfo.phoneNumber,
         defaultAddress: this.addressInfo.defaultAddress
       }
-      addAddress(params).then(() => {
-        this.$router.push('/my/address')
-      })
+      if (params.id) {
+        updateAddress(params).then(() => {
+          this.$router.push('/my/address')
+        })
+      } else {
+        addAddress(params).then(() => {
+          this.$router.push('/my/address')
+        })
+      }
     }
   }
 }

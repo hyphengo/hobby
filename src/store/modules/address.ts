@@ -34,12 +34,12 @@ const mutations = {
 
 const actions = {
   // 城市信息
-  async getCity({ commit }, city) {
+  async setCity({ commit }, city) {
     commit(ActionType.SET_CITY, city)
     return city
   },
   // 小区信息
-  async getCommunity({ commit }, community) {
+  async setCommunity({ commit }, community) {
     commit(ActionType.SET_COMMUNITY, community)
     return community
   },
