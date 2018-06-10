@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <cell-group>
-      <van-cell :value="community.name?community.name:(addressInfo.communityName?addressInfo.communityName:'选择小区')" is-link to="/my/city">
+      <van-cell :value="community.name?community.name:(addressInfo.communityName?addressInfo.communityName:'选择小区')" is-link to="/address/city">
         <template slot="title">
           <span class="cell-text">小区</span>
         </template>
@@ -82,11 +82,11 @@ export default class Edit extends Vue {
       }
       if (params.id) {
         updateAddress(params).then(() => {
-          this.$router.push('/my/address')
+          this.$router.push('/address/list/list')
         })
       } else {
         addAddress(params).then(() => {
-          this.$router.push('/my/address')
+          this.$router.push('/address/list/list')
         })
       }
     }

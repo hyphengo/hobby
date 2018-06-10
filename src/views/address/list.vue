@@ -1,12 +1,15 @@
 <template>
   <div class="address">
-    <div class="address-info" v-for="item in list" :key="item.id">
+    <div :class="['address-info', {'address-info-click': $route.params.name==='select'}]" v-for="item in list" :key="item.id" @click="selectAddress(item)">
       <div class="info">
         <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
         <span>详细地址：{{item.communityName}}{{item.detailAddress}}</span>
       </div>
       <div class="edit">
-        <van-icon name="edit" @click="onEdit(item)"/>
+        <van-icon name="edit" @click.stop="onEdit(item)"/>
+      </div>
+      <div v-if="item.defaultAddress" class="default-type">
+        <van-icon name="success"/>
       </div>
     </div>
     <van-cell class="fix" is-link @click="addEdit">
@@ -30,15 +33,23 @@ import { Action } from 'vuex-class'
 })
 export default class Address extends Vue {
   @Action('address/setEditAddress') setEditAddress: Function
+  @Action('address/setSelectAddress') setSelectAddress: Function
   list: any = []
+  selectAddress(item) {
+    if (this.$route.params.name === 'select') {
+      this.setSelectAddress(item).then(() => {
+        this.$router.push('')
+      })
+    }
+  }
   onEdit(item) {
     this.setEditAddress(item).then(() => {
-      this.$router.push('/my/edit')
+      this.$router.push('/address/edit')
     })
   }
   addEdit() {
     this.setEditAddress({}).then(() => {
-      this.$router.push('/my/edit')
+      this.$router.push('/address/edit')
     })
   }
   mounted() {
@@ -52,13 +63,18 @@ export default class Address extends Vue {
 <style lang="scss">
 .address{
   .address-info{
+    position: relative;
     display: flex;
     flex-flow: row;
     align-items: center;
     height: 140px;
-    padding: 15px 35px;
+    padding: 15px 35px 15px 40px;
     background-color: $--color-white;
     margin-bottom: 10px;
+    overflow: hidden;
+    &-click:active{
+      background-color: #eee;
+    }
     .info{
       flex-grow: 1;
       p{
@@ -72,8 +88,26 @@ export default class Address extends Vue {
       }
     }
     .edit{
-      width: 100px;
       font-size: 50px;
+    }
+    .default-type{
+      position: absolute;
+      left: -29px;
+      top: -7px;
+      display: inline-block;
+      width:0;
+      height:0;
+      border-width:0 45px 45px 45px;
+      border-style:solid;
+      border-color:transparent transparent $--color-base transparent;
+      margin-left: 0;
+      transform:rotate(-45deg);
+      color: $--color-white;
+      .van-icon-success{
+        transform:rotate(45deg);
+        margin-top: 15px;
+        margin-left: -10px;
+      }
     }
   }
   .fix{

@@ -43,29 +43,35 @@ const asyncRoutes = [
         component: () => import('@/views/user/bind.vue'),
       },
       {
-        path: 'address',
+        path: 'coupon/:name', /* 传入list为列表，传入select为选择 */
+        name: '优惠卷',
+        component: () => import('@/views/user/coupon.vue'),
+      },
+    ]
+  },
+  {
+    path: '/address',
+    component: Layout,
+    children: [
+      {
+        path: 'list/:name', /* 传入list为列表，传入select为选择 */
         name: '地址管理',
-        component: () => import('@/views/user/address.vue'),
+        component: () => import('@/views/address/list.vue'),
       },
       {
         path: 'edit',
         name: '编辑地址',
-        component: () => import('@/views/user/editAddress.vue'),
-      },
-      {
-        path: 'coupon',
-        name: '优惠卷',
-        component: () => import('@/views/user/coupon.vue'),
+        component: () => import('@/views/address/editAddress.vue'),
       },
       {
         path: 'city',
         name: '选择城市',
-        component: () => import('@/views/user/city.vue'),
+        component: () => import('@/views/address/city.vue'),
       },
       {
         path: 'community',
         name: '选择小区',
-        component: () => import('@/views/user/community.vue'),
+        component: () => import('@/views/address/community.vue'),
       },
     ]
   },

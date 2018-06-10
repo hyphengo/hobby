@@ -1,6 +1,6 @@
 <template>
   <div class="community">
-    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/my/community"/>
+    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/address/community"/>
     <div class="blank"></div>
     <van-cell v-for="item in communityList" :key="item.id" :value="item.name" @click="selectCommunity(item)"/>
     <p class="more">更多城市开发中~</p>
@@ -24,7 +24,7 @@ export default class Community extends Vue {
   @Action('address/setCommunity') setCommunity: Function
   selectCommunity(community) {
     this.setCommunity(community).then(res => {
-      this.$router.push('/my/edit')
+      this.$router.push('/address/edit')
     })
   }
   mounted() {

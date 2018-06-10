@@ -16,7 +16,9 @@
       >
         <van-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</van-button>
       </van-field>
-      <van-button size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
+      <div class="save-box">
+        <van-button class="save-btn" size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
+      </div>
     </cell-group>
   </div>
 </template>
@@ -54,9 +56,9 @@ export default class Bind extends Vue {
     this.$toast('验证码不对，请换个姿势~')
   }
   get defineBtn() {
-    const { verify, sms } = this
+    const { phone, sms } = this
     return {
-      verify,
+      phone,
       sms
     }
   }
@@ -66,11 +68,34 @@ export default class Bind extends Vue {
   }
   @Watch('defineBtn')
   defineBtnChange(newValue) {
+    let phoneVerify = !/^[1][1-9][0-9]{9}$/.test(newValue.phone)
     let smsVerify = !/^[0-9]{6}$/.test(newValue.sms)
-    this.define = !(newValue.verify && !smsVerify)
+    this.define = !(!phoneVerify && !smsVerify)
   }
 }
 </script>
 
 <style lang="scss">
+  .bind{
+    .save-box{
+      padding-top: 30px;
+      text-align: center;
+      background-color: $--color-body;
+      .save-btn{
+        width: 80%;
+      }
+    }
+    .van-button{
+      &--primary{
+        color: $--color-white;
+        background-color: $--color-base;
+        border-color: $--color-base;
+      }
+      &--disabled{
+        color: $--color-disabled;
+        background-color: #eee;
+        border-color: #e5e5e5;
+      }
+    }
+  }
 </style>
