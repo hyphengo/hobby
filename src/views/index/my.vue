@@ -12,7 +12,7 @@
         <template slot="title">
           <span class="bind-text">我蛙：我们还能好好做朋友嘛~ 你手机号都不告诉我</span>
         </template>
-        <span class="all-order">绑定手机号</span>
+        <span class="all-order">写给我</span>
       </cell>
       <cell is-link>
         <template slot="title">
@@ -20,18 +20,29 @@
         </template>
         <span class="all-order">全部订单</span>
       </cell>
-      <tabbar>
-        <tabbar-item icon="pending-payment">待付款</tabbar-item>
-        <tabbar-item icon="pending-orders" dot>待接单</tabbar-item>
-        <tabbar-item icon="pending-deliver">已完成</tabbar-item>
-      </tabbar>
+      <div class="order-type">
+        <div>
+          <img src="../../assets/images/user/icon-payment.png" alt="">
+          <p>待付款</p>
+          <span v-if="userInfo.orderState[10]" class="order-mark"></span>
+        </div>
+        <div>
+          <img src="../../assets/images/user/icon-order.png" alt="">
+          <p>待接单</p>
+          <span v-if="userInfo.orderState[30]" class="order-mark"></span>
+        </div>
+        <div>
+          <img src="../../assets/images/user/icon-deliver.png" alt="">
+          <p>已完成</p>
+        </div>
+      </div>
       <div class="blank"></div>
-      <cell is-link to="/my/address">
+      <cell is-link to="/address/list/list">
         <template slot="title">
           <span class="cell-text">我的地址</span>
         </template>
       </cell>
-      <cell is-link to="/my/coupon">
+      <cell is-link to="/my/coupon/list">
         <template slot="title">
           <span class="cell-text">优惠卷</span>
         </template>
@@ -57,7 +68,11 @@ import { loadUserCenter } from '@/api'
 export default class Info extends Vue {
   userInfo: any = {
     image: '',
-    nickName: ''
+    nickName: '',
+    orderState: {
+      10: false,
+      30: false
+    }
   }
   mounted() {
     loadUserCenter().then(res => {
@@ -90,6 +105,7 @@ export default class Info extends Vue {
         }
         .subtitle{
           font-size:22px;
+          opacity: 0.6;
           line-height: 22px;
         }
       }
@@ -101,7 +117,7 @@ export default class Info extends Vue {
       }
       .van-cell__value{
         flex: inherit;
-        width: 140px;
+        width: 110px;
         padding-top: 3px;
       }
     }
@@ -115,15 +131,35 @@ export default class Info extends Vue {
       height: 15px;
       background-color: $--color-body;
     }
-    .van-tabbar--fixed{
-      position: relative;
-    }
-    .van-tabbar{
-      height: 140px;
-      padding: 0 10px;
-    }
-    .van-tabbar-item__icon{
-      margin-bottom: 15px;
+    .order-type{
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      height: 130px;
+      padding-bottom: 10px;
+      & > div{
+        text-align: center;
+        position: relative;
+        flex-grow: 1;
+        img {
+          width: 75px;
+        }
+        p{
+          font-size: 22px;
+          margin-top: -10px;
+        }
+        .order-mark{
+          display: inline-block;
+          position: absolute;
+          top: 18px;
+          margin-left: 14px;
+          width: 9px;
+          height: 9px;
+          border: 2px solid $--color-white;
+          background-color: #F12C20;
+          border-radius: 50%;
+        }
+      }
     }
   }
 </style>
