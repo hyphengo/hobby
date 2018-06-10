@@ -28,7 +28,10 @@ const unsync = sync(store, router) // eslint-disable-line
 
 Vue.config.productionTip = false
 
+const VanDialog: any = Dialog
+
 // Vue.use(vant)
+Vue.use(VanDialog)
 
 Vue.prototype.$toast = Toast
 Vue.prototype.$dialog = Dialog

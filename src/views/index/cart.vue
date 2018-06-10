@@ -45,7 +45,7 @@
       <div class="cart-goods-btn van-hairline--top">
         <van-checkbox :value="checkedAll" @input="handleCheckAll">全选</van-checkbox>
         <div class="totalprice">¥{{price(goods.amount)}}</div>
-        <div class="pay-btn" @click="onSubmit">去买单</div>
+        <van-button class="pay-btn" bottom-action @click="onSubmit" :loading="subLoding">去买单</van-button>
       </div>
     </div>
     <div v-else class="cart-nogoods">
@@ -58,15 +58,28 @@
         @click="goTosee"
       />
     </div>
+    <van-dialog
+      v-model="showSelect"
+      show-cancel-button
+      :before-close="beforeClose"
+    >
+      <radio-group v-model="radio">
+        <cell-group>
+          <van-cell title="单选框 1" clickable @click="radio = '1'">
+            <van-radio name="1" />
+          </van-cell>
+        </cell-group>
+      </radio-group>
+    </van-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Radio, RadioGroup, Cell, CellGroup } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart, selectItem, selectGroup, updateItem, removeItem } from '@/api'
+import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -75,6 +88,10 @@ import { price } from '@/util/util'
     'VanCard': Card,
     'VanStepper': Stepper,
     CheckboxGroup,
+    RadioGroup,
+    'VanRadio': Radio,
+    'VanCell': Cell,
+    CellGroup,
     SubmitBar,
     GoodsCard,
   }
@@ -87,6 +104,9 @@ export default class Cart extends Vue {
   hasgoods: boolean = true
   checkedAll: boolean = false
   goods: any = []
+  subLoding: boolean = false
+  showSelect: boolean = false
+  radio: any = '1'
 
   price = price
 
@@ -95,8 +115,17 @@ export default class Cart extends Vue {
     return '去买单' + (count ? `(${count})` : '')
   }
 
+  loading() {
+    this.$toast.loading({
+      duration: 0,
+      forbidClick: true,
+    })
+  }
+
   // 单类全选
   checkItemAll(data) {
+    this.loading()
+
     selectGroup({
       groupType: data.groupType,
       select: data.selectAll ? 0 : 1,
@@ -105,6 +134,8 @@ export default class Cart extends Vue {
 
   // 改变单个商品选中
   changeItem(item, groupType) {
+    this.loading()
+
     selectItem({
       productId: item.productId,
       productType: groupType,
@@ -114,6 +145,8 @@ export default class Cart extends Vue {
 
   // 改变单个商品 数量
   handleQuantity(val, item, groupType) {
+    this.loading()
+
     updateItem({
       productId: item.productId,
       quantity: val,
@@ -126,6 +159,8 @@ export default class Cart extends Vue {
     this.$dialog.confirm({
       message: '确认删除商品'
     }).then(() => {
+      this.loading()
+
       removeItem({
         productId: item.productId,
         productType: groupType
@@ -137,7 +172,19 @@ export default class Cart extends Vue {
   }
 
   onSubmit() {
-    this.$toast('点击结算')
+    this.subLoding = true
+    moveToCheckout({}).then(res => {
+      this.subLoding = false
+      this.showSelect = true
+    })
+  }
+
+  beforeClose(action, done) {
+    if (action === 'confirm') {
+      setTimeout(done, 1000)
+    } else {
+      done()
+    }
   }
 
   goTosee() {
@@ -146,6 +193,8 @@ export default class Cart extends Vue {
 
   // 所有商品选中
   async handleCheckAll() {
+    this.loading()
+
     const p = this.goods.items.map((item) => () => selectGroup({
       groupType: item.groupType,
       select: this.checkedAll ? 0 : 1,
@@ -165,6 +214,8 @@ export default class Cart extends Vue {
     this.hasgoods = res.data.cartCount > 0
     this.setCartCount(res.data.cartCount)
     this.checkedAll = res.data.items.every((item) => item.selectAll)
+
+    this.$toast.clear()
   }
 
   created() {
@@ -179,6 +230,11 @@ export default class Cart extends Vue {
   height: 100%;
   overflow: auto;
   padding-bottom: 200px;
+
+  .van-button > .van-loading {
+    width: 60px !important;
+    height: 60px !important;
+  }
 }
 .cart-list-title {
   display: flex;
@@ -290,13 +346,13 @@ export default class Cart extends Vue {
   .van-icon {
     color: #666;
   }
-  .van-button--normal,
-    .van-button--default {
-      width: 160px;
-      height: 80px;
-      line-height: 80px;
-      color: $--color-base;
-      border: 1px solid $--color-base;
-    }
+
+  .van-button--normal, .van-button--default {
+    width: 160px;
+    height: 80px;
+    line-height: 80px;
+    color: $--color-base;
+    border: 1px solid $--color-base;
+  }
 }
 </style>

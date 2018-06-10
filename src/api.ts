@@ -113,3 +113,6 @@ export const removeItem = (params) => http.post('/cart/removeItem', params)
 
 // 修改购物车中的商品数量
 export const updateItem = (params) => http.post('/cart/updateItem', params)
+
+// 购物车提交订单
+export const moveToCheckout = (params) => http.post('/cart/moveToCheckout', params)
