@@ -63,10 +63,18 @@
       show-cancel-button
       :before-close="beforeClose"
     >
+      <p class="cart-dialog-title">请分开买单~</p>
       <radio-group v-model="radio">
         <cell-group>
-          <van-cell title="单选框 1" clickable @click="radio = '1'">
-            <van-radio name="1" />
+          <van-cell
+            v-for="(item, index) in single"
+            :key="index"
+            :title="item.groupName"
+            :label="`${item.selectCount}件`"
+            clickable
+            @click="radio = item.groupType"
+          >
+            <van-radio :name="item.groupType" />
           </van-cell>
         </cell-group>
       </radio-group>
@@ -79,7 +87,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Radio, RadioGroup, Cell, CellGroup } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout } from '@/api'
+import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout, selectToCheckout } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -99,21 +107,16 @@ import { price } from '@/util/util'
 export default class Cart extends Vue {
   @Action('cart/setCartCount') setCartCount: Function
 
-  checkedGoods: any = []
   // 购物车是否有商品
   hasgoods: boolean = true
   checkedAll: boolean = false
   goods: any = []
   subLoding: boolean = false
   showSelect: boolean = false
-  radio: any = '1'
+  radio: any = null
+  single: any = null
 
   price = price
-
-  get submitBarText() {
-    const count = this.checkedGoods.length
-    return '去买单' + (count ? `(${count})` : '')
-  }
 
   loading() {
     this.$toast.loading({
@@ -175,13 +178,26 @@ export default class Cart extends Vue {
     this.subLoding = true
     moveToCheckout({}).then(res => {
       this.subLoding = false
-      this.showSelect = true
+
+      if (res.data.mutiGroup === 1) {
+        this.single = res.data.selectOrderVoList
+        this.radio = res.data.selectOrderVoList[0].groupType
+        this.showSelect = true
+
+        return
+      }
+
+      this.$router.push('/order/confirm')
     })
   }
 
   beforeClose(action, done) {
     if (action === 'confirm') {
-      setTimeout(done, 1000)
+      selectToCheckout({
+        groupType: this.radio
+      }).then(() => {
+        this.$router.push('/order/confirm')
+      })
     } else {
       done()
     }
@@ -234,6 +250,13 @@ export default class Cart extends Vue {
   .van-button > .van-loading {
     width: 60px !important;
     height: 60px !important;
+  }
+
+  &-dialog-title{
+    font-size: 32px;
+    text-align: center;
+    padding: 20px 0;
+    color: $--color-base;
   }
 }
 .cart-list-title {

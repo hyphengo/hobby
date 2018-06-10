@@ -99,6 +99,11 @@ const asyncRoutes = [
         path: 'list',
         name: '我的订单',
         component: () => import('@/views/order/list.vue'),
+      },
+      {
+        path: 'confirm',
+        name: '确认订单',
+        component: () => import('@/views/order/confirm.vue'),
       }
     ]
   },
