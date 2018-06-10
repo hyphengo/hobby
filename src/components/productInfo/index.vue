@@ -108,8 +108,8 @@ export default class ProductInfo extends Vue {
     }
 
     img{
-      height: 120px;
-      width: 120px;
+      height: 100px;
+      width: 100px;
     }
   }
 }
