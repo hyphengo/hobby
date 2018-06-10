@@ -1,6 +1,6 @@
 <template>
   <div class="coupon">
-    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='expired', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
+    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
       <div class="coupon-left">
         <div>
           <p><span>￥</span>{{item.discount}}</p>
@@ -10,7 +10,7 @@
       <div class="coupon-right">
         <div>
           <p>{{item.promotionDiscription}}</p>
-          <span>{{item.startDate}}-{{item.endDate}}</span>
+          <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
         </div>
       </div>
     </div>
@@ -22,6 +22,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Popup, CouponList } from 'vant'
 import { getCoupons } from '@/api'
+import moment from 'moment'
 
 @Component({
   components: {
@@ -35,6 +36,9 @@ export default class Coupon extends Vue {
     getCoupons().then(res => {
       this.couponList = res.data
     })
+  }
+  dateFilter(el) {
+    return moment(el).format('YYYY.MM.DD')
   }
 }
 </script>
