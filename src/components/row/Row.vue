@@ -25,10 +25,10 @@ export default class VeRow extends Vue {
 .row {
   display: flex;
 
-  &:before,
-  &:after {
-    display: none;
-  }
+  // &:before,
+  // &:after {
+  //   display: none;
+  // }
 
   &-justify-start {
     justify-content: flex-start;

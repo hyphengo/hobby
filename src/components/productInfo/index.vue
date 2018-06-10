@@ -1,7 +1,7 @@
 <template>
   <div
     class="productInfo"
-    v-if="order"
+    v-if="order.orderTypeDesc"
   >
     <ve-row class="productInfo-row">
       <ve-col :span="12">
