@@ -125,8 +125,12 @@ export default class Index extends Vue {
 .van-tabbar-item__icon{
   margin-bottom: 0;
 
+  .van-icon__info{
+    top: -.2em;
+  }
+
   img{
-    height: 50px;
+    height: 48px;
   }
 }
 </style>

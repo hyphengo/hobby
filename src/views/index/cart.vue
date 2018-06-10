@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="cart-goods-btn van-hairline--top">
-        <van-checkbox v-model="checkedAll" @change="handleCheckAll">全选</van-checkbox>
+        <van-checkbox :value="checkedAll" @input="handleCheckAll">全选</van-checkbox>
         <div class="totalprice">¥{{price(goods.amount)}}</div>
         <div class="pay-btn" @click="onSubmit">去买单</div>
       </div>
@@ -95,7 +95,7 @@ export default class Cart extends Vue {
     return '去买单' + (count ? `(${count})` : '')
   }
 
-  // 全选
+  // 单类全选
   checkItemAll(data) {
     selectGroup({
       groupType: data.groupType,
@@ -103,6 +103,7 @@ export default class Cart extends Vue {
     }).then(this.gotCart)
   }
 
+  // 改变单个商品选中
   changeItem(item, groupType) {
     selectItem({
       productId: item.productId,
@@ -111,6 +112,7 @@ export default class Cart extends Vue {
     }).then(this.gotCart)
   }
 
+  // 改变单个商品 数量
   handleQuantity(val, item, groupType) {
     updateItem({
       productId: item.productId,
@@ -119,6 +121,7 @@ export default class Cart extends Vue {
     }).then(this.gotCart)
   }
 
+  // 删除商品
   deleteItem(item, groupType) {
     this.$dialog.confirm({
       message: '确认删除商品'
@@ -138,17 +141,30 @@ export default class Cart extends Vue {
   }
 
   goTosee() {
-    this.$toast('qukankan')
+    this.$router.replace('/index/home')
   }
 
-  handleCheckAll(value) {
+  // 所有商品选中
+  async handleCheckAll() {
+    const p = this.goods.items.map((item) => () => selectGroup({
+      groupType: item.groupType,
+      select: this.checkedAll ? 0 : 1,
+    }))
 
+    let results = {}
+
+    for (let i = 0; i < p.length; i++) {
+      results = await p[i]()
+    }
+
+    this.gotCart(results)
   }
 
   gotCart(res) {
     this.goods = res.data
     this.hasgoods = res.data.cartCount > 0
     this.setCartCount(res.data.cartCount)
+    this.checkedAll = res.data.items.every((item) => item.selectAll)
   }
 
   created() {
