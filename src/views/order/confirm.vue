@@ -7,14 +7,7 @@
       <van-button type="default" class="confirm-type-btn">到店自取</van-button>
     </div>
     <address-card :info="order.shippingGroup" />
-    <ve-row class="confirm-date" v-if="order.shippingGroup">
-      <ve-col :span="23">
-        配送时间：{{date}} {{order.shippingGroup.shipHourRange}}
-      </ve-col>
-      <ve-col :span="1">
-        <van-icon name="arrow" />
-      </ve-col>
-    </ve-row>
+    <date-card :info="order.shippingGroup" />
     <product-info
       class="confirm-product"
       :order="order"
@@ -37,9 +30,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 // import { Getter, Action } from 'vuex-class'
 import { SubmitBar } from 'vant'
-import moment from 'moment'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
+import DateCard from '@/components/date-card/index.vue'
 import { loadOrder } from '@/api'
 import { price } from '@/util/util'
 
@@ -47,7 +40,8 @@ import { price } from '@/util/util'
   components: {
     ProductInfo,
     SubmitBar,
-    AddressCard
+    AddressCard,
+    DateCard,
   }
 })
 export default class Confirm extends Vue {
@@ -55,16 +49,6 @@ export default class Confirm extends Vue {
   payLoding: boolean = false
 
   price = price
-
-  get date() {
-    const today = moment().format('MM月DD日')
-
-    const ship = moment(this.order.shipOnDate).format('MM月DD日')
-
-    const text = today === ship ? '(今天)' : '(明天)'
-
-    return `${text}${ship}`
-  }
 
   handlePay() {
 
@@ -83,11 +67,6 @@ export default class Confirm extends Vue {
 
   &-product{
     margin-top: 16px;
-  }
-
-  &-date{
-    padding: 30px 15px 30px 60px;
-    background-color: $--color-white;
   }
 
   &-type{

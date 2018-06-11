@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Getter, Action } from 'vuex-class'
 import { Tabbar, TabbarItem } from 'vant'
 
 @Component({
@@ -30,10 +29,8 @@ import { Tabbar, TabbarItem } from 'vant'
     TabbarItem
   }
 })
-export default class Index extends Vue {
+export default class AddressCard extends Vue {
   @Prop() info: any
-  @Getter('cart/count') cartCount: number
-  @Action('cart/getCount') getCount: Function
 
   handleToSelectAddress() {
     this.$router.push('/address/list/select')
