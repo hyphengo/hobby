@@ -7,10 +7,10 @@
     <div>
       <p class="addressCard-info">
         <img :src="require('assets/images/address.png')" />
-        {{info.consigneeName}}
+        {{info.detailAddress ? info.consigneeName : '请新增一个地址'}}
         <span class="addressCard-phone">{{info.cellphone}}</span>
       </p>
-      <p class="addressCard-detail">{{info.communityName}} {{info.detailAddress}}</p>
+      <p v-if="info.detailAddress" class="addressCard-detail">{{info.communityName}} {{info.detailAddress}}</p>
     </div>
     <van-icon
       class="addressCard-icon"
