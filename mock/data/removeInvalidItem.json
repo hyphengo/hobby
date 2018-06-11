@@ -1,0 +1,129 @@
+{
+    "timestamp": 1528687781190,
+    "code": 200,
+    "message": "请求成功",
+    "data": {
+        "items": [
+            {
+                "groupName": "干洗衣服",
+                "groupType": "1",
+                "commerceItems": [
+                    {
+                        "id": null,
+                        "productId": "10000188810000008",
+                        "productName": "箱包",
+                        "productCode": "100649",
+                        "productImg": "http://test-img.cocowa.com.cn/product/3FE58DFR5C81CA5JB.jpg",
+                        "quantity": 2,
+                        "state": 1,
+                        "stateDetail": "有效",
+                        "salePrice": 1,
+                        "selected": true,
+                        "type": "1",
+                        "unit": "件"
+                    }
+                ],
+                "selectCount": 0,
+                "selectAll": true
+            },
+            {
+                "groupName": "普通商品",
+                "groupType": "0",
+                "commerceItems": [
+                    {
+                        "id": null,
+                        "productId": "1000016921168509256",
+                        "productName": "农夫山泉饮用天然水550ml",
+                        "productCode": "100171",
+                        "productImg": "http://test-img.cocowa.com.cn/product/4RQ3QBMUHV82991A8.jpg",
+                        "quantity": 2,
+                        "state": 1,
+                        "stateDetail": null,
+                        "salePrice": 2,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016920153500292",
+                        "productName": "天地精华矿泉水350ml",
+                        "productCode": "100275",
+                        "productImg": "http://test-img.cocowa.com.cn/product/1E5A3HFHF49SC993Y.jpg",
+                        "quantity": 4,
+                        "state": 1,
+                        "stateDetail": null,
+                        "salePrice": 2,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016920153500308",
+                        "productName": "天地精华矿泉水550ml",
+                        "productCode": "100274",
+                        "productImg": "http://test-img.cocowa.com.cn/product/49FEFHSCLC96RRU9X.jpg",
+                        "quantity": 1,
+                        "state": 1,
+                        "stateDetail": null,
+                        "salePrice": 2.5,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016950549800019",
+                        "productName": "宜简无汽苏打水360ml",
+                        "productCode": "100169",
+                        "productImg": "http://test-img.cocowa.com.cn/product/39H3Q6P8N39ADSL94.jpg",
+                        "quantity": 1,
+                        "state": 1,
+                        "stateDetail": null,
+                        "salePrice": 3,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016901285991271",
+                        "productName": "怡宝纯净水1.555L",
+                        "productCode": "100170",
+                        "productImg": "http://test-img.cocowa.com.cn/product/4DJV43NES49RXSAQV.jpg",
+                        "quantity": 3,
+                        "state": 1,
+                        "stateDetail": null,
+                        "salePrice": 3.5,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "瓶"
+                    },
+                    {
+                        "id": null,
+                        "productId": "1000016954767430386",
+                        "productName": "雪碧3CAN罐装饮料300ml",
+                        "productCode": "100119",
+                        "productImg": "http://test-img.cocowa.com.cn/product/53FK0V9S419Q4QK87.jpg",
+                        "quantity": 2,
+                        "state": 1,
+                        "stateDetail": "有效",
+                        "salePrice": 2,
+                        "selected": false,
+                        "type": "0",
+                        "unit": "罐"
+                    }
+                ],
+                "selectCount": 2,
+                "selectAll": false
+            }
+        ],
+        "invalidItems": [],
+        "amount": 2,
+        "selectCount": 2,
+        "cartCount": 15,
+        "itemCount": 7
+    },
+    "success": true
+}

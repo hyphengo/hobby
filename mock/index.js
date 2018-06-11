@@ -33,6 +33,16 @@ router.get('/product/searchCategories', (req, res) => {
     res.json(require('./data/searchCategories.json'))
   }, 500)
 })
+router.get('/cart/loadCart', (req, res) => {
+  setTimeout(() => {
+    res.json(require('./data/loadCart.json'))
+  }, 500)
+})
+router.post('/cart/removeInvalidItem', (req, res) => {
+  setTimeout(() => {
+    res.json(require('./data/removeInvalidItem.json'))
+  }, 500)
+})
 
 
 module.exports = router
