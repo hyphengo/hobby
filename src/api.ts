@@ -99,6 +99,9 @@ export const getAvailableCoupons = () => http.get('/checkout/getAvailableCoupons
 // 应用优惠卷到订单上
 export const applyCoupon = (params) => http.post('/checkout/applyCoupon', params)
 
+// 设置配送地址
+export const applyShippingAddress = (params) => http.post('/checkout/applyShippingAddress', params)
+
 /**
  * 获取商品详情
  * @param id 商品id productId

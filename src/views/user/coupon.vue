@@ -1,22 +1,24 @@
 <template>
   <div class="coupon">
-    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id" @click="couponSelect(item)">
-      <div class="coupon-left">
-        <div>
-          <p><span>￥</span>{{item.discount}}</p>
-          <span>{{item.promotionName}}</span>
+    <radio-group v-model="couponId">
+      <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
+        <div class="coupon-left">
+          <div>
+            <p><span>￥</span>{{item.discount}}</p>
+            <span>{{item.promotionName}}</span>
+          </div>
+        </div>
+        <div class="coupon-right">
+          <div class="coupon-info">
+            <p>{{item.promotionDiscription}}</p>
+            <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
+          </div>
+          <div class="coupon-select" v-show="$route.params.name === 'select'">
+            <van-radio :name="item.id" />
+          </div>
         </div>
       </div>
-      <div class="coupon-right">
-        <div class="coupon-info">
-          <p>{{item.promotionDiscription}}</p>
-          <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
-        </div>
-        <div class="coupon-select" v-if="$route.params.name === 'select'">
-          <van-checkbox v-model="couponIds[item.id]" @click="couponSelect(item.id)"/>
-        </div>
-      </div>
-    </div>
+    </radio-group>
     <p v-show="!nullData" class="more">别看了，真的没有了~</p>
     <div v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
     <van-button v-show="$route.params.name === 'select' && !nullData" class="fix" size="large" type="primary" @click="deterClick" >确定</van-button>
@@ -25,35 +27,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Popup, Cell, CouponList } from 'vant'
+import { Popup, RadioGroup, Radio, CouponList } from 'vant'
 import { getCoupons, getAvailableCoupons, applyCoupon } from '@/api'
 import moment from 'moment'
 
 @Component({
   components: {
     'VanPopup': Popup,
-    'VanCell': Cell,
+    RadioGroup,
+    'VanRadio': Radio,
     CouponList
   }
 })
 export default class Coupon extends Vue {
   couponList: any = null
-  couponIds: any = {}
   couponId: any = null
   nullData: boolean = false
-  couponSelect(id) {
-    this.couponId = null
-    if (this.couponIds[id]) {
-      this.couponId = id
-    }
-    for (let key in this.couponIds) {
-      if (key !== id) {
-        this.couponIds[key] = false
-      }
-    }
-  }
   deterClick() {
     applyCoupon({id: this.couponId}).then(res => {
+      this.$router.back()
     })
   }
   mounted() {
@@ -147,10 +139,6 @@ export default class Coupon extends Vue {
       bottom: 0;
       z-index: 9999;
       padding-left: 25px;
-    }
-    .van-checkbox--checked, .van-button--primary{
-      background-color: $--color-base;
-      border-color: $--color-base;
     }
   }
 </style>
