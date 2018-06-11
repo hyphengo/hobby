@@ -11,7 +11,7 @@
             <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
               {{data.groupName}}
             </van-checkbox>
-            <div class="font-24">满88免配送费，还差**元</div>
+            <div class="font-24">满88免配送费，还差**123元</div>
           </div>
           <div class="cart-goods">
             <van-checkbox
