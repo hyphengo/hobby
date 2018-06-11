@@ -44,7 +44,7 @@ const asyncRoutes = [
       },
       {
         path: 'coupon/:name', /* 传入list为列表，传入select为选择 */
-        name: '优惠卷',
+        name: '优惠券',
         component: () => import('@/views/user/coupon.vue'),
       },
     ]

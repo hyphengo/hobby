@@ -1,6 +1,6 @@
 <template>
   <div class="coupon">
-    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
+    <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id" @click="couponSelect(item)">
       <div class="coupon-left">
         <div>
           <p><span>￥</span>{{item.discount}}</p>
@@ -8,34 +8,70 @@
         </div>
       </div>
       <div class="coupon-right">
-        <div>
+        <div class="coupon-info">
           <p>{{item.promotionDiscription}}</p>
           <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
         </div>
+        <div class="coupon-select" v-if="$route.params.name === 'select'">
+          <van-checkbox v-model="couponIds[item.id]" @click="couponSelect(item.id)"/>
+        </div>
       </div>
     </div>
+    <p v-show="!nullData" class="more">别看了，真的没有了~</p>
+    <div v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
+    <van-button v-show="$route.params.name === 'select' && !nullData" class="fix" size="large" type="primary" @click="deterClick" >确定</van-button>
   </div>
-
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Popup, CouponList } from 'vant'
-import { getCoupons } from '@/api'
+import { Popup, Cell, CouponList } from 'vant'
+import { getCoupons, getAvailableCoupons, applyCoupon } from '@/api'
 import moment from 'moment'
 
 @Component({
   components: {
     'VanPopup': Popup,
+    'VanCell': Cell,
     CouponList
   }
 })
 export default class Coupon extends Vue {
   couponList: any = null
-  mounted() {
-    getCoupons().then(res => {
-      this.couponList = res.data
+  couponIds: any = {}
+  couponId: any = null
+  nullData: boolean = false
+  couponSelect(id) {
+    this.couponId = null
+    if (this.couponIds[id]) {
+      this.couponId = id
+    }
+    for (let key in this.couponIds) {
+      if (key !== id) {
+        this.couponIds[key] = false
+      }
+    }
+  }
+  deterClick() {
+    applyCoupon({id: this.couponId}).then(res => {
     })
+  }
+  mounted() {
+    if (this.$route.params.name === 'list') {
+      getCoupons().then(res => {
+        this.couponList = res.data
+        if (!this.couponList.length) {
+          this.nullData = true
+        }
+      })
+    } else if (this.$route.params.name === 'select') {
+      getAvailableCoupons().then(res => {
+        this.couponList = res.data
+        if (!this.couponList.length) {
+          this.nullData = true
+        }
+      })
+    }
   }
   dateFilter(el) {
     return moment(el).format('YYYY.MM.DD')
@@ -82,7 +118,8 @@ export default class Coupon extends Vue {
         flex-grow: 1;
         display: flex;
         align-items:center;
-        div{
+        .coupon-info{
+          flex-grow: 1;
           padding-left: 35px;
           p{
             font-size: 28px;
@@ -94,7 +131,26 @@ export default class Coupon extends Vue {
             color: #C6C6C6;
           }
         }
+        .coupon-select{
+          width: 60px;
+        }
       }
+    }
+    .more{
+      text-align: center;
+      padding-top: 22px;
+      font-size: 22px;
+    }
+    .fix{
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 9999;
+      padding-left: 25px;
+    }
+    .van-checkbox--checked, .van-button--primary{
+      background-color: $--color-base;
+      border-color: $--color-base;
     }
   }
 </style>

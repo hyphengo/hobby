@@ -8,7 +8,7 @@
       </div>
     </div>
     <cell-group>
-      <cell class="bind-phone" is-link to="/my/bind">
+      <cell v-if="!userInfo.mobileFlag" class="bind-phone" is-link to="/my/bind">
         <template slot="title">
           <span class="bind-text">我蛙：我们还能好好做朋友嘛~ 你手机号都不告诉我</span>
         </template>
@@ -27,12 +27,12 @@
           <span v-if="userInfo.orderState[10]" class="order-mark"></span>
         </div>
         <div>
-          <img src="../../assets/images/user/icon-order.png" alt="">
+          <img src="../../assets/images/user/icon-deliver.png" alt="">
           <p>待接单</p>
           <span v-if="userInfo.orderState[30]" class="order-mark"></span>
         </div>
         <div>
-          <img src="../../assets/images/user/icon-deliver.png" alt="">
+          <img src="../../assets/images/user/icon-order.png" alt="">
           <p>已完成</p>
         </div>
       </div>
@@ -44,7 +44,7 @@
       </cell>
       <cell is-link to="/my/coupon/list">
         <template slot="title">
-          <span class="cell-text">优惠卷</span>
+          <span class="cell-text">优惠券</span>
         </template>
       </cell>
     </cell-group>

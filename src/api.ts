@@ -93,6 +93,12 @@ export const updateAddress = (params) => http.post('/user/updateAddress', params
 // 加载个人中心主页
 export const loadUserCenter = () => http.get('/user/loadUserCenter')
 
+// 获取用户可使用优惠卷
+export const getAvailableCoupons = () => http.get('/checkout/getAvailableCoupons')
+
+// 应用优惠卷到订单上
+export const applyCoupon = (params) => http.post('/checkout/applyCoupon', params)
+
 /**
  * 获取商品详情
  * @param id 商品id productId
