@@ -137,3 +137,6 @@ export const selectToCheckout = (params) => http.post('/cart/selectToCheckout', 
 
 // 加载确认订单信息（商品，送货地址）
 export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
+
+// 选中的配送方式应用到订单上
+export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
