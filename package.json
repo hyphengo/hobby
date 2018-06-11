@@ -17,6 +17,11 @@
     "prelint": "node ./tool/hooks/pre-commit.js",
     "pkg-server": "node ./tool/server.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
     "@fortawesome/fontawesome-free-brands": "^5.0.10",
