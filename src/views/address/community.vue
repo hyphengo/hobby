@@ -1,9 +1,9 @@
 <template>
   <div class="community">
-    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/address/community"/>
+    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/address/city"/>
     <div class="blank"></div>
     <van-cell v-for="item in communityList" :key="item.id" :value="item.name" @click="selectCommunity(item)"/>
-    <p class="more">更多城市开发中~</p>
+    <p class="more">更多小区开发中~</p>
   </div>
 </template>
 

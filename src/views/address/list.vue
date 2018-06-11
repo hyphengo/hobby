@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell } from 'vant'
-import { getAddress } from '@/api'
+import { getAddress, applyShippingAddress } from '@/api'
 import { Action } from 'vuex-class'
 
 @Component({
@@ -38,7 +38,9 @@ export default class Address extends Vue {
   selectAddress(item) {
     if (this.$route.params.name === 'select') {
       this.setSelectAddress(item).then(() => {
-        this.$router.push('')
+        applyShippingAddress({addressId: item.id}).then(() => {
+          this.$router.back()
+        })
       })
     }
   }
