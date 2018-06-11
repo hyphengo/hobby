@@ -8,12 +8,10 @@
           v-if="data.commerceItems.length > 0"
         >
           <div class="cart-list-title">
-            <van-checkbox  v-if="data.groupName !== '无效商品'" :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
+            <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
               {{data.groupName}}
             </van-checkbox>
-            <div v-else>{{data.groupName}}</div>
             <!-- <div class="font-24">满88免配送费，还差**123元</div> -->
-            <div class="font-24" v-if="data.groupName === '无效商品'" @click="handleClear">清空</div>
           </div>
           <div class="cart-goods">
             <van-checkbox
@@ -24,7 +22,6 @@
               :name="item.productCode"
               :label-disabled="true"
               @input="changeItem(item, data.groupType)"
-              :disabled="item.state !== 1"
             >
               <goods-card
                 class="cart-goods-card"
@@ -39,9 +36,7 @@
                   :value="item.quantity"
                   @overlimit="deleteItem(item, data.groupType)"
                   @change="(val) => handleQuantity(val, item, data.groupType)"
-                  :disabled="item.state !== 1"
                 />
-                <div v-if="item.state !== 1" class="cart-goods-failure">{{item.stateDetail}}</div>
               </div>
             </van-checkbox>
           </div>
