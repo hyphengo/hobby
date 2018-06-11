@@ -13,7 +13,7 @@
             </van-checkbox>
             <div v-else>{{data.groupName}}</div>
             <!-- <div class="font-24">满88免配送费，还差**123元</div> -->
-            <div class="font-24" @click="handleClear">清空</div>
+            <div class="font-24" v-if="data.groupName === '无效商品'" @click="handleClear">清空</div>
           </div>
           <div class="cart-goods">
             <van-checkbox
@@ -42,6 +42,43 @@
                   :disabled="item.state !== 1"
                 />
                 <div v-if="item.state !== 1" class="cart-goods-failure">{{item.stateDetail}}</div>
+              </div>
+            </van-checkbox>
+          </div>
+        </div>
+        <div
+          v-for="(data, index) in goods.invalidItems"
+          :key="index"
+          v-if="goods.invalidItems.length > 0"
+        >
+          <div class="cart-list-title">
+            <div>{{data.groupName}}</div>
+            <div class="font-24" @click="handleClear">清空</div>
+          </div>
+          <div class="cart-goods">
+            <van-checkbox
+              class="cart-goods-item"
+              v-for="item in data.commerceItems"
+              :value="item.selected"
+              :key="item.productCode"
+              :name="item.productCode"
+              :label-disabled="true"
+              disabled
+            >
+              <goods-card
+                class="cart-goods-card"
+                :title="item.productName"
+                :price="item.salePrice"
+                :thumb="item.productImg"
+                :unit="item.unit"
+                :id="item.productId"
+              />
+              <div class="cart-goods-step">
+                <van-stepper
+                  :value="item.quantity"
+                  disabled
+                />
+                <div class="cart-goods-failure">{{item.stateDetail}}</div>
               </div>
             </van-checkbox>
           </div>

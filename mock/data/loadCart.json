@@ -5,6 +5,43 @@
     "data":{
         "items":[
             {
+                "groupName":"普通商品",
+                "groupType":"1",
+                "commerceItems":[
+                    {
+                        "id":null,
+                        "productId":"1000016924743919266",
+                        "productName":"乐事薯片清爽青柠味70g",
+                        "productCode":"100424",
+                        "productImg":"http://test-img.cocowa.com.cn/product/66URQCUHES84TBQ6S.jpg",
+                        "quantity":20,
+                        "state":1,
+                        "stateDetail":"有效",
+                        "salePrice":6.5,
+                        "selected":false,
+                        "type":"0",
+                        "unit":"袋"
+                    },
+                    {
+                        "id":null,
+                        "productId":"1000016924743919267",
+                        "productName":"乐事薯片清爽青柠味70g",
+                        "productCode":"100434",
+                        "productImg":"http://test-img.cocowa.com.cn/product/66URQCUHES84TBQ6S.jpg",
+                        "quantity":12,
+                        "state":1,
+                        "stateDetail":"有效",
+                        "salePrice":6.5,
+                        "selected":false,
+                        "type":"0",
+                        "unit":"袋"
+                    }
+                ],
+                "selectCount":0,
+                "selectAll":false
+            }],
+        "invalidItems":[
+            {
                 "groupName":"无效商品",
                 "groupType":"0",
                 "commerceItems":[
@@ -16,7 +53,7 @@
                         "productImg":"http://test-img.cocowa.com.cn/product/66URQCUHES84TBQ6S.jpg",
                         "quantity":20,
                         "state":2,
-                        "stateDetail":"下架",
+                        "stateDetail":"已下架",
                         "salePrice":6.5,
                         "selected":false,
                         "type":"0",
@@ -39,8 +76,8 @@
                 ],
                 "selectCount":0,
                 "selectAll":false
-            }],
-        "invalidItems":[],
+            }
+        ],
         "amount":125.0,
         "selectCount":20,
         "cartCount":20,
