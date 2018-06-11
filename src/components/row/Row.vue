@@ -14,7 +14,8 @@ export default class VeRow extends Vue {
           'row',
           `row-justify-${this.justify}`,
           `row-align-${this.align}`
-        ]
+        ],
+        on: this.$listeners
       },
       this.$slots.default
     )
