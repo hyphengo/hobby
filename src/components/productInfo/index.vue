@@ -30,7 +30,7 @@
         {{`￥${price(order.orderPriceInfo.rawSubtotal)}`}}
       </ve-col>
     </ve-row>
-    <ve-row align="center" class="productInfo-row van-hairline--bottom">
+    <ve-row @click="handleToSelectCoupon" align="center" class="productInfo-row van-hairline--bottom">
       <ve-col :span="11">
         优惠券
       </ve-col>
@@ -62,6 +62,10 @@ export default class ProductInfo extends Vue {
   @Prop() order: Object
 
   price = price
+
+  handleToSelectCoupon() {
+    this.$router.push('/my/coupon/select')
+  }
 }
 </script>
 
