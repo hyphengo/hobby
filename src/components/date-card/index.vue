@@ -2,13 +2,11 @@
   <div
     class="date-card"
   >
-    <ve-row v-if="info" @click="selectDateShow = true">
+    <ve-row v-if="info" @click="selectDateShow = true" align="center">
       <ve-col :span="23">
         配送时间：{{date}} {{info.shipHourRange}}
       </ve-col>
-      <ve-col :span="1">
-        <van-icon name="arrow" />
-      </ve-col>
+      <van-icon name="arrow" />
     </ve-row>
     <van-popup v-model="selectDateShow" position="bottom">
       <van-picker :columns="dateSelect" @change="(picker, val) => chosseDate = val" />

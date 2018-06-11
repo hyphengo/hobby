@@ -56,8 +56,8 @@
         到店自取
       </van-button>
     </div>
-    <address-card :info="order.shippingGroup" />
-    <date-card :info="order.shippingGroup" />
+    <address-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
+    <date-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
     <product-info
       class="confirm-product"
       :order="order"
