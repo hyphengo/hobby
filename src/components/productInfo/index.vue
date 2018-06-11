@@ -35,7 +35,7 @@
         优惠券
       </ve-col>
       <ve-col :span="12" textAlign="right" class="productInfo-price">
-        {{`-￥${price(order.orderPriceInfo.discountAmount)}`}}
+        {{`-￥${price(order.orderPriceInfo.couponDiscountAmount)}`}}
       </ve-col>
       <van-icon name="arrow" />
     </ve-row>

@@ -82,11 +82,11 @@ export default class Edit extends Vue {
       }
       if (params.id) {
         updateAddress(params).then(() => {
-          this.$router.push('/address/list/list')
+          this.$router.back()
         })
       } else {
         addAddress(params).then(() => {
-          this.$router.push('/address/list/list')
+          this.$router.back()
         })
       }
     }
@@ -111,10 +111,10 @@ export default class Edit extends Vue {
     .save-btn{
       width: 80%;
     }
-    .van-button--primary{
-      background-color: $--color-base;
-      border-color: $--color-base;
-    }
+  }
+  .van-button--primary, .van-checkbox--checked{
+    background-color: $--color-base;
+    border-color: $--color-base;
   }
 }
 </style>

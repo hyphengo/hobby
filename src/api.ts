@@ -99,6 +99,15 @@ export const getAvailableCoupons = () => http.get('/checkout/getAvailableCoupons
 // 应用优惠卷到订单上
 export const applyCoupon = (params) => http.post('/checkout/applyCoupon', params)
 
+// 设置配送地址
+export const applyShippingAddress = (params) => http.post('/checkout/applyShippingAddress', params)
+
+// 获取手机验证码
+export const sendVeriCode = (params) => http.post('/sendVeriCode', params)
+
+// 绑定手机号
+export const bindingMobile = (params) => http.post('/bindingMobile', params)
+
 /**
  * 获取商品详情
  * @param id 商品id productId
@@ -131,3 +140,6 @@ export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
 
 // 删除购物车中无效的商品
 export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem', params)
+
+// 选中的配送方式应用到订单上
+export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
