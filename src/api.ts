@@ -102,6 +102,12 @@ export const applyCoupon = (params) => http.post('/checkout/applyCoupon', params
 // 设置配送地址
 export const applyShippingAddress = (params) => http.post('/checkout/applyShippingAddress', params)
 
+// 获取手机验证码
+export const sendVeriCode = (params) => http.post('/sendVeriCode', params)
+
+// 绑定手机号
+export const bindingMobile = (params) => http.post('/bindingMobile', params)
+
 /**
  * 获取商品详情
  * @param id 商品id productId

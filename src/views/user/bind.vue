@@ -26,6 +26,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Field, CellGroup } from 'vant'
+import { sendVeriCode, bindingMobile } from '@/api'
 
 @Component({
   components: {
@@ -36,6 +37,7 @@ import { Field, CellGroup } from 'vant'
 export default class Bind extends Vue {
   verify: boolean = true
   define: boolean = true
+  interval: any = null
   phone: string = ''
   sms: string = ''
   verifying: string = '发送验证码'
@@ -43,17 +45,24 @@ export default class Bind extends Vue {
     this.verify = true
     let iTime = 60
     this.verifying = `${iTime}S后重新获取`
-    let interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.verifying = `${iTime - 1}S后重新获取`
       if (iTime-- <= 0) {
         this.verify = false
         this.verifying = '重新获取验证码'
-        clearInterval(interval)
+        clearInterval(this.interval)
       }
     }, 1000)
+    sendVeriCode({mobile: this.phone, type: 2})
   }
   defineClick() {
-    this.$toast('验证码不对，请换个姿势~')
+    bindingMobile({mobile: this.phone, verificationCode: this.sms}).then(res => {
+      if (!res.success) {
+        this.$toast('验证码不对，请换个姿势~')
+      } else {
+        this.$router.back()
+      }
+    })
   }
   get defineBtn() {
     const { phone, sms } = this
@@ -65,6 +74,11 @@ export default class Bind extends Vue {
   @Watch('phone')
   phoneChange(newValue) {
     this.verify = !/^[1][1-9][0-9]{9}$/.test(newValue)
+    if (!newValue) {
+      clearInterval(this.interval)
+      this.verify = true
+      this.verifying = '发送验证码'
+    }
   }
   @Watch('defineBtn')
   defineBtnChange(newValue) {

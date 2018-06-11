@@ -20,7 +20,7 @@
       </div>
     </radio-group>
     <p v-show="!nullData" class="more">别看了，真的没有了~</p>
-    <div v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
+    <div class="null-coupon" v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
     <van-button v-show="$route.params.name === 'select' && !nullData" class="fix" size="large" type="primary" @click="deterClick" >确定</van-button>
   </div>
 </template>
@@ -140,5 +140,13 @@ export default class Coupon extends Vue {
       z-index: 9999;
       padding-left: 25px;
     }
+    .van-button--primary, .van-checkbox--checked{
+      background-color: $--color-base;
+      border-color: $--color-base;
+    }
+    .null-coupon{
+      text-align: center;
+      padding-top: 50px;
+      font-size: 22px;}
   }
 </style>

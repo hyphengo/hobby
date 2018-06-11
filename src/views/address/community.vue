@@ -24,10 +24,17 @@ export default class Community extends Vue {
   @Action('address/setCommunity') setCommunity: Function
   selectCommunity(community) {
     this.setCommunity(community).then(res => {
-      this.$router.push('/address/edit')
+      if (this.$route.params.name === 'edit') {
+        this.$router.push('/address/edit')
+      } else if (this.$route.params.name === 'main') {
+        this.$router.push('/index')
+      }
     })
   }
   mounted() {
+    // 从首页跳转过来需要先获取市再获取小区
+    if (this.$route.params.name === 'main') {
+    }
     getCommunities({cityCode: this.city.code}).then(res => {
       this.communityList = res.data
     })
