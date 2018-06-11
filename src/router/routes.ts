@@ -69,7 +69,7 @@ const asyncRoutes = [
         component: () => import('@/views/address/city.vue'),
       },
       {
-        path: 'community',
+        path: 'community/:name', /* 传入main为首页选择，传入edit为编辑操作 */
         name: '选择小区',
         component: () => import('@/views/address/community.vue'),
       },

@@ -111,10 +111,10 @@ export default class Edit extends Vue {
     .save-btn{
       width: 80%;
     }
-    .van-button--primary{
-      background-color: $--color-base;
-      border-color: $--color-base;
-    }
+  }
+  .van-button--primary, .van-checkbox--checked{
+    background-color: $--color-base;
+    border-color: $--color-base;
   }
 }
 </style>
