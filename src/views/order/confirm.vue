@@ -3,8 +3,58 @@
     class="confirm"
   >
     <div class="confirm-type">
-      <van-button type="default" class="confirm-type-btn active">配送到家</van-button>
-      <van-button type="default" class="confirm-type-btn">到店自取</van-button>
+      <van-button
+        @click="handleShippingMethod('1')"
+        v-if="order.orderType === '1'"
+        type="default"
+        :class="[
+          'confirm-type-btn',
+          {
+            'active': order.shippingGroup.shippingMethod === '1'
+          }
+        ]"
+      >
+        上门取件
+      </van-button>
+      <van-button
+        @click="handleShippingMethod('2')"
+        v-if="order.orderType === '1'"
+        type="default"
+        :class="[
+          'confirm-type-btn',
+          {
+            'active': order.shippingGroup.shippingMethod === '2'
+          }
+        ]"
+      >
+        自送门店
+      </van-button>
+      <van-button
+        @click="handleShippingMethod('1')"
+        v-if="order.orderType === '0'"
+        type="default"
+        :class="[
+          'confirm-type-btn',
+          {
+            'active': order.shippingGroup.shippingMethod === '1'
+          }
+        ]"
+      >
+        配送到家
+      </van-button>
+      <van-button
+        @click="handleShippingMethod('2')"
+        v-if="order.orderType === '2' || order.orderType === '0'"
+        type="default"
+        :class="[
+          'confirm-type-btn',
+          {
+            'active': order.shippingGroup.shippingMethod === '2'
+          }
+        ]"
+      >
+        到店自取
+      </van-button>
     </div>
     <address-card :info="order.shippingGroup" />
     <date-card :info="order.shippingGroup" />
@@ -33,7 +83,7 @@ import { SubmitBar } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
-import { loadOrder } from '@/api'
+import { loadOrder, applyShippingMethod } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -49,6 +99,14 @@ export default class Confirm extends Vue {
   payLoding: boolean = false
 
   price = price
+
+  handleShippingMethod(val) {
+    applyShippingMethod({
+      shippingMethod: val
+    }).then(res => {
+      this.order = res.data
+    })
+  }
 
   handlePay() {
 
