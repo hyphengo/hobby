@@ -119,7 +119,7 @@ const asyncRoutes = [
   },
   {
     path: '*',
-    redirect: '/404'
+    redirect: '/index/home'
   }
 ]
 
