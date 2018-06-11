@@ -58,19 +58,19 @@ export default class Index extends Vue {
   tabChange(key) {
     switch (key) {
       case 0:
-        this.$router.push('/index/home')
+        this.$router.replace('/index/home')
         break
       case 1:
-        this.$router.push('/index/browse')
+        this.$router.replace('/index/browse')
         break
       case 2:
-        this.$router.push('/index/cart')
+        this.$router.replace('/index/cart')
         break
       case 3:
-        this.$router.push('/index/my')
+        this.$router.replace('/index/my')
         break
       default:
-        this.$router.push('/index/home')
+        this.$router.replace('/index/home')
         break
     }
   }
