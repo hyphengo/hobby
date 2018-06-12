@@ -97,7 +97,7 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { loadOrder, applyShippingMethod, applyShippingDate } from '@/api'
+import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -134,6 +134,7 @@ export default class Confirm extends Vue {
   }
 
   handlePay() {
+    commitOrder({})
     // console.log(this.phone)
   }
 

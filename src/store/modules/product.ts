@@ -19,7 +19,7 @@ const state = {
 
 const mutations = {
   [ActionType.GOT_PRODUCT_LIST](state: StateType, payload: ListType) {
-    state.list = pageList(state, payload, 'list')
+    state.list = pageList(state, payload, 'list', 'records')
   },
   [ActionType.CLEAR_PRODUCT_LIST](state: StateType) {
     state.list = initListData
