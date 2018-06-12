@@ -149,3 +149,6 @@ export const applyShippingMethod = (params) => http.post('/checkout/applyShippin
 
 // 送货上门时,应用选择的设置配送时间
 export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)
+
+// 获取订单详情
+export const getOrderDetail = (id) => http.get('/order/getOrderDetail', {id})
