@@ -14,7 +14,7 @@
         </template>
         <span class="all-order">写给我</span>
       </cell>
-      <cell is-link>
+      <cell is-link to="/order/list">
         <template slot="title">
           <span class="cell-text">我的订单</span>
         </template>
