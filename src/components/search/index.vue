@@ -3,10 +3,13 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 
 @Component
 export default class Search extends Vue {
+  @Action('search/clearText') clearText: any
   handleClick() {
+    this.clearText()
     this.$router.push('/product/search')
   }
 }

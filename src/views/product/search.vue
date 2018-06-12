@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-// import { Getter, Action } from 'vuex-class'
+import { Getter, Action } from 'vuex-class'
 import { Search, Cell, CellGroup } from 'vant'
 import ProductList from '@/components/productList/index.vue'
 import ls from '@/util/localStorage'
@@ -53,6 +53,9 @@ const lsSearchKey: string = 'COCOWA_SEARCH_HISTORY'
   }
 })
 export default class SearchPage extends Vue {
+  @Action('search/setText') setText: any
+  @Getter('search/text') text: any
+
   value: string = ''
   searchHistory: Array<string> = ls.get(lsSearchKey) || []
   // 控制显示搜索历史还是商品列表 true 为历史 flase 为商品列表
@@ -78,6 +81,7 @@ export default class SearchPage extends Vue {
 
     this.term = val
     this.isShowType = false
+    this.setText(val)
   }
 
   handleDelete(index) {
@@ -97,10 +101,15 @@ export default class SearchPage extends Vue {
     const advance = this.searchHistory.splice(index, 1)
     this.searchHistory.unshift(advance[0])
     ls.set(lsSearchKey, this.searchHistory)
+
+    this.setText(history)
   }
 
   mounted() {
-
+    if (this.text) {
+      this.value = this.text
+      this.isShowType = false
+    }
   }
 }
 </script>
