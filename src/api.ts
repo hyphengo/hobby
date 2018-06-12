@@ -147,6 +147,9 @@ export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem'
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
 
+// 订单商品信息
+export const getProducts = (params) => http.get('/checkout/getProducts', params)
+
 // 送货上门时,应用选择的设置配送时间
 export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)
 
@@ -155,3 +158,4 @@ export const commitOrder = (params) => http.post('/checkout/commitOrder', params
 
 // 订单中心根据订单状态查询订单列表 订单状态: 0:全部; 10:待付款; 30:待接单; 60:已完成
 export const queryOrderList = (params) => http.post('/order/queryOrderList', params)
+
