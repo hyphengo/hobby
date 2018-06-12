@@ -111,6 +111,7 @@ export default class Browse extends Vue {
       flex-basis: 150px;
       flex-shrink: 0;
       overflow-y: auto;
+      background-color: #F5F5F7;
     }
 
     &-right{
