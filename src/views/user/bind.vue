@@ -16,10 +16,10 @@
       >
         <van-button slot="button" size="small" type="primary" :disabled="verify" @click="verifyClick" >{{ verifying }}</van-button>
       </van-field>
-      <div class="save-box">
-        <van-button class="save-btn" size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
-      </div>
     </cell-group>
+    <div class="save-box">
+      <van-button class="save-btn" size="large" type="primary" :disabled="define" @click="defineClick" >确定</van-button>
+    </div>
   </div>
 </template>
 

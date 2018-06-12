@@ -140,9 +140,12 @@ export default class Coupon extends Vue {
       z-index: 9999;
       padding-left: 25px;
     }
-    .van-button--primary, .van-checkbox--checked{
+    .van-button--primary{
       background-color: $--color-base;
       border-color: $--color-base;
+    }
+    .van-radio .van-icon-checked{
+      color: $--color-base;
     }
     .null-coupon{
       text-align: center;

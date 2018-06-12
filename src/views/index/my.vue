@@ -69,6 +69,7 @@ export default class Info extends Vue {
   userInfo: any = {
     image: '',
     nickName: '',
+    mobileFlag: true,
     orderState: {
       10: false,
       30: false
