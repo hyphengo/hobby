@@ -115,6 +115,10 @@ export default class SearchPage extends Vue {
 </script>
 
 <style lang="scss">
+.search{
+  overflow: hidden;
+  padding-bottom: 90px;
+}
 .van-search__action{
   width: 150px;
   text-align: center;

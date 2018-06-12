@@ -3,7 +3,7 @@
     class="index"
   >
     <transition :name="pageTransition">
-      <router-view class="transition-router-view" />
+      <router-view class="transition-router-view index-tarbar" />
     </transition>
     <tabbar
       v-model="active"
@@ -101,6 +101,9 @@ export default class Index extends Vue {
 </script>
 
 <style lang="scss">
+.index-tarbar{
+  padding-bottom: 100px;
+}
 .transition-router-view {
   position: absolute;
   left: 0;
@@ -108,7 +111,6 @@ export default class Index extends Vue {
   width: 100%;
   height: 100%;
   transition: all .5s cubic-bezier(.55,0,.1,1);
-  padding-bottom: 100px;
 }
 
 .slide-left-enter, .slide-right-leave-active {
