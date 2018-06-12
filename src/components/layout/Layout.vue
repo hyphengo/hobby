@@ -28,6 +28,7 @@ export default class Layout extends Vue {
   width: 100%;
   height: 100%;
   transition: all .5s cubic-bezier(.55,0,.1,1);
+  overflow: scroll;
 }
 
 .slide-left-enter, .slide-right-leave-active {

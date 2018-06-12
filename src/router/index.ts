@@ -16,7 +16,14 @@ Progress.configure({ showSpinner: false })
 const router = new VueRouter({
   mode: 'history',
   routes: constantRoutes,
-  base: '/'
+  base: '/',
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 /**

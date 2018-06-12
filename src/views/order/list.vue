@@ -41,11 +41,11 @@
           <van-icon name="arrow order-list-product-arrow" />
         </div>
         <ve-row class="order-list-title">
-          <ve-col :span="20">
+          <ve-col :span="18">
             {{`${item.itemCount}种商品，共${item.saleCount}件`}}
           </ve-col>
-          <ve-col :span="4" textAlign="right">
-            合计: ￥{{item.totalPrice}}
+          <ve-col :span="6" textAlign="right">
+            合计: <span class="price">￥{{price(item.totalPrice)}}</span>
           </ve-col>
         </ve-row>
         <ve-row class="order-list-title van-hairline--top" align="center">
@@ -54,9 +54,9 @@
           </ve-col>
           <ve-col :span="20" textAlign="right">
             <van-button v-if="item.state !== 10" class="order-list-btn" type="default">联系店铺</van-button>
-            <van-button v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
-            <van-button v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
-            <van-button v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
+            <van-button @click="handleCancel(item.id)" v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
+            <van-button @click="handlePay(item.id)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
+            <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
         </ve-row>
       </div>
@@ -72,17 +72,19 @@
       >
         <van-icon name="shop" />
         没订单，应该去买点什么吧~
-        <van-button type="default">去看看</van-button>
+        <van-button type="default" @click="() => $router.push('/index/home')">去看看</van-button>
     </div>
     </van-list>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Inject } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import { Tab, Tabs, List, Tag } from 'vant'
 import HelperPullRefresh from '@/helper/HelperPullRefresh'
+import { cancelOrder, buyItemsAgain } from '@/api'
+import { price } from '@/util/util'
 
 @Component({
   components: {
@@ -97,6 +99,8 @@ export default class OrderList extends Vue {
   @Action('order/clearOrderList') clearOrderList: any
   @Getter('order/list') list: any
 
+  @Inject('reload') reload: Function
+
   active: number = 0
 
   pageConfig: any = {
@@ -104,6 +108,8 @@ export default class OrderList extends Vue {
       query: ''
     }
   }
+
+  price = price
 
   @HelperPullRefresh('getOrderList', 'list')
   pullRefreshAction(page: number = 1) {
@@ -169,6 +175,31 @@ export default class OrderList extends Vue {
     this.pullRefreshAction(0)
   }
 
+  handlePay(orderId) {
+    // TODO 微信支付
+  }
+
+  handleAgain(orderId) {
+    buyItemsAgain({
+      id: orderId
+    }).then(res => {
+      this.$router.push('/index/cart')
+    })
+  }
+
+  handleCancel(orderId) {
+    this.$dialog.confirm({
+      message: '不再考虑一下嘛，确定要取消订单？',
+      cancelButtonText: '考虑考虑'
+    }).then(() => {
+      cancelOrder({orderId}).then(res => {
+        this.reload()
+      })
+    }).catch(() => {
+      // 不写要报错，很尴尬
+    })
+  }
+
   mounted() {
     this.search(this.$route.hash)
   }
@@ -177,6 +208,8 @@ export default class OrderList extends Vue {
 
 <style lang="scss">
 .list{
+  overflow: hidden;
+
   .van-tab--active{
     color: $--color-base;
   }

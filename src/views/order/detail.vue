@@ -104,7 +104,7 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { getOrderDetail, orderCancel } from '@/api'
+import { getOrderDetail, cancelOrder } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -221,7 +221,7 @@ export default class Confirm extends Vue {
     }).then(() => {
       this.loading()
 
-      orderCancel(this.id).then(res => {
+      cancelOrder(this.id).then(res => {
         this.$toast.clear()
         this.$router.replace('/order/list#all')
       })

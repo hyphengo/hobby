@@ -7,6 +7,7 @@
 import Http from './util/http'
 import ls from '@/util/localStorage'
 import { TOKEN } from '@/constants'
+import { Toast } from 'vant'
 
 const http = new Http()
 
@@ -34,7 +35,9 @@ http.response(
   res => {
     const code = res.data.code
 
-    if (code === '403' || code === '401' || code === undefined) {
+    if (code !== 200) {
+      Toast(res.data.message)
+
       return Promise.reject(code)
     }
 
@@ -44,6 +47,7 @@ http.response(
     if (err.response) {
       const status = err.response.status
       if (status === 401) {
+
       }
     }
     return Promise.reject(err)
@@ -166,5 +170,7 @@ export const commitOrder = (params) => http.post('/checkout/commitOrder', params
 export const queryOrderList = (params) => http.post('/order/queryOrderList', params)
 
 // 取消未支付的订单
-export const orderCancel = (orderId) => http.post('/order/cancel', {orderId})
+export const cancelOrder = (params) => http.post('/order/cancel', params)
 
+// 再次购买已完成、已取消的订单中的商品
+export const buyItemsAgain = (params) => http.post('/order/buyItemsAgain', params)

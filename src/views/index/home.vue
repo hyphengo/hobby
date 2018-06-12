@@ -152,10 +152,11 @@ export default class Index extends Vue {
     margin-bottom: 54px;
   }
   &-swipe{
-    padding: 10px 20px;
+    padding: 10px 0;
 
     img{
       border-radius: 10px;
+      width: 100%;
     }
   }
 

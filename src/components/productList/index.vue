@@ -8,8 +8,8 @@
   >
     <div
       v-if="list.items.length > 0"
-      v-for="(item) in list.items"
-      :key="item.productId"
+      v-for="(item, index) in list.items"
+      :key="index"
     >
       <ve-row align="center">
         <ve-col :span="21">
