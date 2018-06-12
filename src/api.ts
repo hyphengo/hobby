@@ -7,6 +7,7 @@
 import Http from './util/http'
 import ls from '@/util/localStorage'
 import { TOKEN } from '@/constants'
+import { Toast } from 'vant'
 
 const http = new Http()
 
@@ -34,7 +35,8 @@ http.response(
   res => {
     const code = res.data.code
 
-    if (code === '403' || code === '401' || code === undefined) {
+    if (code !== 200) {
+      Toast(res.data.message)
       return Promise.reject(code)
     }
 
