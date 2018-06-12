@@ -162,3 +162,8 @@ export const commitOrder = (params) => http.post('/checkout/commitOrder', params
 // 订单中心根据订单状态查询订单列表 订单状态: 0:全部; 10:待付款; 30:待接单; 60:已完成
 export const queryOrderList = (params) => http.post('/order/queryOrderList', params)
 
+// 取消未支付的订单
+export const cancelOrder = (params) => http.post('/order/cancel', params)
+
+// 再次购买已完成、已取消的订单中的商品
+export const buyItemsAgain = (params) => http.post('/order/buyItemsAgain', params)

@@ -54,9 +54,9 @@
           </ve-col>
           <ve-col :span="20" textAlign="right">
             <van-button v-if="item.state !== 10" class="order-list-btn" type="default">联系店铺</van-button>
-            <van-button v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
+            <van-button @click="handleCancel(item.id)" v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
             <van-button v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
-            <van-button v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
+            <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
         </ve-row>
       </div>
@@ -79,10 +79,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch, Inject } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import { Tab, Tabs, List, Tag } from 'vant'
 import HelperPullRefresh from '@/helper/HelperPullRefresh'
+import { cancelOrder, buyItemsAgain } from '@/api'
 
 @Component({
   components: {
@@ -96,6 +97,8 @@ export default class OrderList extends Vue {
   @Action('order/getOrderList') getOrderList: any
   @Action('order/clearOrderList') clearOrderList: any
   @Getter('order/list') list: any
+
+  @Inject('reload') reload: Function
 
   active: number = 0
 
@@ -167,6 +170,27 @@ export default class OrderList extends Vue {
         break
     }
     this.pullRefreshAction(0)
+  }
+
+  handleAgain(orderId) {
+    buyItemsAgain({
+      id: orderId
+    }).then(res => {
+      this.$router.push('/index/cart')
+    })
+  }
+
+  handleCancel(orderId) {
+    this.$dialog.confirm({
+      message: '不再考虑一下嘛，确定要取消订单？',
+      cancelButtonText: '考虑考虑'
+    }).then(() => {
+      cancelOrder({orderId}).then(res => {
+        this.reload()
+      })
+    }).catch(() => {
+      // 不写要报错，很尴尬
+    })
   }
 
   mounted() {
