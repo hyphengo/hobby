@@ -15,7 +15,7 @@ export const initListData = {
  * @param key state.key
  * @param viewModel 数据模型
  */
-export function pageList(state, result, key, viewModel) {
+export function pageList(state, result, key, take, viewModel) {
   let res = result
   if (result === null) {
     return initListData
@@ -23,7 +23,7 @@ export function pageList(state, result, key, viewModel) {
 
   // 先转换一次后端数据
   const data = {
-    items: res.records,
+    items: res[take],
     page: res.pageNum,
     total: res.total
   }

@@ -35,7 +35,7 @@
           明天
         </van-button>
       </div>
-      <van-picker :columns="dateSelect" @change="(picker, val) => chosseDate = val" />
+      <van-picker :columns="columns" @change="(picker, val, index) => {chosseDate = val, columns[0].defaultIndex = index}" />
       <div class="date-card-btns">
         <van-button bottom-action size="small" @click="selectDateShow = false">取消</van-button>
         <van-button bottom-action size="small" @click="confirm">确认</van-button>
@@ -69,6 +69,13 @@ export default class DateCard extends Vue {
 
   dateSelect = dateSelect
 
+  columns = [
+    {
+      values: dateSelect,
+      defaultIndex: 0
+    }
+  ]
+
   get date() {
     const today = moment().format('MM月DD日')
 
@@ -88,14 +95,27 @@ export default class DateCard extends Vue {
 
     this.$emit('click', {
       dateTime,
-      chosseDate: this.chosseDate
+      chosseDate: this.chosseDate[0]
     })
 
     this.selectDateShow = false
   }
 
   mounted() {
+    const today = moment().format('MM月DD日')
 
+    const ship = moment(this.info.shipOnDate).format('MM月DD日')
+
+    if (today !== ship) {
+      this.day = false
+    }
+
+    for (let i = 0; i < this.dateSelect.length; i++) {
+      if (this.info.shipHourRange === this.dateSelect[i]) {
+        this.columns[0].defaultIndex = i
+        break
+      }
+    }
   }
 }
 </script>
