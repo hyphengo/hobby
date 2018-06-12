@@ -75,6 +75,11 @@
       class="confirm-product"
       :order="order"
     />
+    <div v-if="order.returnCouponAmount" class="confirm-returnCoupon">
+      <van-tag plain type="danger">满6元返12%</van-tag>
+      <span>订单完成预计可获得无门槛券 <span class="price">{{order.returnCouponAmount}}</span>元</span>
+
+    </div>
     <div class="confirm-bar" v-if="order.orderPriceInfo">
       <p>付款: <span class="price">￥{{price(order.orderPriceInfo.total)}}</span></p>
       <van-button
@@ -92,7 +97,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 // import { Getter, Action } from 'vuex-class'
-import { SubmitBar } from 'vant'
+import { SubmitBar, Tag } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
@@ -107,6 +112,7 @@ import { price } from '@/util/util'
     AddressCard,
     DateCard,
     InviteCard,
+    'van-tag': Tag
   }
 })
 export default class Confirm extends Vue {
@@ -200,6 +206,14 @@ export default class Confirm extends Vue {
         display: none;
       }
     }
+  }
+
+  &-returnCoupon{
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 20px;
+    background-color: $--color-white;
+    margin-top: 20px;
   }
 
   &-bar{
