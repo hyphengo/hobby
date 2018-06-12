@@ -56,8 +56,15 @@
         到店自取
       </van-button>
     </div>
-    <address-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
-    <date-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
+    <address-card
+      v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'"
+      :info="order.shippingGroup"
+    />
+    <date-card
+      v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'"
+      :info="order.shippingGroup"
+      @click="handleShippingDate"
+    />
     <invite-card
       v-model="phone"
       v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '2'"
@@ -90,7 +97,7 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { loadOrder, applyShippingMethod } from '@/api'
+import { loadOrder, applyShippingMethod, applyShippingDate } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -112,6 +119,15 @@ export default class Confirm extends Vue {
   handleShippingMethod(val) {
     applyShippingMethod({
       shippingMethod: val
+    }).then(res => {
+      this.order = res.data
+    })
+  }
+
+  handleShippingDate(val) {
+    applyShippingDate({
+      shipOnDate: val.dateTime,
+      shippingRange: val.chosseDate
     }).then(res => {
       this.order = res.data
     })

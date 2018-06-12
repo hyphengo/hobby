@@ -143,3 +143,6 @@ export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem'
 
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
+
+// 送货上门时,应用选择的设置配送时间
+export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)

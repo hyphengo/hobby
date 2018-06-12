@@ -14,7 +14,7 @@
         {{text}}时间
       </ve-col>
       <ve-col :span="18">
-        请在营业时间内{{text}}到店（07:00-23:00）
+        <span v-if="orderType === '2'">商品采购到店之后，</span>请在营业时间内{{text}}到店（07:00-23:00）
       </ve-col>
     </ve-row>
     <ve-row class="invite-card-item label" align="center">
