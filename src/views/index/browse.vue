@@ -5,7 +5,8 @@
     <div class="browse-search">
       <search />
     </div>
-    <div class="browse-list tabbar-padding">
+    <p class="browse-tip" v-if="empty">真想不到，竟然没有商品诶~</p>
+    <div v-else class="browse-list tabbar-padding">
       <div class="browse-list-left">
         <ul>
           <li
@@ -32,7 +33,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import { searchCategories } from '@/api'
+import { searchCategories, searchSecondCategories } from '@/api'
 import Search from '@/components/search/index.vue'
 import ProductList from '@/components/productList/index.vue'
 
@@ -44,9 +45,12 @@ import ProductList from '@/components/productList/index.vue'
 })
 export default class Browse extends Vue {
   @Action('browse/setActive') setActive: any
+  @Action('browse/setType') setType: any
   @Getter('browse/active') active: any
+  @Getter('browse/type') type: any
   twoClass: any = null
   ids: Array<any> = []
+  empty: boolean = false
 
   handleItem(item) {
     this.setActive(item.dimValId)
@@ -54,13 +58,32 @@ export default class Browse extends Vue {
   }
 
   mounted() {
-    searchCategories().then(res => {
-      this.twoClass = res.data
-      if (!this.active) {
-        this.setActive(res.data[0].dimValId)
-      }
-      this.ids = [`${this.active}`]
-    })
+    const id = this.$route.query.id
+
+    if (id) {
+      searchSecondCategories({
+        dimValId: id
+      }).then(res => {
+        this.twoClass = res.data
+
+        if (res.data.length > 0) {
+          this.setActive(res.data[0].dimValId)
+          this.ids = [`${this.active}`]
+        } else {
+          this.empty = true
+        }
+        this.setType(true)
+      })
+    } else {
+      searchCategories().then(res => {
+        this.twoClass = res.data
+        if (!this.active || this.type) {
+          this.setActive(res.data[0].dimValId)
+        }
+        this.ids = [`${this.active}`]
+        this.setType(false)
+      })
+    }
   }
 }
 </script>
@@ -68,6 +91,12 @@ export default class Browse extends Vue {
 <style lang="scss">
 .browse{
   background-color: $--color-white;
+
+  &-tip{
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+  }
 
   &-search{
     padding: 18px 20px;

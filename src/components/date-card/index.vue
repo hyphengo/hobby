@@ -93,6 +93,10 @@ export default class DateCard extends Vue {
 
     this.selectDateShow = false
   }
+
+  mounted() {
+
+  }
 }
 </script>
 
