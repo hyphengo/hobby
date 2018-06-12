@@ -57,7 +57,10 @@ export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
 export const getHome = () => http.get('/home/loadNewHome')
 
 // 搜索所有二级分类
-export const searchCategories = () => http.get('product/searchCategories')
+export const searchCategories = () => http.get('/product/searchCategories')
+
+// 根据一级分类搜索商品二级分类列表
+export const searchSecondCategories = (params) => http.get('/product/searchSecondCategories', params)
 
 // 根据二级分类查询商品列表
 export const searchProductList = (params) => http.post('/product/searchProductList', params)
@@ -143,3 +146,6 @@ export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem'
 
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
+
+// 送货上门时,应用选择的设置配送时间
+export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)
