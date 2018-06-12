@@ -140,3 +140,6 @@ export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
 
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
+
+// 订单商品信息
+export const getProducts = (params) => http.get('/checkout/getProducts', params)
