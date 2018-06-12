@@ -153,6 +153,9 @@ export const getProducts = (params) => http.get('/checkout/getProducts', params)
 // 送货上门时,应用选择的设置配送时间
 export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)
 
+// 到店自提时,设置取货码
+export const applyDeliveryCode = (params) => http.post('/checkout/applyDeliveryCode', params)
+
 // 提交订单
 export const commitOrder = (params) => http.post('/checkout/commitOrder', params)
 

@@ -102,6 +102,14 @@ export default class DateCard extends Vue {
   }
 
   mounted() {
+    const today = moment().format('MM月DD日')
+
+    const ship = moment(this.info.shipOnDate).format('MM月DD日')
+
+    if (today !== ship) {
+      this.day = false
+    }
+
     for (let i = 0; i < this.dateSelect.length; i++) {
       if (this.info.shipHourRange === this.dateSelect[i]) {
         this.columns[0].defaultIndex = i

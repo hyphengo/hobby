@@ -97,7 +97,7 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder } from '@/api'
+import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -133,9 +133,29 @@ export default class Confirm extends Vue {
     })
   }
 
-  handlePay() {
-    commitOrder({})
-    // console.log(this.phone)
+  async handlePay() {
+    this.payLoding = true
+
+    if (this.order.shippingGroup.shippingMethod === '2') {
+      if (this.phone.length !== 11) {
+        this.$toast('请填写正确的11位手机号码')
+        this.payLoding = false
+        return
+      }
+
+      await applyDeliveryCode({
+        deliveryCode: this.phone
+      })
+    }
+
+    commitOrder({}).then(res => {
+      if (res.code === 200) {
+        // TODO 微信支付
+        this.$router.replace(`/order/detail/${res.data.id}`)
+      }
+
+      this.payLoding = false
+    })
   }
 
   mounted() {

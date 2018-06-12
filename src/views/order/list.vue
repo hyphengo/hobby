@@ -186,6 +186,9 @@ export default class OrderList extends Vue {
   }
 }
 .order-list{
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 100px;
 
   &-item{
     margin-top: 20px;
