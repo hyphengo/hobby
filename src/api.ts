@@ -57,7 +57,10 @@ export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
 export const getHome = () => http.get('/home/loadNewHome')
 
 // 搜索所有二级分类
-export const searchCategories = () => http.get('product/searchCategories')
+export const searchCategories = () => http.get('/product/searchCategories')
+
+// 根据一级分类搜索商品二级分类列表
+export const searchSecondCategories = (params) => http.get('/product/searchSecondCategories', params)
 
 // 根据二级分类查询商品列表
 export const searchProductList = (params) => http.post('/product/searchProductList', params)
@@ -138,8 +141,21 @@ export const selectToCheckout = (params) => http.post('/cart/selectToCheckout', 
 // 加载确认订单信息（商品，送货地址）
 export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
 
+// 删除购物车中无效的商品
+export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem', params)
+
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)
 
 // 订单商品信息
 export const getProducts = (params) => http.get('/checkout/getProducts', params)
+
+// 送货上门时,应用选择的设置配送时间
+export const applyShippingDate = (params) => http.post('/checkout/applyShippingDate', params)
+
+// 提交订单
+export const commitOrder = (params) => http.post('/checkout/commitOrder', params)
+
+// 订单中心根据订单状态查询订单列表 订单状态: 0:全部; 10:待付款; 30:待接单; 60:已完成
+export const queryOrderList = (params) => http.post('/order/queryOrderList', params)
+
