@@ -138,5 +138,8 @@ export const selectToCheckout = (params) => http.post('/cart/selectToCheckout', 
 // 加载确认订单信息（商品，送货地址）
 export const loadOrder = (params) => http.post('/checkout/loadOrder', params)
 
+// 删除购物车中无效的商品
+export const removeInvalidItem = (params) => http.post('/cart/removeInvalidItem', params)
+
 // 选中的配送方式应用到订单上
 export const applyShippingMethod = (params) => http.post('/checkout/applyShippingMethod', params)

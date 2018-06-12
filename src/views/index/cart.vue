@@ -11,7 +11,7 @@
             <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
               {{data.groupName}}
             </van-checkbox>
-            <!-- <div class="font-24">满88免配送费，还差**元</div> -->
+            <!-- <div class="font-24">满88免配送费，还差**123元</div> -->
           </div>
           <div class="cart-goods">
             <van-checkbox
@@ -37,6 +37,43 @@
                   @overlimit="deleteItem(item, data.groupType)"
                   @change="(val) => handleQuantity(val, item, data.groupType)"
                 />
+              </div>
+            </van-checkbox>
+          </div>
+        </div>
+        <div
+          v-for="(data, index) in goods.invalidItems"
+          :key="index"
+          v-if="goods.invalidItems.length > 0"
+        >
+          <div class="cart-list-title">
+            <div>{{data.groupName}}</div>
+            <div class="font-24" @click="handleClear">清空</div>
+          </div>
+          <div class="cart-goods">
+            <van-checkbox
+              class="cart-goods-item"
+              v-for="item in data.commerceItems"
+              :value="item.selected"
+              :key="item.productCode"
+              :name="item.productCode"
+              :label-disabled="true"
+              disabled
+            >
+              <goods-card
+                class="cart-goods-card"
+                :title="item.productName"
+                :price="item.salePrice"
+                :thumb="item.productImg"
+                :unit="item.unit"
+                :id="item.productId"
+              />
+              <div class="cart-goods-step">
+                <van-stepper
+                  :value="item.quantity"
+                  disabled
+                />
+                <div class="cart-goods-failure">{{item.stateDetail}}</div>
               </div>
             </van-checkbox>
           </div>
@@ -87,7 +124,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Radio, RadioGroup, Cell, CellGroup } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
-import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout, selectToCheckout } from '@/api'
+import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout, selectToCheckout, removeInvalidItem } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -144,6 +181,13 @@ export default class Cart extends Vue {
       productType: groupType,
       select: item.selected ? 0 : 1
     }).then(this.gotCart)
+  }
+
+
+  // 删除购物车中无效的商品
+  handleClear() {
+    this.loading()
+    removeInvalidItem({}).then(this.gotCart)
   }
 
   // 改变单个商品 数量
@@ -301,6 +345,11 @@ export default class Cart extends Vue {
     width: 100%;
   }
 
+  &-failure {
+    text-align: center;
+    color: red;
+  }
+
   &-step {
     flex-shrink: 0;
 
@@ -320,6 +369,13 @@ export default class Cart extends Vue {
       background: #3ACBCC;
     }
 
+    .van-stepper__minus--disabled::before {
+      background: #c9c9c9;
+    }
+
+    .van-stepper__plus--disabled {
+      background: #c9c9c9;
+    }
     .van-stepper__plus::after, .van-stepper__plus::before{
       background: #fff;
     }
