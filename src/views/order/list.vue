@@ -72,7 +72,7 @@
       >
         <van-icon name="shop" />
         没订单，应该去买点什么吧~
-        <van-button type="default">去看看</van-button>
+        <van-button type="default" @click="() => $router.push('/index/home')">去看看</van-button>
     </div>
     </van-list>
   </div>
