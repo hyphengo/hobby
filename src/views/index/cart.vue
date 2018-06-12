@@ -424,6 +424,7 @@ export default class Cart extends Vue {
   }
   .van-icon {
     color: #666;
+    font-size: 40px;
   }
 
   .van-button--normal, .van-button--default {
