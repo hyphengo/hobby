@@ -6,23 +6,23 @@
       class="invite-card-item van-hairline--bottom"
     >
       <img :src="require('assets/images/address.png')" />
-      <span class="invite-card-tip">【自取地址】</span>
+      <span class="invite-card-tip">【{{text}}地址】</span>
       {{info.communityName}}{{info.detailAddress}}
     </p>
     <ve-row class="invite-card-item label van-hairline--bottom" align="center">
       <ve-col :span="6">
-        自送时间
+        {{text}}时间
       </ve-col>
       <ve-col :span="18">
-        请在营业时间内自送到店（07:00-23:00）
+        请在营业时间内{{text}}到店（07:00-23:00）
       </ve-col>
     </ve-row>
     <ve-row class="invite-card-item label" align="center">
       <ve-col :span="6">
-        自送手机号
+        {{text}}手机号
       </ve-col>
       <ve-col :span="18">
-        <input class="invite-card-phone" v-model="phone" type="number" placeholder="您自送到店的验证手机号码" />
+        <input class="invite-card-phone" v-model="phone" type="number" :placeholder="`您${text}到店的验证手机号码`" />
       </ve-col>
     </ve-row>
   </div>
@@ -35,8 +35,19 @@ import { Component, Vue, Prop, Model, Watch } from 'vue-property-decorator'
 export default class InviteCard extends Vue {
   @Model('input') value: string
   @Prop() info: any
+  @Prop() orderType: any
 
   phone: string = ''
+
+  get text() {
+    switch (this.orderType) {
+      case '0':
+      case '3':
+        return '自取'
+      case '1':
+        return '自送'
+    }
+  }
 
   @Watch('phone')
   changePhone(newValue) {

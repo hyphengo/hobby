@@ -58,7 +58,12 @@
     </div>
     <address-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
     <date-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
-    <invite-card v-model="phone" v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '2'" :info="order.shippingGroup" />
+    <invite-card
+      v-model="phone"
+      v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '2'"
+      :info="order.shippingGroup"
+      :orderType="order.orderType"
+    />
     <product-info
       class="confirm-product"
       :order="order"
