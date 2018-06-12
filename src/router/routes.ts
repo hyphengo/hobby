@@ -114,6 +114,11 @@ const asyncRoutes = [
         path: 'detail/:id',
         name: '订单详情',
         component: () => import('@/views/order/detail.vue'),
+      },
+      {
+        path: 'product',
+        name: '商品信息',
+        component: () => import('@/views/order/product.vue'),
       }
     ]
   },
