@@ -21,17 +21,17 @@
         <span class="all-order">全部订单</span>
       </cell>
       <div class="order-type">
-        <div>
+        <div @click="() => $router.push('/order/list#wait')">
           <img src="../../assets/images/user/icon-payment.png" alt="">
           <p>待付款</p>
           <span v-if="userInfo.orderState[10]" class="order-mark"></span>
         </div>
-        <div>
+        <div @click="() => $router.push('/order/list#pick')">
           <img src="../../assets/images/user/icon-deliver.png" alt="">
           <p>待接单</p>
           <span v-if="userInfo.orderState[30]" class="order-mark"></span>
         </div>
-        <div>
+        <div @click="() => $router.push('/order/list#done')">
           <img src="../../assets/images/user/icon-order.png" alt="">
           <p>已完成</p>
         </div>

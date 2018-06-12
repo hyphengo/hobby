@@ -29,7 +29,7 @@
             {{item.stateDetail}}
           </ve-col>
         </ve-row>
-        <div class="order-list-product">
+        <div class="order-list-product" @click="() => $router.push(`/order/detail/${item.id}`)">
           <div
             v-for="(product, index) in item.items"
             :key="product.productId"
