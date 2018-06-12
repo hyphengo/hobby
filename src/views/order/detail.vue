@@ -1,22 +1,110 @@
 <template>
   <div class="detail">
     <div class=detail-status>
+      <van-steps :active="active">
+        <van-step
+          v-for="(data, index) in steplist"
+          :key="index"
+        >{{data.name}}</van-step>
+      </van-steps>
+      <div class="detail-tips">
+        <span v-if="detail.state === 10">未付款，{{leftTime}}分钟后将自动取消</span>
+      </div>
     </div>
+    <address-card
+      v-if="detail.shippingMethod === '1'"
+      :info="detail"
+      :disabled="true"
+    />
+    <date-card
+      v-if="detail.shippingMethod === '1'"
+      :info="detail"
+      :disabled="true"
+    />
+    <invite-card
+      v-model="phone"
+      v-if="detail.shippingMethod === '2'"
+      :info="detail"
+      :orderType="detail.orderType"
+    />
     <product-info
       class="detail-product"
-      :order="order"
+      :order="detail"
+      :isDetail="true"
     />
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        实付金额
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(124.0)}`}}
+      </ve-col>
+    </ve-row>
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        支付方式
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(124.0)}`}}
+      </ve-col>
+    </ve-row>
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        下单时间
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(124.0)}`}}
+      </ve-col>
+    </ve-row>
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        订单号
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(124.0)}`}}
+      </ve-col>
+    </ve-row>
+    <div v-if="detail.state === 10" class="detail-btn">
+      <van-button
+        type="default"
+        class="btn"
+        @click="handleCancel"
+      >
+        取消
+      </van-button>
+      <van-button
+        type="default"
+        :class="['btn', 'active']"
+      >
+        买单
+      </van-button>
+    </div>
+    <div v-else class="detail-btn">
+      <van-button
+        type="default"
+        class="btn"
+      >
+        联系店铺
+      </van-button>
+      <van-button
+        type="default"
+        :class="['btn', 'active']"
+        v-if="item.state === 30 || item.state === 60 || item.state === 70"
+      >
+        再买
+      </van-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { SubmitBar } from 'vant'
+import { SubmitBar, Step, Steps } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-// import { getOrderDetail } from '@/api'
+import { getOrderDetail, orderCancel } from '@/api'
 import { price } from '@/util/util'
 
 @Component({
@@ -26,84 +114,155 @@ import { price } from '@/util/util'
     AddressCard,
     DateCard,
     InviteCard,
+    'VanStep': Step,
+    'VanSteps': Steps
   }
 })
 export default class Confirm extends Vue {
-  detail: any = {}
-  order: any = {}
-  address: any = {}
   price = price
+  detail: any = {}
+  id: string = ''
+  active: number = 0
+  steplist: any = []
+  leftTime: number
 
   mounted() {
-    // getOrderDetail('1000011528192396611102284').then(res => {
-    // console.log(res)
-    // this.detail = res.data
-    // })
-    this.order = {
-      orderTypeDesc: '普通商品',
-      itemCount: 9,
-      saleCount: 12,
-      commerceItems: [
-        {
-          id: null,
-          productId: '1000016954767423579',
-          productName: '可口可乐零度500ml',
-          productCode: '100172',
-          productImg: 'http://test-img.cocowa.com.cn/product/76CKT917CF94VAE4Y.jpg',
-          quantity: 3,
-          salePrice: 3,
-          type: '0',
-          unit: '瓶'
-        }
-      ],
-      orderPriceInfo: {
-        rawSubtotal: '1234.0',
-        couponDiscountAmount: '6.8',
-        shipping: '12',
-        total: '123'
+    this.id = this.$route.params.id
+
+    getOrderDetail(this.id).then(res => {
+      this.detail = res.data
+      if (this.detail.state === 10 && this.detail.leftNoPayTime) {
+        this.leftTime = this.detail.leftNoPayTime / 1000 / 60
       }
-    }
-    this.detail = {
-      id: '1000011528192396611102284',
-      consigneeName: 'Ellison Yang',
-      cellphone: '18113002233',
-      communityName: '南阳盛世',
-      detailAddress: '13栋1206号',
-      orderPriceInfo: [
-        {
-          id: null,
-          productId: '1000016954767423579',
-          productName: '可口可乐零度500ml',
-          productCode: '100172',
-          productImg: 'http://test-img.cocowa.com.cn/product/76CKT917CF94VAE4Y.jpg',
-          quantity: 3,
-          salePrice: 3,
-          type: '0',
-          unit: '瓶'
-        }
-      ],
-      rawSubtotal: 9,
-      shipping: 2,
-      discountAmount: 0,
-      total: 11,
-      paymentMethods: ['weixin'],
-      creationTime: 1528192396611,
-      shipOnDate: 1528192383618,
-      shipHourRange: '18:00 - 18:30',
-      shippingMethod: '1',
-      couponDiscountAmount: 0,
-      state: 30,
-      stateDetail: '待接单',
-      orderType: '0',
-      orderTypeDesc: '普通商品',
-      leftNoPayTime: -600246784
-    }
+      // shippingMethod：1:送货上门  2：到店自提
+      if (this.detail.orderType === '0' && this.detail.shippingMethod === '1') {
+        this.steplist = [
+          {
+            name: '下单',
+          },
+          {
+            name: '付款',
+          },
+          {
+            name: '接单',
+          },
+          {
+            name: '配送',
+          }
+        ]
+      } else if (this.detail.orderType === '0' && this.detail.shippingMethod === '2') {
+        this.steplist = [
+          {
+            name: '下单',
+          },
+          {
+            name: '付款',
+          },
+          {
+            name: '接单',
+          },
+          {
+            name: '自取',
+          }
+        ]
+      } else if (this.detail.orderType === '1') {
+        this.steplist = [
+          {
+            name: '下单',
+          },
+          {
+            name: '付款',
+          },
+          {
+            name: '接单',
+          },
+          {
+            name: '收衣',
+          },
+          {
+            name: '送洗',
+          },
+          {
+            name: '干洗',
+          },
+          {
+            name: '取衣',
+          },
+        ]
+      } else if (this.detail.orderType === '2') {
+        this.steplist = [
+          {
+            name: '下单',
+          },
+          {
+            name: '付款',
+          },
+          {
+            name: '采购',
+          },
+          {
+            name: '自取',
+          }
+        ]
+      }
+    })
+  }
+
+  loading() {
+    this.$toast.loading({
+      duration: 0,
+      forbidClick: true,
+    })
+  }
+
+  handleCancel() {
+    this.$dialog.confirm({
+      message: '不再考虑一下嘛，确定取消订单'
+    }).then(() => {
+      this.loading()
+
+      orderCancel(this.id).then(res => {
+        this.$toast.clear()
+        this.$router.replace('/order/list#all')
+      })
+    }).catch(() => {
+      // on cancel
+      this.$dialog.close()
+    })
   }
 }
 </script>
 
 <style lang="scss">
 .detail {
+  overflow: auto;
 
+  &-status {
+    height: 176px;
+    background: #fff;
+  }
+
+  &-tips {
+    text-align: center;
+  }
+
+  &-btn {
+    text-align: right;
+    padding: 20px;
+
+    .btn {
+      width: 176px;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      background: none;
+      border: 1px solid #999;
+    }
+    .active {
+      color: $--color-base;
+      border: 1px solid $--color-base;
+      margin-left: 20px;
+    }
+  }
 }
 </style>

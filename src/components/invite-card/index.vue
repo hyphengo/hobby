@@ -22,7 +22,8 @@
         {{text}}手机号
       </ve-col>
       <ve-col :span="18">
-        <input class="invite-card-phone" v-model="phone" type="number" :placeholder="`您${text}到店的验证手机号码`" />
+        <span v-if="info.cellphone">{{info.cellphone}}</span>
+        <input v-else class="invite-card-phone" v-model="phone" type="number" :placeholder="`您${text}到店的验证手机号码`" />
       </ve-col>
     </ve-row>
   </div>

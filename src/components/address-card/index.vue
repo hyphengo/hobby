@@ -31,9 +31,16 @@ import { Tabbar, TabbarItem } from 'vant'
 })
 export default class AddressCard extends Vue {
   @Prop() info: any
+  @Prop() disabled: boolean = false
+
+  get isDisabled() {
+    return this.$props.disabled
+  }
 
   handleToSelectAddress() {
-    this.$router.push('/address/list/select')
+    if (!this.isDisabled) {
+      this.$router.push('/address/list/select')
+    }
   }
 
   mounted() {

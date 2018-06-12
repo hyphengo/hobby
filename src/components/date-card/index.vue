@@ -2,7 +2,7 @@
   <div
     class="date-card"
   >
-    <ve-row v-if="info" @click="selectDateShow = true" align="center">
+    <ve-row v-if="info" @click="disabled ? selectDateShow = false : selectDateShow = true" align="center">
       <ve-col :span="23">
         配送时间：{{date}} {{info.shipHourRange}}
       </ve-col>
@@ -58,6 +58,7 @@ import dateSelect from '@/util/dateSelect'
 })
 export default class DateCard extends Vue {
   @Prop() info: any
+  @Prop() disabled: boolean = false
 
   // 是否是今天否为明天
   day: boolean = true

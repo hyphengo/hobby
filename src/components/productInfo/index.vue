@@ -1,7 +1,7 @@
 <template>
   <div
     class="productInfo"
-    v-if="order.orderTypeDesc"
+    v-if="order.orderType && !isDetail"
   >
     <ve-row class="productInfo-row">
       <ve-col :span="12">
@@ -11,7 +11,7 @@
         {{`${order.itemCount}种商品，共${order.saleCount}件`}}
       </ve-col>
     </ve-row>
-    <div class="productInfo-list" @click="() => $router.push('/order/product')">
+    <div class="productInfo-list">
       <div
         v-for="(item, index) in order.commerceItems"
         :key="index"
@@ -51,6 +51,58 @@
       合计: <span class="productInfo-combined-price">{{price(order.orderPriceInfo.total)}}</span>
     </div>
   </div>
+  <div
+    class="productInfo"
+    v-else
+  >
+    <ve-row class="productInfo-row">
+      <ve-col :span="12">
+        {{order.orderTypeDesc}}
+      </ve-col>
+      <ve-col :span="12" textAlign="right">
+        {{`${order.itemCount}种商品，共${order.saleCount}件`}}
+      </ve-col>
+    </ve-row>
+    <div class="productInfo-list">
+      <div
+        v-for="(item, index) in order.items"
+        :key="index"
+        v-if="index < 5"
+        class="productInfo-list-item"
+      >
+        <img :src="item.productImg" />
+      </div>
+      <van-icon name="arrow productInfo-list-arrow" />
+    </div>
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        商品金额
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(order.rawSubtotal)}`}}
+      </ve-col>
+    </ve-row>
+    <ve-row align="center" class="productInfo-row van-hairline--bottom">
+      <ve-col :span="11">
+        优惠券
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-price">
+        {{`-￥${price(order.couponDiscountAmount)}`}}
+      </ve-col>
+      <van-icon name="arrow" />
+    </ve-row>
+    <ve-row class="productInfo-row van-hairline--bottom">
+      <ve-col :span="12">
+        配送费
+      </ve-col>
+      <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        {{`￥${price(order.shipping)}`}}
+      </ve-col>
+    </ve-row>
+    <div class="productInfo-combined">
+      合计: <span class="productInfo-combined-price">{{price(order.total)}}</span>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -59,7 +111,8 @@ import { price } from '@/util/util'
 
 @Component
 export default class ProductInfo extends Vue {
-  @Prop() order: Object
+  @Prop() order: any
+  @Prop() isDetail: boolean = false
 
   price = price
 
