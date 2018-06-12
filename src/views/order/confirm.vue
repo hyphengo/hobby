@@ -58,6 +58,7 @@
     </div>
     <address-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
     <date-card v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '1'" :info="order.shippingGroup" />
+    <invite-card v-model="phone" v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '2'" :info="order.shippingGroup" />
     <product-info
       class="confirm-product"
       :order="order"
@@ -83,6 +84,7 @@ import { SubmitBar } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
+import InviteCard from '@/components/invite-card/index.vue'
 import { loadOrder, applyShippingMethod } from '@/api'
 import { price } from '@/util/util'
 
@@ -92,11 +94,13 @@ import { price } from '@/util/util'
     SubmitBar,
     AddressCard,
     DateCard,
+    InviteCard,
   }
 })
 export default class Confirm extends Vue {
   order: any = {}
   payLoding: boolean = false
+  phone: string = ''
 
   price = price
 
@@ -109,7 +113,7 @@ export default class Confirm extends Vue {
   }
 
   handlePay() {
-
+    // console.log(this.phone)
   }
 
   mounted() {
