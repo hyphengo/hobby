@@ -55,7 +55,7 @@
           <ve-col :span="20" textAlign="right">
             <van-button v-if="item.state !== 10" class="order-list-btn" type="default">联系店铺</van-button>
             <van-button @click="handleCancel(item.id)" v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
-            <van-button v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
+            <van-button @click="handlePay(item.id)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
             <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
         </ve-row>
@@ -170,6 +170,10 @@ export default class OrderList extends Vue {
         break
     }
     this.pullRefreshAction(0)
+  }
+
+  handlePay(orderId) {
+    // TODO 微信支付
   }
 
   handleAgain(orderId) {

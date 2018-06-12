@@ -42,7 +42,7 @@ export default class InviteCard extends Vue {
   get text() {
     switch (this.orderType) {
       case '0':
-      case '3':
+      case '2':
         return '自取'
       case '1':
         return '自送'
