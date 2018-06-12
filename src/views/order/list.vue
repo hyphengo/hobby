@@ -41,11 +41,11 @@
           <van-icon name="arrow order-list-product-arrow" />
         </div>
         <ve-row class="order-list-title">
-          <ve-col :span="20">
+          <ve-col :span="18">
             {{`${item.itemCount}种商品，共${item.saleCount}件`}}
           </ve-col>
-          <ve-col :span="4" textAlign="right">
-            合计: ￥{{item.totalPrice}}
+          <ve-col :span="6" textAlign="right">
+            合计: <span class="price">￥{{price(item.totalPrice)}}</span>
           </ve-col>
         </ve-row>
         <ve-row class="order-list-title van-hairline--top" align="center">
@@ -84,6 +84,7 @@ import { Action, Getter } from 'vuex-class'
 import { Tab, Tabs, List, Tag } from 'vant'
 import HelperPullRefresh from '@/helper/HelperPullRefresh'
 import { cancelOrder, buyItemsAgain } from '@/api'
+import { price } from '@/util/util'
 
 @Component({
   components: {
@@ -107,6 +108,8 @@ export default class OrderList extends Vue {
       query: ''
     }
   }
+
+  price = price
 
   @HelperPullRefresh('getOrderList', 'list')
   pullRefreshAction(page: number = 1) {
