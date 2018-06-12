@@ -174,8 +174,6 @@ export default class Confirm extends Vue {
 
 <style lang="scss">
 .confirm{
-  height: 100%;
-  overflow: scroll;
   padding-bottom: 110px;
 
   &-product{

@@ -208,6 +208,8 @@ export default class OrderList extends Vue {
 
 <style lang="scss">
 .list{
+  overflow: hidden;
+
   .van-tab--active{
     color: $--color-base;
   }
