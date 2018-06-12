@@ -159,6 +159,12 @@ export default class OrderList extends Vue {
         }
         this.active = 3
         break
+      default:
+        this.pageConfig.others.query = {
+          state: '0'
+        }
+        this.active = 0
+        break
     }
     this.pullRefreshAction(0)
   }
