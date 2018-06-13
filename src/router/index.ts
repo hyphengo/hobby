@@ -9,7 +9,7 @@ import { wxjsconfig, wxToken } from '@/api'
 import isWeiXin from '@/util/isWeiXin'
 import 'nprogress/nprogress.css'
 
-let v = true
+let isV = true
 
 Vue.use(VueRouter)
 
@@ -57,9 +57,9 @@ router.beforeEach((to, from, next) => {
       // 设置登录状态
       store.dispatch('auth/setUser', res.data.token)
 
-      if (v) {
+      if (isV) {
         router.addRoutes(asyncRoutes)
-        v = false
+        isV = false
       }
 
       const hackto: any = { ...to, replace: true }
@@ -67,9 +67,9 @@ router.beforeEach((to, from, next) => {
       next(hackto)
     })
   } else {
-    if (v) {
+    if (isV) {
       router.addRoutes(asyncRoutes)
-      v = false
+      isV = false
     }
 
     // 本地调试 bad code TODO
