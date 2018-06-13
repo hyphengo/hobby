@@ -52,7 +52,7 @@ http.response(
         wxRedirect({
           backUrl: window.location.href
         }).then((result) => {
-          window.location.href = result
+          window.location.href = result.data
         })
       }
     }
@@ -67,7 +67,7 @@ export const wxjsconfig = (params) => http.get('/jsconfig', params)
 export const wxRedirect = (params) => http.get('/redirectUrl', params)
 
 // wx 登录 获取token
-export const wxToken = (params) => http.get('/', params)
+export const wxToken = (params) => http.get('/wxlogin', params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')

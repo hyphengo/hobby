@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
       code: to.query.code
     }).then(res => {
       // 设置登录状态
-      store.dispatch('auth/setUser', res.data)
+      store.dispatch('auth/setUser', res.data.token)
 
       router.addRoutes(asyncRoutes)
 
