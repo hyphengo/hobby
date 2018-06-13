@@ -8,7 +8,7 @@
         >{{data.name}}</van-step>
       </van-steps>
       <div class="detail-tips">
-        <span v-if="detail.state === 10">未付款，{{leftTime}}分钟后将自动取消</span>
+        <span v-if="detail && detail.state === 10">未付款，{{leftTime}}分钟后将自动取消</span>
       </div>
     </div>
     <address-card
@@ -89,7 +89,7 @@
       <van-button
         type="default"
         :class="['btn', 'active']"
-        v-if="item.state === 30 || item.state === 60 || item.state === 70"
+        v-if="detail.state === 30 || detail.state === 60 || detail.state === 70"
       >
         再买
       </van-button>
@@ -137,72 +137,34 @@ export default class Confirm extends Vue {
       // shippingMethod：1:送货上门  2：到店自提
       if (this.detail.orderType === '0' && this.detail.shippingMethod === '1') {
         this.steplist = [
-          {
-            name: '下单',
-          },
-          {
-            name: '付款',
-          },
-          {
-            name: '接单',
-          },
-          {
-            name: '配送',
-          }
+          {name: '下单'},
+          {name: '付款'},
+          {name: '接单'},
+          {name: '配送'}
         ]
       } else if (this.detail.orderType === '0' && this.detail.shippingMethod === '2') {
         this.steplist = [
-          {
-            name: '下单',
-          },
-          {
-            name: '付款',
-          },
-          {
-            name: '接单',
-          },
-          {
-            name: '自取',
-          }
+          {name: '下单'},
+          {name: '付款'},
+          {name: '接单'},
+          {name: '自取'}
         ]
       } else if (this.detail.orderType === '1') {
         this.steplist = [
-          {
-            name: '下单',
-          },
-          {
-            name: '付款',
-          },
-          {
-            name: '接单',
-          },
-          {
-            name: '收衣',
-          },
-          {
-            name: '送洗',
-          },
-          {
-            name: '干洗',
-          },
-          {
-            name: '取衣',
-          },
+          {name: '下单'},
+          {name: '付款'},
+          {name: '接单'},
+          {name: '收衣'},
+          {name: '送洗'},
+          {name: '干洗'},
+          {name: '取衣'},
         ]
       } else if (this.detail.orderType === '2') {
         this.steplist = [
-          {
-            name: '下单',
-          },
-          {
-            name: '付款',
-          },
-          {
-            name: '采购',
-          },
-          {
-            name: '自取',
-          }
+          {name: '下单'},
+          {name: '付款'},
+          {name: '采购'},
+          {name: '自取'}
         ]
       }
     })
