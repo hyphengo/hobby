@@ -55,15 +55,15 @@
     class="productInfo"
     v-else
   >
-    <ve-row class="productInfo-row">
-      <ve-col :span="12" v-if="order.orderTypeDesc">
-        {{order.orderTypeDesc}}
+    <ve-row class="productInfo-row" v-if="order.orderType">
+      <ve-col :span="12">
+        {{orderTypeText}}
       </ve-col>
       <ve-col :span="12" textAlign="right" v-if="order.itemCount">
         {{`${order.itemCount}种商品，共${order.saleCount}件`}}
       </ve-col>
     </ve-row>
-    <div class="productInfo-list" @click="() => $router.push('/order/product')">
+    <div class="productInfo-list" @click="() => $router.push(`/order/product?id=${order.id}`)">
       <div
         v-for="(item, index) in order.items"
         :key="index"
@@ -111,12 +111,25 @@ import { price } from '@/util/util'
 @Component
 export default class ProductInfo extends Vue {
   @Prop() order: any
-  @Prop() isDetail: boolean = false
+  @Prop() isDetail: boolean
 
   price = price
 
+
   handleToSelectCoupon() {
     this.$router.push('/my/coupon/select')
+  }
+
+  get orderTypeText() {
+    let type = '普通商品'
+
+    if (this.order.orderType === '1') {
+      type = '干洗商品'
+    } else if (this.order.orderType === '2') {
+      type = '预售商品'
+    }
+
+    return type
   }
 }
 </script>

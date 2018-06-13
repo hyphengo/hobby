@@ -66,7 +66,7 @@
           实付金额
         </ve-col>
         <ve-col :span="12" textAlign="right" class="productInfo-grey">
-          {{detail.total}}
+          {{`￥${price(detail.total)}`}}
         </ve-col>
       </ve-row>
       <ve-row class="productInfo-row van-hairline--bottom">
@@ -74,7 +74,7 @@
           支付方式
         </ve-col>
         <ve-col :span="12" textAlign="right" class="productInfo-grey">
-          {{detail.paymentMethods}}
+          {{payType}}
         </ve-col>
       </ve-row>
     </div>
@@ -159,15 +159,24 @@ export default class Confirm extends Vue {
   active: number = 2
   steplist: any = []
   leftTime: number
+  payType: string = '微信支付'
 
   mounted() {
     this.id = this.$route.params.id
 
     getOrderDetail(this.id).then(res => {
       this.detail = res.data
+
+      // 未付款订单自动关闭的剩余时间
       if (this.detail.state === 10 && this.detail.leftNoPayTime) {
         this.leftTime = Math.round(this.detail.leftNoPayTime / 1000 / 60)
       }
+
+      let payTypeList = this.detail.paymentMethods[0]
+      if (payTypeList === 'alipay') {
+        this.payType = '支付宝支付'
+      }
+
       // shippingMethod：1:送货上门  2：到店自提
       if (this.detail.orderType === '0' && this.detail.shippingMethod === '1') {
         this.steplist = [
