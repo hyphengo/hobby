@@ -45,23 +45,11 @@ router.beforeEach((to, from, next) => {
     setWXTitle(to.name)
   }
 
-  if (isAuth && !isBack) {
+  if (isAuth) {
     // process done
     Progress.done()
     next()
-  } else {
-    // 本地调试 bad code TODO
-    if (process.env.CONTEXT === 'test' && !isWeiXin()) {
-      store.dispatch('auth/setUser', '806865a6-9e8b-4792-b20d-a1db3da152ad')
-
-      router.addRoutes(asyncRoutes)
-
-      const hackto: any = { ...to, replace: true }
-
-      next(hackto)
-      return
-    }
-
+  }  else if (isBack) {
     wxToken({
       state: to.query.state,
       code: to.query.code
@@ -75,6 +63,16 @@ router.beforeEach((to, from, next) => {
 
       next(hackto)
     })
+  } else {
+    router.addRoutes(asyncRoutes)
+    const hackto: any = { ...to, replace: true }
+
+    // 本地调试 bad code TODO
+    if (process.env.CONTEXT === 'test' && !isWeiXin()) {
+      store.dispatch('auth/setUser', '806865a6-9e8b-4792-b20d-a1db3da152ad')
+    }
+
+    next(hackto)
   }
 })
 
