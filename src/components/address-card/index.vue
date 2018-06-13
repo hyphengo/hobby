@@ -33,12 +33,8 @@ export default class AddressCard extends Vue {
   @Prop() info: any
   @Prop() disabled: boolean = false
 
-  get isDisabled() {
-    return this.$props.disabled
-  }
-
   handleToSelectAddress() {
-    if (!this.isDisabled) {
+    if (!this.disabled) {
       this.$router.push('/address/list/select')
     }
   }
