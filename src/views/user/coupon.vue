@@ -13,7 +13,7 @@
             <p>{{item.promotionDiscription}}</p>
             <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
           </div>
-          <div class="coupon-select">
+          <div class="coupon-select" v-show="$route.params.name === 'select'">
             <van-radio :name="item.id"/>
           </div>
         </div>
