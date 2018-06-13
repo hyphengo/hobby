@@ -55,8 +55,8 @@
     class="productInfo"
     v-else
   >
-    <ve-row class="productInfo-row" v-if="order.orderTypeDesc || order.itemCount">
-      <ve-col :span="12" v-if="order.orderType">
+    <ve-row class="productInfo-row" v-if="order.orderType">
+      <ve-col :span="12">
         {{orderTypeText}}
       </ve-col>
       <ve-col :span="12" textAlign="right" v-if="order.itemCount">
