@@ -61,13 +61,13 @@ http.response(
 )
 
 // wx jssdk
-export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
+export const wxjsconfig = (params) => http.get('/jsconfig', params)
 
 // wx 登录 获取重定向url
 export const wxRedirect = (params) => http.get('/redirectUrl', params)
 
 // wx 登录 获取token
-export const wxToken = (params) => http.get(process.env.FETCH_TOKEN, params)
+export const wxToken = (params) => http.get('/', params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')

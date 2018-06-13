@@ -14,7 +14,6 @@
     "dev": "MODE=tools CONFIG=dev.env node ./build/dev.js",
     "test": "webpack-dev-server --inline --progress --config build/webpack.test.conf.js",
     "lint": "eslint --ext .js,.vue src",
-    "prelint": "node ./tool/hooks/pre-commit.js",
     "pkg-server": "node ./tool/server.js"
   },
   "husky": {
