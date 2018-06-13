@@ -4,9 +4,9 @@ import Progress from 'nprogress'
 import constantRoutes, { asyncRoutes } from './routes'
 import store from '../store'
 import { setWXTitle } from '../util/util'
-import wxAuth from '../util/wxAuth'
 import wxsdk from '@/wxsdk'
-import { wxjsconfig } from '@/api'
+import { wxjsconfig, wxToken } from '@/api'
+import isWeiXin from '@/util/isWeiXin'
 import 'nprogress/nprogress.css'
 
 Vue.use(VueRouter)
@@ -36,6 +36,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuth = store.getters['auth/isAuth']
+  const isBack = to.query.state && to.query.code
 
   // process start
   Progress.start()
@@ -44,18 +45,32 @@ router.beforeEach((to, from, next) => {
     setWXTitle(to.name)
   }
 
-  if (isAuth) {
+  if (isAuth && !isBack) {
     // process done
     Progress.done()
     next()
   } else {
-    // wx auth 中会进行其他验证
-    wxAuth(() => {
-      // success
+    // 本地调试 bad code TODO
+    if (process.env.CONTEXT === 'test' && !isWeiXin()) {
+      store.dispatch('auth/setUser', '806865a6-9e8b-4792-b20d-a1db3da152ad')
+
       router.addRoutes(asyncRoutes)
 
-      // process done
-      // Progress.done()
+      const hackto: any = { ...to, replace: true }
+
+      next(hackto)
+      return
+    }
+
+    wxToken({
+      state: to.query.state,
+      code: to.query.code
+    }).then(res => {
+      // 设置登录状态
+      store.dispatch('auth/setUser', res.data.token)
+
+      router.addRoutes(asyncRoutes)
+
       const hackto: any = { ...to, replace: true }
 
       next(hackto)

@@ -21,6 +21,7 @@
         />
         <div class="product-info-price">
           <p class="product-info-price-title">{{`×${item.quantity}`}}</p>
+          <p>&nbsp;</p>
           <p>￥{{priceTurn(item.quantity*item.salePrice)}}</p>
         </div>
       </div>
@@ -112,7 +113,6 @@ export default class Detail extends Vue {
         &-title{
           display: block;
           color: $--color-black;
-          @include ellipsis(2)
         }
       }
     }

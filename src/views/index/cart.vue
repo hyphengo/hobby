@@ -232,6 +232,8 @@ export default class Cart extends Vue {
       }
 
       this.$router.push('/order/confirm')
+    }).catch(() => {
+      this.subLoding = false
     })
   }
 
