@@ -9,6 +9,8 @@ import { wxjsconfig, wxToken } from '@/api'
 import isWeiXin from '@/util/isWeiXin'
 import 'nprogress/nprogress.css'
 
+let v = true
+
 Vue.use(VueRouter)
 
 Progress.configure({ showSpinner: false })
@@ -55,20 +57,27 @@ router.beforeEach((to, from, next) => {
       // 设置登录状态
       store.dispatch('auth/setUser', res.data.token)
 
-      router.addRoutes(asyncRoutes)
+      if (v) {
+        router.addRoutes(asyncRoutes)
+        v = false
+      }
 
       const hackto: any = { ...to, replace: true }
 
       next(hackto)
     })
   } else {
-    router.addRoutes(asyncRoutes)
-    const hackto: any = { ...to, replace: true }
+    if (v) {
+      router.addRoutes(asyncRoutes)
+      v = false
+    }
 
     // 本地调试 bad code TODO
     if (process.env.CONTEXT === 'test' && !isWeiXin()) {
       store.dispatch('auth/setUser', '806865a6-9e8b-4792-b20d-a1db3da152ad')
     }
+
+    const hackto: any = { ...to, replace: true }
 
     next(hackto)
   }
