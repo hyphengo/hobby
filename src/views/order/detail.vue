@@ -27,7 +27,7 @@
       :info="detail"
       :orderType="detail.orderType"
     />
-    <div @click="handleProduct">
+    <div @click="() => $router.push('/order/product')">
       <product-info
         class="detail-product"
         :order="detail"
@@ -193,10 +193,6 @@ export default class Confirm extends Vue {
       // on cancel
       this.$dialog.close()
     })
-  }
-
-  handleProduct() {
-    this.$router.push('/order/product')
   }
 }
 </script>
