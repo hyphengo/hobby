@@ -8,6 +8,7 @@ import Http from './util/http'
 import ls from '@/util/localStorage'
 import { TOKEN } from '@/constants'
 import { Toast } from 'vant'
+import store from '@/store'
 
 const http = new Http()
 
@@ -47,7 +48,12 @@ http.response(
     if (err.response) {
       const status = err.response.status
       if (status === 401) {
-
+        store.dispatch('auth/clearAuth')
+        wxRedirect({
+          backUrl: window.location.href
+        }).then((result) => {
+          window.location.href = result
+        })
       }
     }
     return Promise.reject(err)
@@ -56,6 +62,12 @@ http.response(
 
 // wx jssdk
 export const wxjsconfig = (params) => http.get('/workwechat/jsconfig', params)
+
+// wx 登录 获取重定向url
+export const wxRedirect = (params) => http.get('/redirectUrl', params)
+
+// wx 登录 获取token
+export const wxToken = (params) => http.get(process.env.FETCH_TOKEN, params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')
