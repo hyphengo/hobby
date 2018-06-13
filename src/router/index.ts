@@ -95,7 +95,7 @@ const wxsdkAuth = () => {
       timestamp: data.timestamp,
       nonceStr: data.noncestr,
       signature: data.signature,
-      jsApiList: ['closeWindow'],
+      jsApiList: ['getLocation', 'chooseWXPay'],
     })
   })
 }
