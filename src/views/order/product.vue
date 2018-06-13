@@ -1,27 +1,33 @@
 <template>
   <div class="product">
-    <ve-row class="product-row van-hairline--bottom">
+    <ve-row v-if="orderInfo.itemCount" class="product-row van-hairline--bottom">
       <ve-col :span="12">
         {{orderTypes[orderInfo.orderType]}}
       </ve-col>
-      <ve-col :span="12" textAlign="right" v-if="orderInfo.itemCount">
+      <ve-col :span="12" textAlign="right">
         {{`${orderInfo.itemCount}种商品，共${orderInfo.saleCount}件`}}
       </ve-col>
-      <ve-col :span="12" textAlign="right" v-else />
     </ve-row>
-    <div class="product-info van-hairline--bottom" v-for="item in orderInfo.commerceItemVos" :key="item.id">
-      <goods-card
-        class="product-info-product"
-        :title="item.productName"
-        :price="item.salePrice"
-        :thumb="item.productImg"
-        :unit="item.unit"
-        :id="item.productId"
-      />
-      <div class="product-info-price">
-        <p class="product-info-price-title">{{`×${item.quantity}`}}</p>
-        <p>￥{{priceTurn(item.quantity*item.salePrice)}}</p>
+    <ve-row v-else />
+    <div class="product-bg van-hairline--bottom" v-for="item in orderInfo.commerceItemVos" :key="item.id">
+      <div class="product-info">
+        <goods-card
+          class="product-info-product"
+          :title="item.productName"
+          :price="item.salePrice"
+          :thumb="item.productImg"
+          :unit="item.unit"
+          :id="item.productId"
+        />
+        <div class="product-info-price">
+          <p class="product-info-price-title">{{`×${item.quantity}`}}</p>
+          <p>￥{{priceTurn(item.quantity*item.salePrice)}}</p>
+        </div>
       </div>
+      <!--<div class="product-bg-favourable">
+        <p></p>
+        <div><span>优惠</span> 满6元返12%无门槛现金券</div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -58,6 +64,27 @@ export default class Detail extends Vue {
     display: none;
   }
   .product{
+    &-bg{
+      background-color: $--color-white;
+      &-favourable{
+        display: flex;
+        flex-flow: row;
+        margin-top: -10px;
+        padding-bottom: 29px;
+        p{
+          width: 160px;
+        }
+        div{
+          flex-grow: 1;
+          span{
+            color: $--color-price;
+            padding: 2px 5px;
+            border: 1px solid $--color-price;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
     &-row{
       padding: 28px 20px;
       background-color: $--color-white;
@@ -68,11 +95,12 @@ export default class Detail extends Vue {
       background-color: $--color-white;
       &-product{
         flex-grow: 1;
+        padding-bottom: 0;
       }
       &-price{
         padding: 29px 20px 29px 0;
         text-align: right;
-        width: 100px;
+        width: 200px;
         font-size: 28px;
         display: flex;
         flex-direction: column;
