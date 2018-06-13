@@ -47,9 +47,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Model } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { Swipe, SwipeItem, Tag } from 'vant'
+import ModalRouter from '@/mixins/ModalRouter'
 import { price } from '@/util/util'
 
 @Component({
@@ -64,9 +65,16 @@ export default class Detail extends Vue {
   @Action('cart/addCart') addCart: any
   @Getter('product/detail') detail: any
 
+  @Model('change') visible: any
+
   btnLoding: boolean = false
 
   price = price
+
+  @ModalRouter.open
+  open() {
+    this.$emit('change', !this.visible)
+  }
 
   handleAddCart() {
     this.btnLoding = true

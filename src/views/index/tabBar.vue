@@ -122,7 +122,7 @@ export default class Index extends Vue {
   transform: translate(-60px, 0);
 }
 .van-tabbar-item--active{
-  color: $--color-base;
+  color: $--color-base !important;
 }
 .van-tabbar-item__icon{
   margin-bottom: 0;

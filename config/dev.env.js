@@ -4,8 +4,10 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  CONTEXT: '"dev"',
-  API_HOST: '"https://xx.xxx.cn"',
-  FETCH_SESSION: '"https://xx.xxx.cn/wechat/oauth2"',
+  CONTEXT: '"test"',
+  // CONTEXT: '"dev"', // 暂时的
+  API_HOST: '"https://test-market.cocowa.com.cn/api/"',
+  FETCH_SESSION: '"https://test-market.cocowa.com.cn/api/session.js"',
+  OAUTH_REDIRECT_URL: '"https://test-market.cocowa.com.cn/api/wechat/oauth2"',
   PUBLIC_PATH: '"/"'
 })
