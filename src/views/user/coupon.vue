@@ -13,7 +13,7 @@
             <p>{{item.promotionDiscription}}</p>
             <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
           </div>
-          <div class="coupon-select" v-show="$route.params.name === 'select'">
+          <div class="coupon-select">
             <van-radio :name="item.id"/>
           </div>
         </div>
@@ -152,9 +152,13 @@ export default class Coupon extends Vue {
     .van-radio .van-icon-checked{
       color: $--color-base;
     }
+    .van-radio{
+      overflow: inherit;
+    }
     .null-coupon{
       text-align: center;
       padding-top: 50px;
-      font-size: 22px;}
+      font-size: 22px;
+    }
   }
 </style>
