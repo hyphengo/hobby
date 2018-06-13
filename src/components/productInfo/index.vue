@@ -56,10 +56,10 @@
     v-else
   >
     <ve-row class="productInfo-row">
-      <ve-col :span="12">
+      <ve-col :span="12" v-if="order.orderTypeDesc">
         {{order.orderTypeDesc}}
       </ve-col>
-      <ve-col :span="12" textAlign="right">
+      <ve-col :span="12" textAlign="right" v-if="order.itemCount">
         {{`${order.itemCount}种商品，共${order.saleCount}件`}}
       </ve-col>
     </ve-row>

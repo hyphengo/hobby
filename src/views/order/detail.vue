@@ -27,11 +27,13 @@
       :info="detail"
       :orderType="detail.orderType"
     />
-    <product-info
-      class="detail-product"
-      :order="detail"
-      :isDetail="true"
-    />
+    <div @click="handleProduct">
+      <product-info
+        class="detail-product"
+        :order="detail"
+        :isDetail="true"
+      />
+    </div>
     <ve-row class="productInfo-row van-hairline--bottom">
       <ve-col :span="12">
         实付金额
@@ -191,6 +193,10 @@ export default class Confirm extends Vue {
       // on cancel
       this.$dialog.close()
     })
+  }
+
+  handleProduct() {
+    this.$router.push('/order/product')
   }
 }
 </script>
