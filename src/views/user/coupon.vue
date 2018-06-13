@@ -14,7 +14,7 @@
             <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
           </div>
           <div class="coupon-select" v-show="$route.params.name === 'select'">
-            <van-radio :name="item.id" />
+            <van-radio :name="item.id"/>
           </div>
         </div>
       </div>
@@ -61,6 +61,11 @@ export default class Coupon extends Vue {
         this.couponList = res.data
         if (!this.couponList.length) {
           this.nullData = true
+        }
+        for (let i = 0; i < this.couponList.length; i++) {
+          if (this.couponList[i].used) {
+            this.couponId = this.couponList[i].id
+          }
         }
       })
     }
