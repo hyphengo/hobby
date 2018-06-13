@@ -67,7 +67,7 @@ export const wxjsconfig = (params) => http.get('/jsconfig', params)
 export const wxRedirect = (params) => http.get('/redirectUrl', params)
 
 // wx 登录 获取token
-export const wxToken = (params) => http.get('/wxlogin', params)
+export const wxToken = (params) => http.post('/wxlogin', params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')

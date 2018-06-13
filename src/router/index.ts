@@ -47,6 +47,11 @@ router.beforeEach((to, from, next) => {
     setWXTitle(to.name)
   }
 
+  if (isV) {
+    router.addRoutes(asyncRoutes)
+    isV = false
+  }
+
   if (isAuth) {
     next()
   } else if (isBack) {
@@ -57,20 +62,13 @@ router.beforeEach((to, from, next) => {
       // 设置登录状态
       store.dispatch('auth/setUser', res.data.token)
 
-      if (isV) {
-        router.addRoutes(asyncRoutes)
-        isV = false
-      }
-
       const hackto: any = { ...to, replace: true }
 
       next(hackto)
     })
   } else {
-    if (isV) {
-      router.addRoutes(asyncRoutes)
-      isV = false
-    }
+
+    store.dispatch('auth/setUser', '')
 
     // 本地调试 bad code TODO
     if (process.env.CONTEXT === 'test' && !isWeiXin()) {
