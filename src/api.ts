@@ -38,7 +38,7 @@ http.response(
     if (code !== 200) {
       Toast(res.data.message)
 
-      return Promise.reject(code)
+      return Promise.reject(res.data)
     }
 
     return Promise.resolve(res)
