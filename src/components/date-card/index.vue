@@ -6,7 +6,7 @@
       <ve-col :span="23">
         配送时间：{{date}} {{info.shipHourRange}}
       </ve-col>
-      <van-icon name="arrow" />
+      <van-icon v-if="!disabled" name="arrow" />
     </ve-row>
     <van-popup v-model="selectDateShow" position="bottom">
       <div class="date-card-top">
@@ -58,7 +58,7 @@ import dateSelect from '@/util/dateSelect'
 })
 export default class DateCard extends Vue {
   @Prop() info: any
-  @Prop() disabled: boolean = false
+  @Prop() disabled: boolean
 
   // 是否是今天否为明天
   day: boolean = true

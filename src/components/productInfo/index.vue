@@ -83,13 +83,12 @@
       </ve-col>
     </ve-row>
     <ve-row align="center" class="productInfo-row van-hairline--bottom">
-      <ve-col :span="11">
+      <ve-col :span="12">
         优惠券
       </ve-col>
       <ve-col :span="12" textAlign="right" class="productInfo-price">
         {{`-￥${price(order.couponDiscountAmount)}`}}
       </ve-col>
-      <van-icon name="arrow" />
     </ve-row>
     <ve-row class="productInfo-row van-hairline--bottom">
       <ve-col :span="12">

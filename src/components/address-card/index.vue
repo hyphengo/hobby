@@ -13,6 +13,7 @@
       <p v-if="info.detailAddress" class="addressCard-detail">{{info.communityName}} {{info.detailAddress}}</p>
     </div>
     <van-icon
+      v-if="!disabled"
       class="addressCard-icon"
       name="arrow"
     />
@@ -31,7 +32,7 @@ import { Tabbar, TabbarItem } from 'vant'
 })
 export default class AddressCard extends Vue {
   @Prop() info: any
-  @Prop() disabled: boolean = false
+  @Prop() disabled: boolean
 
   handleToSelectAddress() {
     if (!this.disabled) {

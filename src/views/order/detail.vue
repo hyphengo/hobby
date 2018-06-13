@@ -60,38 +60,42 @@
       :order="detail"
       :isDetail="true"
     />
-    <ve-row class="productInfo-row van-hairline--bottom">
-      <ve-col :span="12">
-        实付金额
-      </ve-col>
-      <ve-col :span="12" textAlign="right" class="productInfo-grey">
-        {{detail.total}}
-      </ve-col>
-    </ve-row>
-    <ve-row class="productInfo-row van-hairline--bottom">
-      <ve-col :span="12">
-        支付方式
-      </ve-col>
-      <ve-col :span="12" textAlign="right" class="productInfo-grey">
-        {{detail.paymentMethods}}
-      </ve-col>
-    </ve-row>
-    <ve-row class="productInfo-row van-hairline--bottom">
-      <ve-col :span="12">
-        下单时间
-      </ve-col>
-      <ve-col :span="12" textAlign="right" class="productInfo-grey">
-        {{createDate}}
-      </ve-col>
-    </ve-row>
-    <ve-row class="productInfo-row van-hairline--bottom">
-      <ve-col :span="12">
-        订单号
-      </ve-col>
-      <ve-col :span="12" textAlign="right" class="productInfo-grey">
-        {{detail.id}}
-      </ve-col>
-    </ve-row>
+    <div class="detail-item">
+      <ve-row class="productInfo-row van-hairline--bottom">
+        <ve-col :span="12">
+          实付金额
+        </ve-col>
+        <ve-col :span="12" textAlign="right" class="productInfo-grey">
+          {{detail.total}}
+        </ve-col>
+      </ve-row>
+      <ve-row class="productInfo-row van-hairline--bottom">
+        <ve-col :span="12">
+          支付方式
+        </ve-col>
+        <ve-col :span="12" textAlign="right" class="productInfo-grey">
+          {{detail.paymentMethods}}
+        </ve-col>
+      </ve-row>
+    </div>
+    <div class="detail-item">
+      <ve-row class="productInfo-row van-hairline--bottom">
+        <ve-col :span="12">
+          下单时间
+        </ve-col>
+        <ve-col :span="12" textAlign="right" class="productInfo-grey">
+          {{createDate}}
+        </ve-col>
+      </ve-row>
+      <ve-row class="productInfo-row van-hairline--bottom">
+        <ve-col :span="12">
+          订单号
+        </ve-col>
+        <ve-col :span="12" textAlign="right" class="productInfo-grey">
+          {{detail.id}}
+        </ve-col>
+      </ve-row>
+    </div>
     <div v-if="detail.state === 10" class="detail-btn">
       <van-button
         type="default"
@@ -207,7 +211,7 @@ export default class Confirm extends Vue {
   }
 
   get createDate() {
-    return moment(this.detail.creationTime).format()
+    return moment(this.detail.creationTime).format('YYYY-MM-DD HH:mm:ss')
   }
 
   loading() {
@@ -269,6 +273,10 @@ export default class Confirm extends Vue {
 
   &-tips {
     text-align: center;
+  }
+
+  &-item {
+    margin-top: 20px;
   }
 
   &-btn {
