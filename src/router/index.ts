@@ -46,10 +46,8 @@ router.beforeEach((to, from, next) => {
   }
 
   if (isAuth) {
-    // process done
-    Progress.done()
     next()
-  }  else if (isBack) {
+  } else if (isBack) {
     wxToken({
       state: to.query.state,
       code: to.query.code
