@@ -99,14 +99,18 @@ export default class Detail extends Vue {
       }
       &-price{
         padding: 29px 20px 29px 0;
-        text-align: right;
         width: 200px;
-        font-size: 28px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         color: $--color-price;
+        p{
+          width: 160px;
+          text-align: right;
+          font-size: 28px;
+        }
         &-title{
+          display: block;
           color: $--color-black;
           @include ellipsis(2)
         }
