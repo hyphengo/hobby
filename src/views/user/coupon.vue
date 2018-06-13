@@ -152,9 +152,13 @@ export default class Coupon extends Vue {
     .van-radio .van-icon-checked{
       color: $--color-base;
     }
+    .van-radio{
+      overflow: inherit;
+    }
     .null-coupon{
       text-align: center;
       padding-top: 50px;
-      font-size: 22px;}
+      font-size: 22px;
+    }
   }
 </style>

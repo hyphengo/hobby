@@ -161,6 +161,8 @@ export default class Confirm extends Vue {
       }
 
       this.payLoding = false
+    }).catch(() => {
+      this.payLoding = false
     })
   }
 
