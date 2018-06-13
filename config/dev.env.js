@@ -4,7 +4,7 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  CONTEXT: '"dev"', // 暂时的
+  CONTEXT: '"dev"',
   API_HOST: '"https://test-market.cocowa.com.cn/api/"',
   PUBLIC_PATH: '"/"'
 })
