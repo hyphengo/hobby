@@ -11,7 +11,7 @@
         {{`${order.itemCount}种商品，共${order.saleCount}件`}}
       </ve-col>
     </ve-row>
-    <div class="productInfo-list">
+    <div class="productInfo-list"  @click="() => $router.push('/order/product')">
       <div
         v-for="(item, index) in order.commerceItems"
         :key="index"
@@ -63,7 +63,7 @@
         {{`${order.itemCount}种商品，共${order.saleCount}件`}}
       </ve-col>
     </ve-row>
-    <div class="productInfo-list">
+    <div class="productInfo-list" @click="() => $router.push('/order/product')">
       <div
         v-for="(item, index) in order.items"
         :key="index"

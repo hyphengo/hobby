@@ -55,13 +55,11 @@
       :info="detail"
       :orderType="detail.orderType"
     />
-    <div @click="() => $router.push('/order/product')">
-      <product-info
-        class="detail-product"
-        :order="detail"
-        :isDetail="true"
-      />
-    </div>
+    <product-info
+      class="detail-product"
+      :order="detail"
+      :isDetail="true"
+    />
     <ve-row class="productInfo-row van-hairline--bottom">
       <ve-col :span="12">
         实付金额
@@ -229,7 +227,8 @@ export default class Confirm extends Vue {
 
   handleCancel() {
     this.$dialog.confirm({
-      message: '不再考虑一下嘛，确定取消订单'
+      message: '不再考虑一下嘛，确定取消订单',
+      cancelButtonText: '考虑考虑'
     }).then(() => {
       this.loading()
 
