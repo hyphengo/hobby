@@ -9,7 +9,7 @@
       </ve-col>
     </ve-row>
     <ve-row v-else />
-    <div class="product-bg van-hairline--bottom" v-for="item in orderInfo.commerceItemVos" :key="item.id">
+    <div class="product-bg van-hairline--bottom" v-for="item in orderList" :key="item.id">
       <div class="product-info">
         <goods-card
           class="product-info-product"
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { getProducts } from '@/api'
+import { getProducts, getOrderDetail } from '@/api'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
 import { price } from '@/util/util'
 
@@ -46,6 +46,7 @@ import { price } from '@/util/util'
 })
 export default class Detail extends Vue {
   orderInfo: any = {}
+  orderList: any = []
   orderTypes: any = {
     0: '普通商品',
     1: '干洗商品',
@@ -53,9 +54,17 @@ export default class Detail extends Vue {
   }
   priceTurn = price
   mounted() {
-    getProducts({}).then(res => {
-      this.orderInfo = res.data
-    })
+    if (!this.$route.query.id) {
+      getProducts({}).then(res => {
+        this.orderInfo = res.data
+        this.orderList = res.data.commerceItemVos
+      })
+    } else {
+      getOrderDetail(this.$route.query.id).then(res => {
+        this.orderInfo = res.data
+        this.orderList = res.data.items
+      })
+    }
   }
 }
 </script>
