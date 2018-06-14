@@ -88,10 +88,9 @@ const wxsdkAuth = () => {
     const { data } = res
 
     wxsdk.created({
-      jsapi_ticket: data.jsapi_ticket,
-      appId: data.appid,
+      appId: data.appId,
       timestamp: data.timestamp,
-      nonceStr: data.noncestr,
+      nonceStr: data.nonceStr,
       signature: data.signature,
       jsApiList: ['getLocation', 'chooseWXPay'],
     })

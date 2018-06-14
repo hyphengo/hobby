@@ -14,6 +14,9 @@ const asyncRoutes = [
       {
         path: 'home',
         name: '首页',
+        meta: {
+          wxsdk: true
+        },
         component: () => import('@/views/index/home.vue'),
       },
       {
@@ -103,16 +106,25 @@ const asyncRoutes = [
       {
         path: 'list',
         name: '我的订单',
+        meta: {
+          wxsdk: true
+        },
         component: () => import('@/views/order/list.vue'),
       },
       {
         path: 'confirm',
         name: '确认订单',
+        meta: {
+          wxsdk: true
+        },
         component: () => import('@/views/order/confirm.vue'),
       },
       {
         path: 'detail/:id',
         name: '订单详情',
+        meta: {
+          wxsdk: true
+        },
         component: () => import('@/views/order/detail.vue'),
       },
       {

@@ -61,13 +61,23 @@ http.response(
 )
 
 // wx jssdk
-export const wxjsconfig = (params) => http.get('/jsconfig', params)
+export const wxjsconfig = (params) => http.get('/jsSdkConfig', params)
 
 // wx 登录 获取重定向url
 export const wxRedirect = (params) => http.get('/redirectUrl', params)
 
 // wx 登录 获取token
 export const wxToken = (params) => http.post('/wxlogin', params)
+
+/**
+ * 获取订单预支付信息，用以客户端调起第三方支付页面进行支付
+ *
+ * @param params payType 支付类型（"weixin": "微信小程序支付"；"weixinapp": "微信APP支付"；"weixingzh": "微信公众号支付"；"alipay": "支付宝APP支付"）
+ * @param params body 商品描述 (最多128个字)
+ * @param params outOrderNo 订单号
+ * @param params totalFee 总金额(元)
+ */
+export const prePay = (params) => http.post('/pay/prePay', params)
 
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')

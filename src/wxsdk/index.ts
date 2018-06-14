@@ -27,5 +27,9 @@ export default {
 
   closeWindow() {
     wx.closeWindow()
+  },
+
+  pay(params) {
+    wx.chooseWXPay(params)
   }
 }

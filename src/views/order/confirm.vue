@@ -102,8 +102,9 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode } from '@/api'
+import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode, prePay } from '@/api'
 import { price } from '@/util/util'
+import wxs from '@/wxsdk'
 
 @Component({
   components: {
@@ -157,9 +158,25 @@ export default class Confirm extends Vue {
     commitOrder({}).then(res => {
       if (res.code === 200) {
         // TODO 微信支付
-        this.$router.replace(`/order/detail/${res.data.id}`)
+        prePay({
+          payType: 'weixingzh',
+          body: '可可蛙-零售商品',
+          outOrderNo: res.data.id,
+          totalFee: res.data.total
+        }).then(data => {
+          wxs.pay({
+            timestamp: data.resultObject.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+            nonceStr: data.resultObject.nnoncestr, // 支付签名随机串，不长于 32 位
+            package: data.resultObject.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+            signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+            paySign: data.resultObject.sign, // 支付签名
+            success: function (res) {
+              // 支付成功后的回调函数
+              this.$router.replace(`/order/detail/${res.data.id}`)
+            }
+          })
+        })
       }
-
       this.payLoding = false
     }).catch(() => {
       this.payLoding = false
