@@ -105,12 +105,12 @@ export default class Detail extends Vue {
       background-color: $--color-white;
       &-product{
         flex-grow: 1;
-        padding-bottom: 0;
       }
       &-price{
         padding: 29px 20px 29px 0;
         width: 200px;
         display: flex;
+        flex-shrink: 0;
         flex-direction: column;
         justify-content: space-between;
         color: $--color-price;

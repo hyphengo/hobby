@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <div :class="['address-info', {'address-info-click': $route.params.name==='select'}]" v-for="item in list" :key="item.id" @click="selectAddress(item)">
+    <div :class="['address-info', {'address-info-click': $route.params.name==='select'}]" v-for="item in list" :key="item.id" @click.stop="selectAddress(item)">
       <div class="info">
         <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
         <span>详细地址：{{item.communityName}}{{item.detailAddress}}</span>
@@ -39,19 +39,19 @@ export default class Address extends Vue {
     if (this.$route.params.name === 'select') {
       this.setSelectAddress(item).then(() => {
         applyShippingAddress({addressId: item.id}).then(() => {
-          this.$router.back()
+          this.$router.push('/order/confirm')
         })
       })
     }
   }
   onEdit(item) {
     this.setEditAddress(item).then(() => {
-      this.$router.push('/address/edit')
+      this.$router.push(`/address/edit/${this.$route.params.name}`)
     })
   }
   addEdit() {
     this.setEditAddress({}).then(() => {
-      this.$router.push('/address/edit')
+      this.$router.push(`/address/edit/${this.$route.params.name}`)
     })
   }
   mounted() {

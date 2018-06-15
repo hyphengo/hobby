@@ -62,7 +62,7 @@ const asyncRoutes = [
         component: () => import('@/views/address/list.vue'),
       },
       {
-        path: 'edit',
+        path: 'edit/:name', /* 传入list为地址列表传入，传入select为选择列表传入 */
         name: '编辑地址',
         component: () => import('@/views/address/editAddress.vue'),
       },
