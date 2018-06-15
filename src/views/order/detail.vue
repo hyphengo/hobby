@@ -65,7 +65,7 @@
         <ve-col :span="12">
           实付金额
         </ve-col>
-        <ve-col :span="12" textAlign="right" class="productInfo-grey">
+        <ve-col :span="12" textAlign="right" class="productInfo-grey price-color">
           {{`￥${price(detail.total)}`}}
         </ve-col>
       </ve-row>
@@ -286,6 +286,10 @@ export default class Confirm extends Vue {
 
   &-item {
     margin-top: 20px;
+
+    .price-color {
+      color: $--color-price;
+    }
   }
 
   &-btn {
