@@ -53,9 +53,15 @@
             <van-tag plain type="danger" v-if="item.productType === '2'">预售</van-tag>
           </ve-col>
           <ve-col :span="20" textAlign="right">
-            <van-button v-if="item.state !== 10" class="order-list-btn" type="default">联系店铺</van-button>
+            <a
+              v-if="item.state !== 10"
+              class="order-list-btn van-button van-button--default van-button--normal"
+              href="tel:‭02886210761‬"
+            >
+              联系店铺
+            </a>
             <van-button @click="handleCancel(item.id)" v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
-            <van-button @click="handlePay(item.id)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
+            <van-button @click="handlePay(item)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
             <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
         </ve-row>
@@ -83,8 +89,9 @@ import { Component, Vue, Watch, Inject } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
 import { Tab, Tabs, List, Tag } from 'vant'
 import HelperPullRefresh from '@/helper/HelperPullRefresh'
-import { cancelOrder, buyItemsAgain } from '@/api'
+import { cancelOrder, buyItemsAgain, prePay } from '@/api'
 import { price } from '@/util/util'
+import wxs from '@/wxsdk'
 
 @Component({
   components: {
@@ -175,8 +182,33 @@ export default class OrderList extends Vue {
     this.pullRefreshAction(0)
   }
 
-  handlePay(orderId) {
-    // TODO 微信支付
+  handlePay(order) {
+    // 微信支付
+    this.$toast.loading({
+      duration: 0,
+      forbidClick: true,
+    })
+    prePay({
+      payType: 'weixingzh',
+      body: '可可蛙-零售商品',
+      outOrderNo: order.id,
+      totalFee: order.totalPrice
+    }).then(data => {
+      wxs.pay({
+        timestamp: data.data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+        nonceStr: data.data.noncestr, // 支付签名随机串，不长于 32 位
+        package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+        paySign: data.data.sign, // 支付签名
+        complete: (r) => {
+          // 支付成功后的回调函数
+          this.$router.push(`/order/detail/${order.id}`)
+          this.$toast.clear()
+        }
+      })
+    }).catch(() => {
+      this.$toast.clear()
+    })
   }
 
   handleAgain(orderId) {

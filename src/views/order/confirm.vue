@@ -157,7 +157,7 @@ export default class Confirm extends Vue {
 
     commitOrder({}).then(res => {
       if (res.code === 200) {
-        // TODO 微信支付
+        // 微信支付
         prePay({
           payType: 'weixingzh',
           body: '可可蛙-零售商品',

@@ -107,17 +107,19 @@
       <van-button
         type="default"
         :class="['btn', 'active']"
+        @click="handlePay"
       >
         买单
       </van-button>
     </div>
     <div v-else class="detail-btn">
-      <van-button
-        type="default"
-        class="btn"
+      <a
+        v-if="detail.state !== 10"
+        class="btn van-button van-button--default van-button--normal"
+        href="tel:‭02886210761‬"
       >
         联系店铺
-      </van-button>
+      </a>
       <van-button
         type="default"
         :class="['btn', 'active']"
@@ -137,9 +139,10 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { getOrderDetail, cancelOrder, buyItemsAgain } from '@/api'
+import { getOrderDetail, cancelOrder, buyItemsAgain, prePay } from '@/api'
 import { price } from '@/util/util'
 import moment from 'moment'
+import wxs from '@/wxsdk'
 
 @Component({
   components: {
@@ -227,6 +230,32 @@ export default class Confirm extends Vue {
     this.$toast.loading({
       duration: 0,
       forbidClick: true,
+    })
+  }
+
+  handlePay() {
+    this.loading()
+
+    prePay({
+      payType: 'weixingzh',
+      body: '可可蛙-零售商品',
+      outOrderNo: this.detail.id,
+      totalFee: this.detail.total
+    }).then(data => {
+      wxs.pay({
+        timestamp: data.data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+        nonceStr: data.data.noncestr, // 支付签名随机串，不长于 32 位
+        package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+        signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+        paySign: data.data.sign, // 支付签名
+        complete: (r) => {
+          // 支付成功后的回调函数
+          this.$router.replace(`/order/detail/${this.detail.id}`)
+          this.$toast.clear()
+        }
+      })
+    }).catch(() => {
+      this.$toast.clear()
     })
   }
 
