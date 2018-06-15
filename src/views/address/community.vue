@@ -1,6 +1,6 @@
 <template>
   <div class="community">
-    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link to="/address/city"/>
+    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link :to="{ path:'/address/city', query: { type:  $route.query.type } }"/>
     <div class="blank"></div>
     <van-cell v-for="item in communityList" :key="item.id" :value="item.name" @click="selectCommunity(item)"/>
     <p class="more">更多小区开发中~</p>
@@ -25,7 +25,7 @@ export default class Community extends Vue {
   selectCommunity(community) {
     this.setCommunity(community).then(res => {
       if (this.$route.params.name === 'edit') {
-        this.$router.push('/address/edit')
+        this.$router.push(`/address/edit/${this.$route.query.type}`)
       } else if (this.$route.params.name === 'main') {
         this.$router.push('/index')
       }
@@ -34,10 +34,10 @@ export default class Community extends Vue {
   mounted() {
     // 从首页跳转过来需要先获取市再获取小区
     if (this.$route.params.name === 'main') {
+      getCommunities({cityCode: this.city.code}).then(res => {
+        this.communityList = res.data
+      })
     }
-    getCommunities({cityCode: this.city.code}).then(res => {
-      this.communityList = res.data
-    })
   }
 }
 </script>
