@@ -184,7 +184,7 @@ export default class Confirm extends Vue {
   }
 
   mounted() {
-    loadOrder({initFlag: 0}).then(res => {
+    loadOrder({initFlag: 1}).then(res => {
       this.order = res.data
     })
   }
