@@ -296,6 +296,10 @@ export default class Cart extends Vue {
     height: 60px !important;
   }
 
+  .van-loading--black circle{
+    stroke: #fff !important;
+  }
+
   &-dialog-title{
     font-size: 32px;
     text-align: center;

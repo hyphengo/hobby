@@ -165,19 +165,22 @@ export default class Confirm extends Vue {
           totalFee: res.data.total
         }).then(data => {
           wxs.pay({
-            timestamp: data.resultObject.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-            nonceStr: data.resultObject.nnoncestr, // 支付签名随机串，不长于 32 位
-            package: data.resultObject.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+            timestamp: data.data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+            nonceStr: data.data.noncestr, // 支付签名随机串，不长于 32 位
+            package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
             signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-            paySign: data.resultObject.sign, // 支付签名
-            success: function (res) {
+            paySign: data.data.sign, // 支付签名
+            complete: (r) => {
               // 支付成功后的回调函数
               this.$router.replace(`/order/detail/${res.data.id}`)
+              this.payLoding = false
             }
           })
+        }).catch(() => {
+          this.$router.replace(`/order/detail/${res.data.id}`)
+          this.payLoding = false
         })
       }
-      this.payLoding = false
     }).catch(() => {
       this.payLoding = false
     })
@@ -262,6 +265,15 @@ export default class Confirm extends Vue {
   &-btn{
     width: 230px;
     background-color: $--color-base;
+
+    > .van-loading {
+      width: 60px !important;
+      height: 60px !important;
+    }
+
+    .van-loading--black circle{
+      stroke: #fff !important;
+    }
   }
 }
 </style>

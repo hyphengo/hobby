@@ -79,6 +79,12 @@ export const wxToken = (params) => http.post('/wxlogin', params)
  */
 export const prePay = (params) => http.post('/pay/prePay', params)
 
+// 定位位置,获取门店信息
+export const initLocation = (params) => http.post('/home/initLocation', params)
+
+// 选择指定的社区
+export const selectCommunity = (params) => http.post('/home/selectCommunity', params)
+
 // 获取首页信息
 export const getHome = () => http.get('/home/loadNewHome')
 

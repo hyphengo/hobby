@@ -58,12 +58,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Action } from 'vuex-class'
+import { Action, Getter } from 'vuex-class'
 import { Swipe, SwipeItem, PullRefresh } from 'vant'
-import { getHome } from '@/api'
+import { getHome, initLocation, selectCommunity } from '@/api'
 import AddButton from '@/components/add-button/index.vue'
 import Search from '@/components/search/index.vue'
 import { IsURL } from '@/util/util'
+import ls from '@/util/localStorage'
+import { COCOWO_COMMUNITY_ID } from '@/constants'
+import wxs from '@/wxsdk'
 
 @Component({
   components: {
@@ -76,6 +79,8 @@ import { IsURL } from '@/util/util'
 })
 export default class Index extends Vue {
   @Action('cart/addCart') addCart: any
+  @Action('home/setLocation') setLocation: any
+  @Getter('home/location') location: any
 
   isLoading: boolean = false
   data: Object = {}
@@ -130,6 +135,40 @@ export default class Index extends Vue {
   }
 
   mounted() {
+    const communityId = ls.get(COCOWO_COMMUNITY_ID)
+
+    if (!this.location) {
+      if (communityId) {
+        selectCommunity({ communityId }).then(data => {
+          ls.set(COCOWO_COMMUNITY_ID, data.data.communityId)
+        })
+      } else {
+        wxs.getLocation({
+          type: 'wgs84',
+          success: (res) => {
+            initLocation({
+              longitude: res.longitude,
+              latitude: res.latitude
+            }).then(data => {
+              if (data.data.communityId) {
+                selectCommunity({
+                  communityId: data.data.communityId
+                }).then(() => {
+                  ls.set(COCOWO_COMMUNITY_ID, data.data.communityId)
+                })
+              } else {
+                this.$router.replace('/address/nullCommunity')
+              }
+            })
+          },
+          cancel: (res) => {
+            this.$router.replace('/address/nullCommunity')
+          }
+        })
+      }
+      this.setLocation()
+    }
+
     getHome().then(res => {
       this.data = res.data
     })
