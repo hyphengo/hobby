@@ -24,9 +24,9 @@ export default class Community extends Vue {
   @Action('address/setCommunity') setCommunity: Function
   selectCommunity(community) {
     this.setCommunity(community).then(res => {
-      if (this.$route.params.name === 'edit') {
+      if (this.$route.query.type !== 'main') {
         this.$router.push(`/address/edit/${this.$route.query.type}`)
-      } else if (this.$route.params.name === 'main') {
+      } else if (this.$route.query.type === 'main') {
         this.$router.push('/index')
       }
     })
