@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Inject } from 'vue-property-decorator'
 import { SubmitBar, Step, Steps } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
@@ -163,6 +163,8 @@ export default class Confirm extends Vue {
   steplist: any = []
   leftTime: number
   payType: string = '微信支付'
+
+  @Inject('reload') reload: any
 
   mounted() {
     this.id = this.$route.params.id
@@ -250,7 +252,7 @@ export default class Confirm extends Vue {
         paySign: data.data.sign, // 支付签名
         complete: (r) => {
           // 支付成功后的回调函数
-          this.$router.replace(`/order/detail/${this.detail.id}`)
+          this.reload()
           this.$toast.clear()
         }
       })
