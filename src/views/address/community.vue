@@ -32,12 +32,9 @@ export default class Community extends Vue {
     })
   }
   mounted() {
-    // 从首页跳转过来需要先获取市再获取小区
-    if (this.$route.params.name === 'main') {
-      getCommunities({cityCode: this.city.code}).then(res => {
-        this.communityList = res.data
-      })
-    }
+    getCommunities({cityCode: this.city.code}).then(res => {
+      this.communityList = res.data
+    })
   }
 }
 </script>
