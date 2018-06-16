@@ -27,7 +27,7 @@
           }
         ]"
       >
-        自送门店
+        自送到店
       </van-button>
       <van-button
         @click="handleShippingMethod('1')"
