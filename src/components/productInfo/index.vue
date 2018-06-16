@@ -48,7 +48,7 @@
       </ve-col>
     </ve-row>
     <div class="productInfo-combined">
-      合计: <span class="productInfo-combined-price">{{price(order.orderPriceInfo.total)}}</span>
+      合计: <span class="productInfo-combined-price">{{`￥${price(order.orderPriceInfo.total)}`}}</span>
     </div>
   </div>
   <div
@@ -99,7 +99,7 @@
       </ve-col>
     </ve-row>
     <div class="productInfo-combined">
-      合计: <span class="productInfo-combined-price">{{price(order.total)}}</span>
+      合计: <span class="productInfo-combined-price">{{`￥${price(order.total)}`}}</span>
     </div>
   </div>
 </template>

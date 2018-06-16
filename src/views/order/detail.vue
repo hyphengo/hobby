@@ -39,27 +39,31 @@
         <span v-if="detail.state === 130">商品已采购到店，随时可以去店铺拿货哦~</span>
       </div>
     </div>
-    <address-card
-      v-if="detail.shippingMethod === '1'"
-      :info="detail"
-      :disabled="true"
-    />
-    <date-card
-      v-if="detail.shippingMethod === '1'"
-      :info="detail"
-      :disabled="true"
-    />
-    <invite-card
-      v-model="phone"
-      v-if="detail.shippingMethod === '2'"
-      :info="detail"
-      :orderType="detail.orderType"
-    />
-    <product-info
-      class="detail-product"
-      :order="detail"
-      :isDetail="true"
-    />
+    <div class="detail-item">
+      <address-card
+        v-if="detail.shippingMethod === '1'"
+        :info="detail"
+        :disabled="true"
+      />
+      <date-card
+        v-if="detail.shippingMethod === '1'"
+        :info="detail"
+        :disabled="true"
+      />
+      <invite-card
+        v-model="phone"
+        v-if="detail.shippingMethod === '2'"
+        :info="detail"
+        :orderType="detail.orderType"
+      />
+    </div>
+    <div class="detail-item">
+      <product-info
+        class="detail-product"
+        :order="detail"
+        :isDetail="true"
+      />
+    </div>
     <div class="detail-item">
       <ve-row class="productInfo-row van-hairline--bottom">
         <ve-col :span="12">
@@ -309,6 +313,9 @@ export default class Confirm extends Vue {
   &-status {
     height: 176px;
     background: #fff;
+    .van-step--horizontal {
+      padding-left: 4px;
+    }
   }
 
   &-tips {
