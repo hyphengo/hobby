@@ -39,7 +39,7 @@
         <!-- 预售商品 -->
         <div class="detail-tips" v-if="detail.orderType === '2'">
           <span v-if=" detail.state === 10 && leftTime > 0">未付款，{{leftTime}}分钟后将自动取消</span>
-          <span v-if="detail.state === 30">美好事物值得等待，我蛙会按时出去采购回来的~</span>
+          <span v-if="detail.state === 30 || detail.state === 40">美好事物值得等待，我蛙会按时出去采购回来的~</span>
           <span v-if="detail.state === 130">商品已采购到店，随时可以去店铺拿货哦~</span>
         </div>
       </div>
@@ -235,7 +235,7 @@ export default class Confirm extends Vue {
           {name: '自取'}
         ]
       }
-      if (this.detail.state === 20) {
+      if (this.detail.state === 20 || (this.detail.state === 40 && this.detail.orderType === '2')) {
         this.active = 1
       } else if (this.detail.state === 100) {
         this.active = 2
