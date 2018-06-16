@@ -186,8 +186,16 @@ export default class Cart extends Vue {
 
   // 删除购物车中无效的商品
   handleClear() {
-    this.loading()
-    removeInvalidItem({}).then(this.gotCart)
+    this.$dialog.confirm({
+      message: '确定清除失效商品嘛'
+    }).then(() => {
+      this.loading()
+
+      removeInvalidItem({}).then(this.gotCart)
+    }).catch(() => {
+      // on cancel
+      this.$dialog.close()
+    })
   }
 
   // 改变单个商品 数量
@@ -204,7 +212,8 @@ export default class Cart extends Vue {
   // 删除商品
   deleteItem(item, groupType) {
     this.$dialog.confirm({
-      message: '确认删除商品'
+      message: '确认删除选中的商品吗',
+      cancelButtonText: '再想想'
     }).then(() => {
       this.loading()
 
@@ -220,7 +229,7 @@ export default class Cart extends Vue {
 
   onSubmit() {
     this.subLoding = true
-    moveToCheckout({}).then(res => {
+    moveToCheckout({initFlag: 1}).then(res => {
       this.subLoding = false
 
       if (res.data.mutiGroup === 1) {
