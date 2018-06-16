@@ -7,7 +7,7 @@
     </div>
     <p class="browse-tip" v-if="empty">真想不到，竟然没有商品诶~</p>
     <div v-else class="browse-list">
-      <div class="browse-list-left tabbar-padding">
+      <div class="browse-list-left">
         <ul>
           <li
             :class="['browse-list-item', {
