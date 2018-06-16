@@ -35,21 +35,17 @@
         <span class="detail-unit">/{{detail.minUnit}}</span>
       </p>
     </div>
-    <van-button
-      class="detail-button"
-      bottom-action
-      @click="handleAddCart"
-      :loading="btnLoding"
-    >
-      加入购物车
-    </van-button>
+    <goods-action>
+      <goods-action-mini-btn icon="cart" text="购物车" :info="cartCount" @click="() => $router.push('/index/cart')" />
+      <goods-action-big-btn class="detail-button" text="加入购物车" @click="handleAddCart" />
+    </goods-action>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Model } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import { Swipe, SwipeItem, Tag } from 'vant'
+import { Swipe, SwipeItem, Tag, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn } from 'vant'
 import ModalRouter from '@/mixins/ModalRouter'
 import { price } from '@/util/util'
 
@@ -57,13 +53,18 @@ import { price } from '@/util/util'
   components: {
     Swipe,
     SwipeItem,
-    'van-tag': Tag
+    'van-tag': Tag,
+    GoodsAction,
+    GoodsActionBigBtn,
+    GoodsActionMiniBtn
   }
 })
 export default class Detail extends Vue {
   @Action('product/getProductDetail') getProductDetail: any
   @Action('cart/addCart') addCart: any
+  @Action('cart/getCount') getCount: any
   @Getter('product/detail') detail: any
+  @Getter('cart/count') cartCount: any
 
   @Model('change') visible: any
 
@@ -84,7 +85,7 @@ export default class Detail extends Vue {
       num: 1
     }).then(res => {
       if (res.code === 200) {
-        this.$toast('添加购物车成功~')
+        this.getCount()
       }
 
       this.btnLoding = false
@@ -92,6 +93,7 @@ export default class Detail extends Vue {
   }
 
   mounted() {
+    this.getCount()
     this.getProductDetail(this.$route.params.id)
   }
 }
@@ -125,8 +127,6 @@ export default class Detail extends Vue {
 
   &-button{
     background-color: $--color-base;
-    position: fixed;
-    bottom: 0;
   }
 
   &-swipe{

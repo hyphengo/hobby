@@ -6,45 +6,47 @@
     @load="pullRefreshAction"
     :immediate-check="false"
   >
-    <div
-      v-if="list.items.length > 0"
-      v-for="(item, index) in list.items"
-      :key="index"
-    >
-      <ve-row align="center">
-        <ve-col :span="21">
-          <goods-card
-            :thumb="item.smallImage"
-            :price="item.price"
-            :title="item.name"
-            :unit="item.minUnit"
-            :id="item.productId"
-          />
-        </ve-col>
-        <ve-col :span="3" @click="handleAddCart(item)">
-          <add-button />
-        </ve-col>
-      </ve-row>
-    </div>
-    <p
-      class="product-list-tip"
-      v-if="!pageConfig.loading && !pageConfig.empty && pageConfig.finished"
-    >
-      别看了，真的没有了~
-    </p>
-    <div
-      v-if="!pageConfig.loading && pageConfig.empty"
-      class="product-list-tip"
-    >
-      真想不到，竟然没有商品诶~
-    </div>
+    <pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <div
+        v-if="list.items.length > 0"
+        v-for="(item, index) in list.items"
+        :key="index"
+      >
+        <ve-row align="center">
+          <ve-col :span="21">
+            <goods-card
+              :thumb="item.smallImage"
+              :price="item.price"
+              :title="item.name"
+              :unit="item.minUnit"
+              :id="item.productId"
+            />
+          </ve-col>
+          <ve-col :span="3" @click="handleAddCart(item)">
+            <add-button />
+          </ve-col>
+        </ve-row>
+      </div>
+      <p
+        class="product-list-tip"
+        v-if="!pageConfig.loading && !pageConfig.empty && pageConfig.finished && !isLoading"
+      >
+        别看了，真的没有了~
+      </p>
+      <div
+        v-if="!pageConfig.loading && pageConfig.empty && !isLoading"
+        class="product-list-tip"
+      >
+        真想不到，竟然没有商品诶~
+      </div>
+    </pull-refresh>
   </van-list>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import { List } from 'vant'
+import { List, PullRefresh } from 'vant'
 import HelperPullRefresh from '@/helper/HelperPullRefresh'
 import Search from '@/components/search/index.vue'
 import goodsCard from '@/components/goodsCard/GoodsCard.vue'
@@ -55,7 +57,8 @@ import AddButton from '@/components/add-button/index.vue'
     Search,
     'van-list': List,
     goodsCard,
-    AddButton
+    AddButton,
+    PullRefresh
   }
 })
 export default class ProductList extends Vue {
@@ -73,9 +76,11 @@ export default class ProductList extends Vue {
     }
   }
 
+  isLoading: boolean = false
+
   @HelperPullRefresh('searchProductList', 'list')
   pullRefreshAction(page: number = 1) {
-
+    this.isLoading = false
   }
 
   @Watch('term')
@@ -107,6 +112,10 @@ export default class ProductList extends Vue {
     })
   }
 
+  onRefresh() {
+    this.pullRefreshAction(0)
+  }
+
   mounted() {
 
   }
@@ -123,6 +132,9 @@ export default class ProductList extends Vue {
     text-align: center;
     color: #999;
     padding: 20px 0;
+  }
+  .van-pull-refresh__track{
+    min-height: 1000px;
   }
 }
 </style>

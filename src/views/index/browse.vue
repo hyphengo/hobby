@@ -6,8 +6,8 @@
       <search />
     </div>
     <p class="browse-tip" v-if="empty">真想不到，竟然没有商品诶~</p>
-    <div v-else class="browse-list tabbar-padding">
-      <div class="browse-list-left">
+    <div v-else class="browse-list">
+      <div class="browse-list-left tabbar-padding">
         <ul>
           <li
             :class="['browse-list-item', {
@@ -21,7 +21,7 @@
           </li>
         </ul>
       </div>
-      <div class="browse-list-right">
+      <div class="browse-list-right tabbar-padding">
         <product-list
           :ids="ids"
         />
@@ -116,6 +116,7 @@ export default class Browse extends Vue {
 
     &-right{
       flex-grow: 2;
+      height: 100%;
     }
 
     &-scroll{
