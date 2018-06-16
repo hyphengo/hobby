@@ -37,7 +37,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell, CellGroup, Field, CheckboxGroup } from 'vant'
-import { Getter } from 'vuex-class'
+import { Getter, Action } from 'vuex-class'
 import { addAddress, updateAddress } from '@/api'
 
 @Component({
@@ -51,6 +51,7 @@ import { addAddress, updateAddress } from '@/api'
 export default class Edit extends Vue {
   @Getter('address/community') community: any
   @Getter('address/addressInfo') addressInfo: any
+  @Action('address/setCommunity') setCommunity: Function
   saveClick() {
     if (!this.community.name && !this.addressInfo.communityName) {
       this.$toast('请选择小区')
@@ -80,6 +81,7 @@ export default class Edit extends Vue {
         phoneNumber: this.addressInfo.phoneNumber,
         defaultAddress: this.addressInfo.defaultAddress
       }
+      this.setCommunity({})
       if (params.id) {
         updateAddress(params).then(() => {
           this.$router.push(`/address/list/${this.$route.params.name}`)

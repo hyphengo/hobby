@@ -11,7 +11,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell } from 'vant'
 import { Getter, Action } from 'vuex-class'
-import { getCommunities } from '@/api'
+import { getCommunities, selectCommunity } from '@/api'
 
 @Component({
   components: {
@@ -23,13 +23,15 @@ export default class Community extends Vue {
   @Getter('address/city') city: any
   @Action('address/setCommunity') setCommunity: Function
   selectCommunity(community) {
-    this.setCommunity(community).then(res => {
-      if (this.$route.query.type !== 'main') {
+    if (this.$route.query.type !== 'main') {
+      this.setCommunity(community).then(res => {
         this.$router.push(`/address/edit/${this.$route.query.type}`)
-      } else if (this.$route.query.type === 'main') {
-        this.$router.push('/index')
-      }
-    })
+      })
+    } else if (this.$route.query.type === 'main') {
+      selectCommunity({communityId: community.id}).then(res => {
+        this.$router.replace('/index/home')
+      })
+    }
   }
   mounted() {
     getCommunities({cityCode: this.city.code}).then(res => {
