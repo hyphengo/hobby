@@ -107,6 +107,9 @@ export const getCities = () => http.get('/home/getCities')
 // 获取所选城市下的小区
 export const getCommunities = (params) => http.get('/home/getCommunities', params)
 
+// 首页进入选择小区
+export const selectCommunity = (params) => http.post('/home/selectCommunity', params)
+
 // 获取用户的优惠卷
 export const getCoupons = () => http.get('/coupon/getCoupons')
 
