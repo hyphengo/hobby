@@ -214,7 +214,8 @@ export default class Cart extends Vue {
   // 删除商品
   deleteItem(item, groupType) {
     this.$dialog.confirm({
-      message: '确认删除商品'
+      message: '确认删除选中的商品吗？',
+      cancelButtonText: '再想想'
     }).then(() => {
       this.loading()
 
