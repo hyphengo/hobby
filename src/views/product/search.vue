@@ -32,14 +32,15 @@
       v-show="!isShowType"
       :term="term"
     />
+    <float-cart :isShow="!isShowType" />
   </div>
 </template>
-
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { Search, Cell, CellGroup } from 'vant'
 import ProductList from '@/components/productList/index.vue'
+import FloatCart from '@/components/float-cart/index.vue'
 import ls from '@/util/localStorage'
 
 const lsSearchKey: string = 'COCOWA_SEARCH_HISTORY'
@@ -49,7 +50,8 @@ const lsSearchKey: string = 'COCOWA_SEARCH_HISTORY'
     'van-search': Search,
     'van-cell': Cell,
     CellGroup,
-    ProductList
+    ProductList,
+    FloatCart,
   }
 })
 export default class SearchPage extends Vue {
