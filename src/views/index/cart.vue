@@ -196,8 +196,16 @@ export default class Cart extends Vue {
 
   // 删除购物车中无效的商品
   handleClear() {
-    this.loading()
-    removeInvalidItem({}).then(this.gotCart)
+    this.$dialog.confirm({
+      message: '确定清除失效商品吗？',
+    }).then(() => {
+      this.loading()
+
+      removeInvalidItem({}).then(this.gotCart)
+    }).catch(() => {
+      // on cancel
+      this.$dialog.close()
+    })
   }
 
   // 改变单个商品 数量
