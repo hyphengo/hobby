@@ -239,7 +239,7 @@ export default class Cart extends Vue {
 
   onSubmit() {
     this.subLoding = true
-    moveToCheckout({initFlag: 1}).then(res => {
+    moveToCheckout({}).then(res => {
       this.subLoding = false
 
       if (res.data.mutiGroup === 1) {
