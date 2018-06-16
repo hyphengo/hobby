@@ -17,7 +17,7 @@ import { Cell } from 'vant'
 })
 export default class NullCommunity extends Vue {
   deterClick() {
-    this.$router.push('/address/community/main')
+    this.$router.push('/address/city?type=main')
   }
 }
 </script>

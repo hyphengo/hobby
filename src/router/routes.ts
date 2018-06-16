@@ -67,12 +67,12 @@ const asyncRoutes = [
         component: () => import('@/views/address/editAddress.vue'),
       },
       {
-        path: 'city',
+        path: 'city', /* query传入type:list为列表页，select为选择页，main为首页 */
         name: '选择城市',
         component: () => import('@/views/address/city.vue'),
       },
       {
-        path: 'community/:name', /* 传入main为首页选择，传入edit为编辑操作 */
+        path: 'community', /* query传入type:list为列表页，select为选择页，main为首页 */
         name: '选择小区',
         component: () => import('@/views/address/community.vue'),
       },
