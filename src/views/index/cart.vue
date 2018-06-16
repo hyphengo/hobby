@@ -1,126 +1,132 @@
 <template>
-  <div class="cart">
-    <div v-if="hasgoods">
-      <div class="list">
-        <div
-          v-for="(data, index) in goods.items"
-          :key="index"
-          v-if="data.commerceItems.length > 0"
-        >
-          <div class="cart-list-title">
-            <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
-              {{data.groupName}}
-            </van-checkbox>
-            <!-- <div class="font-24">满88免配送费，还差**123元</div> -->
-          </div>
-          <div class="cart-goods">
-            <van-checkbox
-              class="cart-goods-item"
-              v-for="item in data.commerceItems"
-              :value="item.selected"
-              :key="item.productCode"
-              :name="item.productCode"
-              :label-disabled="true"
-              @input="changeItem(item, data.groupType)"
+  <div :style="{height: '100%', overflow: 'auto'}">
+    <pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <div class="cart">
+        <div v-if="hasgoods">
+          <div class="list">
+            <div
+              v-for="(data, index) in goods.items"
+              :key="index"
+              v-if="data.commerceItems.length > 0"
             >
-              <goods-card
-                class="cart-goods-card"
-                :title="item.productName"
-                :price="item.salePrice"
-                :thumb="item.productImg"
-                :unit="item.unit"
-                :id="item.productId"
-              />
-              <div class="cart-goods-step">
-                <van-stepper
-                  :value="item.quantity"
-                  @overlimit="deleteItem(item, data.groupType)"
-                  @change="(val) => handleQuantity(val, item, data.groupType)"
-                />
+              <div class="cart-list-title">
+                <van-checkbox :value="data.selectAll" :name="data.groupName" @input="checkItemAll(data)">
+                  {{data.groupName}}
+                </van-checkbox>
+                <!-- <div class="font-24">满88免配送费，还差**123元</div> -->
               </div>
-            </van-checkbox>
-          </div>
-        </div>
-        <div
-          v-if="goods.invalidItems && goods.invalidItems.length > 0"
-        >
-          <div class="cart-list-title">
-            <div>无效商品</div>
-            <div class="font-24" @click="handleClear">清空</div>
-          </div>
-          <div class="cart-goods">
-            <van-checkbox
-              class="cart-goods-item"
-              v-for="item in goods.invalidItems"
-              :value="item.selected"
-              :key="item.productCode"
-              :name="item.productCode"
-              :label-disabled="true"
-              disabled
+              <div class="cart-goods">
+                <van-checkbox
+                  class="cart-goods-item"
+                  v-for="item in data.commerceItems"
+                  :value="item.selected"
+                  :key="item.productCode"
+                  :name="item.productCode"
+                  :label-disabled="true"
+                  @input="changeItem(item, data.groupType)"
+                >
+                  <goods-card
+                    class="cart-goods-card"
+                    :title="item.productName"
+                    :price="item.salePrice"
+                    :thumb="item.productImg"
+                    :unit="item.unit"
+                    :id="item.productId"
+                  />
+                  <div class="cart-goods-step">
+                    <van-stepper
+                      :value="item.quantity"
+                      @overlimit="deleteItem(item, data.groupType)"
+                      @change="(val) => handleQuantity(val, item, data.groupType)"
+                    />
+                  </div>
+                </van-checkbox>
+              </div>
+            </div>
+            <div
+              v-for="(data, index) in goods.invalidItems"
+              :key="index"
+              v-if="goods.invalidItems && data.commerceItems.length > 0"
             >
-              <goods-card
-                class="cart-goods-card"
-                :title="item.productName"
-                :price="item.salePrice"
-                :thumb="item.productImg"
-                :unit="item.unit"
-                :id="item.productId"
-              />
-              <div class="cart-goods-step">
-                <van-stepper
-                  :value="item.quantity"
+              <div class="cart-list-title">
+                <div>{{data.groupName}}</div>
+                <div class="font-24" @click="handleClear">清空</div>
+              </div>
+              <div class="cart-goods">
+                <van-checkbox
+                  class="cart-goods-item"
+                  v-for="item in data.commerceItems"
+                  :value="item.selected"
+                  :key="item.productCode"
+                  :name="item.productCode"
+                  :label-disabled="true"
                   disabled
-                />
-                <div class="cart-goods-failure">{{item.stateDetail}}</div>
+                >
+                  <goods-card
+                    class="cart-goods-card"
+                    :title="item.productName"
+                    :price="item.salePrice"
+                    :thumb="item.productImg"
+                    :unit="item.unit"
+                    :id="item.productId"
+                  />
+                  <div class="cart-goods-step">
+                    <van-stepper
+                      :value="item.quantity"
+                      disabled
+                    />
+                    <div class="cart-goods-failure">{{item.stateDetail}}</div>
+                  </div>
+                </van-checkbox>
               </div>
-            </van-checkbox>
+            </div>
           </div>
         </div>
+        <div v-else class="cart-nogoods">
+          <div class="tips">
+            <van-icon name="shop" />
+            <p>没商品哦，快去搞点吧～</p>
+          </div>
+          <van-button
+            text="去看看"
+            @click="goTosee"
+          />
+        </div>
+        <van-dialog
+          v-model="showSelect"
+          show-cancel-button
+          :before-close="beforeClose"
+        >
+          <p class="cart-dialog-title">请分开买单~</p>
+          <radio-group v-model="radio">
+            <cell-group>
+              <van-cell
+                v-for="(item, index) in single"
+                :key="index"
+                :title="item.groupName"
+                :label="`${item.selectCount}件`"
+                clickable
+                @click="radio = item.groupType"
+              >
+                <van-radio :name="item.groupType" />
+              </van-cell>
+            </cell-group>
+          </radio-group>
+        </van-dialog>
       </div>
-      <div class="cart-goods-btn van-hairline--top">
-        <van-checkbox :value="checkedAll" @input="handleCheckAll">全选</van-checkbox>
-        <div class="totalprice">¥{{price(goods.amount)}}</div>
-        <van-button class="pay-btn" bottom-action @click="onSubmit" :loading="subLoding">去买单</van-button>
-      </div>
+    </pull-refresh>
+    <div class="cart-goods-btn van-hairline--top">
+      <van-checkbox :value="checkedAll" @input="handleCheckAll">全选</van-checkbox>
+      <div class="totalprice">¥{{price(goods.amount)}}</div>
+      <van-button class="pay-btn" bottom-action @click="onSubmit" :loading="subLoding">去买单</van-button>
     </div>
-    <div v-else class="cart-nogoods">
-      <div class="tips">
-        <van-icon name="shop" />
-        <p>没商品哦，快去搞点吧～</p>
-      </div>
-      <van-button
-        text="去看看"
-        @click="goTosee"
-      />
-    </div>
-    <van-dialog
-      v-model="showSelect"
-      show-cancel-button
-      :before-close="beforeClose"
-    >
-      <p class="cart-dialog-title">请分开买单~</p>
-      <radio-group v-model="radio">
-        <cell-group>
-          <van-cell
-            v-for="(item, index) in single"
-            :key="index"
-            :title="item.groupName"
-            :label="`${item.selectCount}件`"
-            clickable
-            @click="radio = item.groupType"
-          >
-            <van-radio :name="item.groupType" />
-          </van-cell>
-        </cell-group>
-      </radio-group>
-    </van-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Action } from 'vuex-class'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Radio, RadioGroup, Cell, CellGroup } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, Radio, RadioGroup, Cell, CellGroup, PullRefresh } from 'vant'
 import GoodsCard from '@/components/goodsCard/GoodsCard.vue'
 import { loadCart, selectItem, selectGroup, updateItem, removeItem, moveToCheckout, selectToCheckout, removeInvalidItem } from '@/api'
 import { price } from '@/util/util'
@@ -137,6 +143,7 @@ import { price } from '@/util/util'
     CellGroup,
     SubmitBar,
     GoodsCard,
+    PullRefresh,
   }
 })
 export default class Cart extends Vue {
@@ -150,6 +157,7 @@ export default class Cart extends Vue {
   showSelect: boolean = false
   radio: any = null
   single: any = null
+  isLoading: boolean = false
 
   price = price
 
@@ -158,6 +166,10 @@ export default class Cart extends Vue {
       duration: 0,
       forbidClick: true,
     })
+  }
+
+  onRefresh() {
+    loadCart().then(this.gotCart)
   }
 
   // 单类全选
@@ -184,8 +196,16 @@ export default class Cart extends Vue {
 
   // 删除购物车中无效的商品
   handleClear() {
-    this.loading()
-    removeInvalidItem({}).then(this.gotCart)
+    this.$dialog.confirm({
+      message: '确定清除失效商品吗？',
+    }).then(() => {
+      this.loading()
+
+      removeInvalidItem({}).then(this.gotCart)
+    }).catch(() => {
+      // on cancel
+      this.$dialog.close()
+    })
   }
 
   // 改变单个商品 数量
@@ -202,7 +222,8 @@ export default class Cart extends Vue {
   // 删除商品
   deleteItem(item, groupType) {
     this.$dialog.confirm({
-      message: '确认删除商品'
+      message: '确认删除选中的商品吗？',
+      cancelButtonText: '再想想'
     }).then(() => {
       this.loading()
 
@@ -231,7 +252,7 @@ export default class Cart extends Vue {
 
       this.$router.push('/order/confirm')
     }).catch(() => {
-      this.subLoding = false
+      loadCart().then(this.gotCart)
     })
   }
 
@@ -274,6 +295,8 @@ export default class Cart extends Vue {
     this.hasgoods = res.data.cartCount > 0
     this.setCartCount(res.data.cartCount)
     this.checkedAll = res.data.items.every((item) => item.selectAll)
+    this.isLoading = false
+    this.subLoding = false
 
     this.$toast.clear()
   }
@@ -289,11 +312,15 @@ export default class Cart extends Vue {
 .cart {
   height: 100%;
   overflow: auto;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 
   .van-button > .van-loading {
     width: 60px !important;
     height: 60px !important;
+  }
+
+  .van-loading--black circle{
+    stroke: #fff !important;
   }
 
   &-dialog-title{
@@ -414,6 +441,7 @@ export default class Cart extends Vue {
   text-align: center;
   height: 100%;
   padding-top: 50%;
+  padding-bottom: 100%;
 
   .tips {
     p {

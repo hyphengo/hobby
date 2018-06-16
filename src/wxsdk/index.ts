@@ -31,5 +31,11 @@ export default {
 
   pay(params) {
     wx.chooseWXPay(params)
+  },
+
+  getLocation(params) {
+    wx.ready(() => {
+      wx.getLocation(params)
+    })
   }
 }

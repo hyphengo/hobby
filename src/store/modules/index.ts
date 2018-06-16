@@ -11,6 +11,7 @@ import address from './address'
 import product from './product'
 import order from './order'
 import search from './search'
+import home from './home'
 
 export default {
   auth,
@@ -20,4 +21,5 @@ export default {
   product,
   order,
   search,
+  home,
 }
