@@ -17,26 +17,29 @@
             :key="index"
           >{{data.name}}</van-step>
         </van-steps>
+        <!-- 普通商品 -->
         <div class="detail-tips" v-if="detail.orderType === '0'">
           <span v-if="detail.state === 10 && leftTime > 0">未付款，{{leftTime}}分钟后将自动取消</span>
-          <span v-if="detail.state === 20">稍等，商家很快会接单的~</span>
-          <span v-if="detail.state === 30">稍等，商家很快会接单的~</span>
-          <span v-if="detail.state === 40">商家正在为您准备商品</span>
+          <span v-if="detail.state === 20 || detail.state === 30">稍等，我蛙很快会接单的~</span>
+          <span v-if="detail.state === 40 && detail.shippingMethod === '1'">商家正在为您准备商品</span>
           <span v-if="detail.state === 40 && detail.shippingMethod === '2'">随时可以去店铺拿货哦~</span>
           <span v-if="detail.state === 50 && detail.shippingMethod === '1'">等待商品送上门来吧~</span>
         </div>
+        <!-- 干洗商品 -->
+        <!-- shippingMethod：1:送货上门  2：到店自提 -->
         <div class="detail-tips" v-if="detail.orderType === '1'">
           <span v-if=" detail.state === 10 && leftTime > 0">未付款，{{leftTime}}分钟后将自动取消</span>
-          <span v-if="detail.state === 30">稍等，商家很快会接单的~</span>
-          <span v-if="detail.state === 40 && detail.shippingMethod === '2'">约好了，把衣物送到店铺来吧~</span>
-          <span v-if="detail.state === 40 && detail.shippingMethod === '1'">准备好衣物，我们的人会准时找上门来的~</span>
+          <span v-if="detail.state === 30 || detail.state === 20">稍等，商家很快会接单的~</span>
+          <span v-if="(detail.state === 40 || detail.state === 100) && detail.shippingMethod === '2'">约好了，把衣物送到店铺来吧~</span>
+          <span v-if="(detail.state === 40 || detail.state === 100) && detail.shippingMethod === '1'">准备好衣物，我们的人会准时找上门来的~</span>
           <span v-if="detail.state === 110">我们很快会将衣物送至干洗中心~</span>
           <span v-if="detail.state === 120">衣物已送至干洗中心，正在洗涤养护中~</span>
           <span v-if="detail.state === 130">衣物洗好啦，辛苦您来店铺取一下哈~</span>
         </div>
+        <!-- 预售商品 -->
         <div class="detail-tips" v-if="detail.orderType === '2'">
           <span v-if=" detail.state === 10 && leftTime > 0">未付款，{{leftTime}}分钟后将自动取消</span>
-          <span v-if="detail.state === 30">美好事物值得等待，我蛙会按时出去采购回来的~</span>
+          <span v-if="detail.state === 30 || detail.state === 40">美好事物值得等待，我蛙会按时出去采购回来的~</span>
           <span v-if="detail.state === 130">商品已采购到店，随时可以去店铺拿货哦~</span>
         </div>
       </div>
@@ -166,7 +169,7 @@ export default class Confirm extends Vue {
   price = price
   detail: any = {}
   id: string = ''
-  active: number = 2
+  active: number = 0
   steplist: any = []
   leftTime: number
   payType: string = '微信支付'
@@ -204,7 +207,8 @@ export default class Confirm extends Vue {
           {name: '下单', status: 10},
           {name: '付款', status: 30},
           {name: '接单', status: 40},
-          {name: '配送', status: 50}
+          {name: '备货', status: 50},
+          {name: '配送'}
         ]
       } else if (this.detail.orderType === '0' && this.detail.shippingMethod === '2') {
         this.steplist = [
@@ -227,9 +231,14 @@ export default class Confirm extends Vue {
         this.steplist = [
           {name: '下单', state: 10},
           {name: '付款', state: 30},
-          {name: '采购', state: 80},
-          {name: '自取', state: 90}
+          {name: '采购', state: 130},
+          {name: '自取'}
         ]
+      }
+      if (this.detail.state === 20 || (this.detail.state === 40 && this.detail.orderType === '2')) {
+        this.active = 1
+      } else if (this.detail.state === 100) {
+        this.active = 2
       }
 
       this.steplist.map((ele, index) => {
