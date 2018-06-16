@@ -243,7 +243,7 @@ export default class Cart extends Vue {
 
       this.$router.push('/order/confirm')
     }).catch(() => {
-      this.subLoding = false
+      loadCart().then(this.gotCart)
     })
   }
 
@@ -287,6 +287,7 @@ export default class Cart extends Vue {
     this.setCartCount(res.data.cartCount)
     this.checkedAll = res.data.items.every((item) => item.selectAll)
     this.isLoading = false
+    this.subLoding = false
 
     this.$toast.clear()
   }
