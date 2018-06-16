@@ -60,7 +60,7 @@
             >
               联系店铺
             </a>
-            <van-button @click="handleCancel(item.id)" v-if="item.state === 10" class="order-list-btn" type="default">取消</van-button>
+            <van-button @click="handleCancel(item.id)" v-if="item.state === 10 || item.state === 30" class="order-list-btn" type="default">取消</van-button>
             <van-button @click="handlePay(item)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
             <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
