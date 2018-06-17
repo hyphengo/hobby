@@ -53,18 +53,16 @@
               </div>
             </div>
             <div
-              v-for="(data, index) in goods.invalidItems"
-              :key="index"
-              v-if="goods.invalidItems && data.commerceItems.length > 0"
+              v-if="goods.invalidItems && goods.invalidItems.length > 0"
             >
               <div class="cart-list-title">
-                <div>{{data.groupName}}</div>
+                <div>失效商品</div>
                 <div class="font-24" @click="handleClear">清空</div>
               </div>
               <div class="cart-goods">
                 <van-checkbox
                   class="cart-goods-item"
-                  v-for="item in data.commerceItems"
+                  v-for="item in goods.invalidItems"
                   :value="item.selected"
                   :key="item.productCode"
                   :name="item.productCode"
