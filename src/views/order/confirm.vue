@@ -96,7 +96,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-// import { Getter, Action } from 'vuex-class'
+import { Getter, Action } from 'vuex-class'
 import { SubmitBar, Tag } from 'vant'
 import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
@@ -117,6 +117,9 @@ import wxs from '@/wxsdk'
   }
 })
 export default class Confirm extends Vue {
+  @Action('confirm/setInit') setInit: Function
+  @Getter('confirm/init') init: boolean
+
   order: any = {}
   payLoding: boolean = false
   phone: string = ''
@@ -173,11 +176,13 @@ export default class Confirm extends Vue {
             complete: (r) => {
               // 支付成功后的回调函数
               this.$router.replace(`/order/detail/${res.data.id}`)
+              this.setInit(false)
               this.payLoding = false
             }
           })
         }).catch(() => {
           this.$router.replace(`/order/detail/${res.data.id}`)
+          this.setInit(false)
           this.payLoding = false
         })
       }
@@ -187,8 +192,12 @@ export default class Confirm extends Vue {
   }
 
   mounted() {
-    loadOrder({initFlag: 1}).then(res => {
+    const options = {
+      initFlag: this.init ? 0 : 1
+    }
+    loadOrder(options).then(res => {
       this.order = res.data
+      this.setInit(true)
     })
   }
 }

@@ -12,6 +12,7 @@ import product from './product'
 import order from './order'
 import search from './search'
 import home from './home'
+import confirm from './confirm'
 
 export default {
   auth,
@@ -22,4 +23,5 @@ export default {
   order,
   search,
   home,
+  confirm,
 }
