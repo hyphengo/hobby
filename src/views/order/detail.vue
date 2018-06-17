@@ -55,7 +55,6 @@
           :disabled="true"
         />
         <invite-card
-          v-model="phone"
           v-if="detail.shippingMethod === '2'"
           :info="detail"
           :orderType="detail.orderType"
