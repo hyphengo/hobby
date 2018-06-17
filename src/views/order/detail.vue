@@ -103,23 +103,7 @@
           </ve-col>
         </ve-row>
       </div>
-      <div v-if="detail.state === 10" class="detail-btn">
-        <van-button
-          type="default"
-          class="btn"
-          @click="handleCancel"
-        >
-          取消
-        </van-button>
-        <van-button
-          type="default"
-          :class="['btn', 'active']"
-          @click="handlePay"
-        >
-          买单
-        </van-button>
-      </div>
-      <div v-else class="detail-btn">
+      <div  class="detail-btn">
         <a
           v-if="detail.state !== 10"
           class="btn van-button van-button--default van-button--normal"
@@ -127,6 +111,22 @@
         >
           联系店铺
         </a>
+        <van-button
+          type="default"
+          class="btn"
+          @click="handleCancel"
+          v-if="detail.state === 10 || detail.state === 30"
+        >
+          取消
+        </van-button>
+        <van-button
+          type="default"
+          :class="['btn', 'active']"
+          @click="handlePay"
+          v-if="detail.state === 10"
+        >
+          买单
+        </van-button>
         <van-button
           type="default"
           :class="['btn', 'active']"
@@ -234,10 +234,12 @@ export default class Confirm extends Vue {
           {name: '自取'}
         ]
       }
-      if (this.detail.state === 20 || (this.detail.state === 40 && this.detail.orderType === '2')) {
+      if (this.detail.state === 20) {
         this.active = 1
       } else if (this.detail.state === 100) {
         this.active = 2
+      } else if (this.detail.state === 40 && this.detail.orderType === '2') {
+        this.active = 1
       }
 
       this.steplist.map((ele, index) => {
