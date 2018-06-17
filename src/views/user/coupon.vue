@@ -1,7 +1,25 @@
 <template>
   <div class="coupon">
+    <div
+      v-if="$route.params.name === 'select'"
+      class="coupon-abandon van-hairline--surround"
+      @click="handleAbandon"
+    >
+      不用券了
+    </div>
     <radio-group v-model="couponId">
-      <div :class="[{'coupon-bg-1': item.status==='active', 'coupon-bg-2': item.status==='closed', 'coupon-bg-3': item.status==='used'}, 'coupon-bg']" v-for="item in couponList" :key="item.id">
+      <div
+        :class="[
+          {
+            'coupon-bg-1': item.status==='active',
+            'coupon-bg-2': item.status==='closed',
+            'coupon-bg-3': item.status==='used'
+          },
+          'coupon-bg'
+        ]"
+        v-for="item in couponList"
+        :key="item.id"
+      >
         <div class="coupon-left">
           <div>
             <p><span>￥</span>{{item.discount}}</p>
@@ -45,6 +63,11 @@ export default class Coupon extends Vue {
   nullData: boolean = false
   deterClick() {
     applyCoupon({id: this.couponId}).then(res => {
+      this.$router.back()
+    })
+  }
+  handleAbandon() {
+    applyCoupon({id: null}).then(res => {
       this.$router.back()
     })
   }
@@ -159,6 +182,17 @@ export default class Coupon extends Vue {
       text-align: center;
       padding-top: 50px;
       font-size: 22px;
+    }
+
+    &-abandon{
+      margin: 25px 35px;
+      padding: 20px;
+      background-color: $--color-white;
+      border-radius: 10px;
+
+      &:active{
+        background-color: #C6C6C6;
+      }
     }
   }
 </style>
