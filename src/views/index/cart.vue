@@ -36,9 +36,10 @@
                   <div class="cart-goods-step">
                     <van-stepper
                       :value="item.quantity"
-                      @overlimit="deleteItem(item, data.groupType)"
+                      @overlimit="(type) => deleteItem(type, item, data.groupType)"
                       :integer="true"
                       :disable-input="true"
+                      :max="99"
                       @change="(val) => handleQuantity(val, item, data.groupType)"
                     />
                   </div>
@@ -225,7 +226,8 @@ export default class Cart extends Vue {
   }
 
   // 删除商品
-  deleteItem(item, groupType) {
+  deleteItem(type, item, groupType) {
+    if (type !== 'minus') return
     this.$dialog.confirm({
       message: '确认删除选中的商品吗？',
       cancelButtonText: '再想想'
