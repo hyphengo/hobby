@@ -129,6 +129,14 @@
         </a>
         <van-button
           type="default"
+          class="btn"
+          @click="handleCancel"
+          v-if="detail.state === 30"
+        >
+          取消
+        </van-button>
+        <van-button
+          type="default"
           :class="['btn', 'active']"
           @click="handleAgain"
           v-if="detail.state === 30 || detail.state === 60 || detail.state === 70"
@@ -234,10 +242,12 @@ export default class Confirm extends Vue {
           {name: '自取'}
         ]
       }
-      if (this.detail.state === 20 || (this.detail.state === 40 && this.detail.orderType === '2')) {
+      if (this.detail.state === 20) {
         this.active = 1
       } else if (this.detail.state === 100) {
         this.active = 2
+      } else if (this.detail.state === 40 && this.detail.orderType === '2') {
+        this.active = 1
       }
 
       this.steplist.map((ele, index) => {
