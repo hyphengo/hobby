@@ -60,7 +60,7 @@
             >
               联系店铺
             </a>
-            <van-button @click="handleCancel(item.id)" v-if="item.state === 10 || item.state === 30" class="order-list-btn" type="default">取消</van-button>
+            <van-button @click="handleCancel(item)" v-if="item.state === 10 || item.state === 30" class="order-list-btn" type="default">取消</van-button>
             <van-button @click="handlePay(item)" v-if="item.state === 10" class="order-list-btn custom" type="default">买单</van-button>
             <van-button @click="handleAgain(item.id)" v-if="item.state === 30 || item.state === 60 || item.state === 70" class="order-list-btn custom" type="default">再买</van-button>
           </ve-col>
@@ -219,12 +219,20 @@ export default class OrderList extends Vue {
     })
   }
 
-  handleCancel(orderId) {
-    this.$dialog.confirm({
+  handleCancel(order) {
+    let tipO: any = {
       message: '不再考虑一下嘛，确定要取消订单？',
       cancelButtonText: '考虑考虑'
-    }).then(() => {
-      cancelOrder({orderId}).then(res => {
+    }
+    if (order.state === 30) {
+      tipO = {
+        title: '确定取消订单吗?',
+        message: '退款将原路退回至您的支付账户中',
+        cancelButtonText: '考虑考虑'
+      }
+    }
+    this.$dialog.confirm(tipO).then(() => {
+      cancelOrder({orderId: order.id}).then(res => {
         this.reload()
       })
     }).catch(() => {
