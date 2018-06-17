@@ -97,7 +97,14 @@ export default class Edit extends Vue {
     }
   }
   delClick() {
-    this.$toast('111')
+    let tipO: any = {
+      message: '确定删除该地址吗',
+      cancelButtonText: '再想想'
+    }
+    this.$dialog.confirm(tipO).then(() => {
+      this.$toast('删除')
+    }).catch(() => {
+    })
   }
 }
 </script>
