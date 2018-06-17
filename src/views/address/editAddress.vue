@@ -41,7 +41,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell, CellGroup, Field, CheckboxGroup } from 'vant'
 import { Getter, Action } from 'vuex-class'
-import { addAddress, updateAddress } from '@/api'
+import { addAddress, updateAddress, removeAddress } from '@/api'
 
 @Component({
   components: {
@@ -102,7 +102,11 @@ export default class Edit extends Vue {
       cancelButtonText: '再想想'
     }
     this.$dialog.confirm(tipO).then(() => {
-      this.$toast('删除')
+      removeAddress({
+        id: this.addressInfo.id
+      }).then(() => {
+        this.$router.back()
+      })
     }).catch(() => {
     })
   }

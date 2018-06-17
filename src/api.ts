@@ -125,6 +125,9 @@ export const addAddress = (params) => http.post('/user/addAddress', params)
 // 修改地址信息
 export const updateAddress = (params) => http.post('/user/updateAddress', params)
 
+// 删除地址
+export const removeAddress = (params) => http.post('/user/removeAddress', params)
+
 // 加载个人中心主页
 export const loadUserCenter = () => http.get('/user/loadUserCenter')
 
