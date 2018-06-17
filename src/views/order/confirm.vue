@@ -173,7 +173,7 @@ export default class Confirm extends Vue {
             package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
             signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
             paySign: data.data.sign, // 支付签名
-            complete: (r) => {
+            success: (r) => {
               // 支付成功后的回调函数
               if (this.order.orderType === '2') {
                 this.$router.replace('/order/list#all')
@@ -182,14 +182,17 @@ export default class Confirm extends Vue {
               }
               this.setInit(false)
               this.payLoding = false
+            },
+            cancel: () => {
+              this.$router.replace(`/order/detail/${res.data.id}`)
+
+              this.setInit(false)
+              this.payLoding = false
             }
           })
         }).catch(() => {
-          if (this.order.orderType === '2') {
-            this.$router.replace('/order/list#all')
-          } else {
-            this.$router.replace(`/order/detail/${res.data.id}`)
-          }
+          this.$router.replace(`/order/detail/${res.data.id}`)
+
           this.setInit(false)
           this.payLoding = false
         })
