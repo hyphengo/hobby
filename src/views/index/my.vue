@@ -24,12 +24,12 @@
         <div @click="() => $router.push('/order/list#wait')">
           <img src="../../assets/images/user/icon-payment.png" alt="">
           <p>待付款</p>
-          <span v-if="userInfo.orderState[10]" class="order-mark"></span>
+          <span v-if="userInfo.orderState[10]" class="order-mark">{{userInfo.orderState[10]}}</span>
         </div>
         <div @click="() => $router.push('/order/list#pick')">
           <img src="../../assets/images/user/icon-deliver.png" alt="">
           <p>待接单</p>
-          <span v-if="userInfo.orderState[30]" class="order-mark"></span>
+          <span v-if="userInfo.orderState[30]" class="order-mark">{{userInfo.orderState[30]}}</span>
         </div>
         <div @click="() => $router.push('/order/list#done')">
           <img src="../../assets/images/user/icon-order.png" alt="">
@@ -152,13 +152,18 @@ export default class Info extends Vue {
         .order-mark{
           display: inline-block;
           position: absolute;
-          top: 18px;
-          margin-left: 14px;
-          width: 9px;
-          height: 9px;
-          border: 2px solid $--color-white;
-          background-color: #F12C20;
-          border-radius: 50%;
+          top: 14px;
+          margin-left: 6px;
+          font-size: 18px;
+          color: $--color-white;
+          font-weight: normal;
+          text-align: center;
+          box-sizing: border-box;
+          padding: 0 6px;
+          min-width: 24px;
+          line-height: 20px;
+          border-radius: 9px;
+          background-color: #f44;
         }
       }
     }
