@@ -42,6 +42,12 @@
                       :max="99"
                       @change="(val) => handleQuantity(val, item, data.groupType)"
                     />
+                    <div
+                      class="cart-goods-failure"
+                      v-if="item.stockLevel <= item.quantity"
+                    >
+                      {{`只有${item.stockLevel}件了`}}
+                    </div>
                   </div>
                 </van-checkbox>
               </div>
