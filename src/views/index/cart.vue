@@ -38,6 +38,7 @@
                       :value="item.quantity"
                       @overlimit="deleteItem(item, data.groupType)"
                       :integer="true"
+                      :disable-input="true"
                       @change="(val) => handleQuantity(val, item, data.groupType)"
                     />
                   </div>
@@ -466,5 +467,8 @@ export default class Cart extends Vue {
     color: $--color-base;
     border: 1px solid $--color-base;
   }
+}
+.van-stepper__input[disabled]{
+  color: #666 !important;
 }
 </style>
