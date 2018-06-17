@@ -92,27 +92,6 @@
             @click="goTosee"
           />
         </div>
-        <van-dialog
-          v-model="showSelect"
-          show-cancel-button
-          :before-close="beforeClose"
-        >
-          <p class="cart-dialog-title">请分开买单~</p>
-          <radio-group v-model="radio">
-            <cell-group>
-              <van-cell
-                v-for="(item, index) in single"
-                :key="index"
-                :title="item.groupName"
-                :label="`${item.selectCount}件`"
-                clickable
-                @click="radio = item.groupType"
-              >
-                <van-radio :name="item.groupType" />
-              </van-cell>
-            </cell-group>
-          </radio-group>
-        </van-dialog>
       </div>
     </pull-refresh>
     <div class="cart-goods-btn van-hairline--top">
@@ -120,6 +99,27 @@
       <div class="totalprice">¥{{price(goods.amount)}}</div>
       <van-button class="pay-btn" bottom-action @click="onSubmit" :loading="subLoding">去买单</van-button>
     </div>
+    <van-dialog
+      v-model="showSelect"
+      show-cancel-button
+      :before-close="beforeClose"
+    >
+      <p class="cart-dialog-title">请分开买单~</p>
+      <radio-group v-model="radio">
+        <cell-group>
+          <van-cell
+            v-for="(item, index) in single"
+            :key="index"
+            :title="item.groupName"
+            :label="`${item.selectCount}件`"
+            clickable
+            @click="radio = item.groupType"
+          >
+            <van-radio :name="item.groupType" />
+          </van-cell>
+        </cell-group>
+      </radio-group>
+    </van-dialog>
   </div>
 </template>
 
