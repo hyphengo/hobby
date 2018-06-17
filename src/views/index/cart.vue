@@ -37,6 +37,7 @@
                     <van-stepper
                       :value="item.quantity"
                       @overlimit="deleteItem(item, data.groupType)"
+                      :integer="true"
                       @change="(val) => handleQuantity(val, item, data.groupType)"
                     />
                   </div>
@@ -210,6 +211,9 @@ export default class Cart extends Vue {
 
   // 改变单个商品 数量
   handleQuantity(val, item, groupType) {
+    if (val === '') {
+      return
+    }
     this.loading()
 
     updateItem({
