@@ -8,7 +8,8 @@
       </div>
       <div class="detail-text" v-else-if="detail.state === 70">
         <div class="detail-text-title">已关闭</div>
-        <div>订单已取消</div>
+        <div v-if="detail.autoCancelOrder">订单未付款，超时自动取消</div>
+        <div v-else>您已取消订单</div>
       </div>
       <div class="detail-status" v-else>
         <van-steps :active="active">
@@ -103,40 +104,40 @@
           </ve-col>
         </ve-row>
       </div>
-      <div  class="detail-btn">
-        <a
-          v-if="detail.state !== 10"
-          class="btn van-button van-button--default van-button--normal"
-          href="tel:‭02886210761‬"
-        >
-          联系店铺
-        </a>
-        <van-button
-          type="default"
-          class="btn"
-          @click="handleCancel"
-          v-if="detail.state === 10 || detail.state === 30"
-        >
-          取消
-        </van-button>
-        <van-button
-          type="default"
-          :class="['btn', 'active']"
-          @click="handlePay"
-          v-if="detail.state === 10"
-        >
-          买单
-        </van-button>
-        <van-button
-          type="default"
-          :class="['btn', 'active']"
-          @click="handleAgain"
-          v-if="detail.state === 30 || detail.state === 60 || detail.state === 70"
-        >
-          再买
-        </van-button>
-      </div>
     </pull-refresh>
+    <div  class="detail-btn">
+      <a
+        v-if="detail.state !== 10"
+        class="btn van-button van-button--default van-button--normal"
+        href="tel:‭02886210761‬"
+      >
+        联系店铺
+      </a>
+      <van-button
+        type="default"
+        class="btn"
+        @click="handleCancel"
+        v-if="detail.state === 10 || detail.state === 30"
+      >
+        取消
+      </van-button>
+      <van-button
+        type="default"
+        :class="['btn', 'active']"
+        @click="handlePay"
+        v-if="detail.state === 10"
+      >
+        买单
+      </van-button>
+      <van-button
+        type="default"
+        :class="['btn', 'active']"
+        @click="handleAgain"
+        v-if="detail.state === 30 || detail.state === 60 || detail.state === 70"
+      >
+        再买
+      </van-button>
+    </div>
   </div>
 </template>
 
@@ -319,6 +320,7 @@ export default class Confirm extends Vue {
 <style lang="scss">
 .detail {
   overflow: auto;
+  padding-bottom: 140px;
 
   &-text {
     text-align: center;
@@ -357,6 +359,10 @@ export default class Confirm extends Vue {
   &-btn {
     text-align: right;
     padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
 
     .btn {
       width: 176px;
