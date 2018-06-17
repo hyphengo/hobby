@@ -29,6 +29,9 @@
       <div class="save-box">
         <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
       </div>
+      <div class="save-box" v-if="addressInfo.id">
+        <van-button class="save-btn" size="large" @click="delClick" >删除</van-button>
+      </div>
     </cell-group>
   </div>
 
@@ -92,6 +95,16 @@ export default class Edit extends Vue {
         })
       }
     }
+  }
+  delClick() {
+    let tipO: any = {
+      message: '确定删除该地址吗',
+      cancelButtonText: '再想想'
+    }
+    this.$dialog.confirm(tipO).then(() => {
+      this.$toast('删除')
+    }).catch(() => {
+    })
   }
 }
 </script>
