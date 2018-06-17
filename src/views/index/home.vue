@@ -92,7 +92,7 @@ export default class Index extends Vue {
       num: 1
     }).then(res => {
       if (res.code === 200) {
-        // this.$toast('添加购物车成功~')
+        this.$toast('添加购物车成功~')
       }
     })
   }

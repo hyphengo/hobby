@@ -472,5 +472,9 @@ export default class Cart extends Vue {
 }
 .van-stepper__input[disabled]{
   color: #666 !important;
+  opacity: 1;
+  -webkit-text-fill-color: #666;
+  -webkit-opacity: 1;
+  background-color: $--color-white;
 }
 </style>
