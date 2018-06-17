@@ -229,12 +229,13 @@ export default class Confirm extends Vue {
         ]
       } else if (this.detail.orderType === '2') {
         this.steplist = [
-          {name: '下单', state: 10},
-          {name: '付款', state: 30},
-          {name: '采购', state: 130},
+          {name: '下单', status: 10},
+          {name: '付款', status: 30},
+          {name: '采购', status: 130},
           {name: '自取'}
         ]
       }
+
       if (this.detail.state === 20) {
         this.active = 1
       } else if (this.detail.state === 100) {
