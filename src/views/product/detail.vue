@@ -35,6 +35,14 @@
         <span class="detail-unit">/{{detail.minUnit}}</span>
       </p>
     </div>
+    <div class="detail-describe" v-if="detail.detailImages && detail.detailImages.length > 0">
+      <p>- 商品描述 -</p>
+      <img
+        v-for="(item, index) in detail.detailImages"
+        :key="index"
+        :src="item"
+      />
+    </div>
     <goods-action>
       <goods-action-mini-btn icon="cart" text="购物车" :info="cartCount" @click="() => $router.push('/index/cart?show=hidden')" />
       <goods-action-big-btn class="detail-button" text="加入购物车" @click="handleAddCart" />
@@ -139,6 +147,15 @@ export default class Detail extends Vue {
     }
   }
 
+  &-describe{
+    p{
+      text-align: center;
+      padding: 20px;
+      background-color: $--color-white;
+      margin-top: 20px;
+      font-size: 28px;
+    }
+  }
 
 }
 </style>

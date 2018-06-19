@@ -5,7 +5,7 @@
         'p-98': !isShowBar,
         'p-198': isShowBar
       }]">
-        <div v-if="hasgoods" class="list">
+        <div v-if="hasgoods" class="cart-list">
           <div
             v-for="(data, index) in goods.items"
             :key="index"
@@ -330,11 +330,17 @@ export default class Cart extends Vue {
   overflow: auto;
 
   &.p-98{
-    padding-bottom: 98px;
+    padding-bottom: 96px;
   }
 
   &.p-198{
-    padding-bottom: 198px;
+    padding-bottom: 196px;
+  }
+
+  &-list{
+    > div {
+      margin-top: 20px;
+    }
   }
 
   .van-button > .van-loading {
