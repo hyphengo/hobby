@@ -215,7 +215,7 @@ export default class OrderList extends Vue {
     buyItemsAgain({
       id: orderId
     }).then(res => {
-      this.$router.push('/index/cart')
+      this.$router.push('/index/cart?show=hidden')
     })
   }
 

@@ -3,11 +3,12 @@
     class="index"
   >
     <transition :name="pageTransition">
-      <router-view class="transition-router-view index-tarbar" />
+      <router-view :isShowBar="isShowBar" class="transition-router-view" />
     </transition>
     <tabbar
       v-model="active"
       @change="tabChange"
+      v-if="isShowBar"
     >
       <tabbar-item>
         首页
@@ -54,6 +55,7 @@ export default class Index extends Vue {
   @Action('cart/getCount') getCount: Function
   active: number = 0
   pageTransition: string = 'slide-left'
+  isShowBar: boolean = true
 
   tabChange(key) {
     switch (key) {
@@ -93,17 +95,27 @@ export default class Index extends Vue {
     }
   }
 
+  @Watch('$route.query')
+  changeQuery(newVal) {
+    if (this.$route.query.show === 'hidden') {
+      this.isShowBar = false
+    } else {
+      this.isShowBar = true
+    }
+  }
+
   mounted() {
     this.getCount()
     this.changeActive(this.$route.name)
+
+    if (this.$route.query.show === 'hidden') {
+      this.isShowBar = false
+    }
   }
 }
 </script>
 
 <style lang="scss">
-.index-tarbar{
-  padding-bottom: 100px;
-}
 .transition-router-view {
   position: absolute;
   left: 0;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home"
+    class="home tabbar-padding"
   >
     <pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="home-top">
@@ -117,7 +117,7 @@ export default class Index extends Vue {
     } else {
       const id = url.replace(/^.*?id=(\d+).*$/, '$1')
       this.$router.push({
-        path: '/index/browse',
+        path: '/index/browse?show=hidden',
         query: { id }
       })
     }

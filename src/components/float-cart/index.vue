@@ -9,7 +9,7 @@
     @touchmove="move"
     @mouseup="end"
     @touchend="end"
-    @click="() => $router.push('/index/cart')"
+    @click="() => $router.push('/index/cart?show=hidden')"
   >
     <van-icon name="cart" :info="cartCount" />
   </div>

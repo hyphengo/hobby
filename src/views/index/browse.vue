@@ -1,13 +1,20 @@
 <template>
   <div
-    class="browse"
+    :class="['browse', {
+      'tabbar-padding': isShowBar
+    }]"
   >
     <div class="browse-search">
       <search />
     </div>
     <p class="browse-tip" v-if="empty">真想不到，竟然没有商品诶~</p>
-    <div v-else class="browse-list">
-      <div class="browse-list-left tabbar-padding">
+    <div
+      v-else
+      :class="['browse-list', {
+        'pb': isShowBar
+      }]"
+    >
+      <div class="browse-list-left">
         <ul>
           <li
             :class="['browse-list-item', {
@@ -21,29 +28,34 @@
           </li>
         </ul>
       </div>
-      <div class="browse-list-right tabbar-padding">
+      <div class="browse-list-right">
         <product-list
           :ids="ids"
         />
       </div>
     </div>
+    <float-cart :isShow="!isShowBar" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { searchCategories, searchSecondCategories } from '@/api'
 import Search from '@/components/search/index.vue'
 import ProductList from '@/components/productList/index.vue'
+import FloatCart from '@/components/float-cart/index.vue'
 
 @Component({
   components: {
     Search,
-    ProductList
+    ProductList,
+    FloatCart
   }
 })
 export default class Browse extends Vue {
+  @Prop() isShowBar: boolean
+
   @Action('browse/setActive') setActive: any
   @Action('browse/setType') setType: any
   @Getter('browse/active') active: any
@@ -91,6 +103,7 @@ export default class Browse extends Vue {
 <style lang="scss">
 .browse{
   background-color: $--color-white;
+  overflow: hidden !important;
 
   &-tip{
     text-align: center;
@@ -106,6 +119,11 @@ export default class Browse extends Vue {
     height: 100%;
     display: flex;
     justify-content: space-between;
+
+
+    &.pb{
+      padding-bottom: 92px;
+    }
 
     &-left{
       flex-basis: 150px;

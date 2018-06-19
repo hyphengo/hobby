@@ -299,7 +299,7 @@ export default class Confirm extends Vue {
     buyItemsAgain({
       id: this.id
     }).then(res => {
-      this.$router.push('/index/cart')
+      this.$router.push('/index/cart?show=hidden')
     })
   }
 

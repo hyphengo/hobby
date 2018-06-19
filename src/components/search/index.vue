@@ -1,5 +1,5 @@
 <template>
-<p class="coco-search" @click="handleClick"><van-icon name="search" />搜索商品、服务</p>
+  <p class="coco-search" @click="handleClick"><van-icon name="search" />搜索商品、服务</p>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
