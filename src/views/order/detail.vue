@@ -311,7 +311,7 @@ export default class Confirm extends Vue {
       this.loading()
 
       cancelOrder({
-        id: this.id
+        orderId: this.id
       }).then(res => {
         this.reload()
         this.$toast.clear()
