@@ -109,6 +109,8 @@ export default class Detail extends Vue {
 
 <style lang="scss">
 .detail{
+  padding-bottom: 100px;
+
   &-title{
     background-color: $--color-white;
     padding: 10px 20px;
@@ -148,12 +150,18 @@ export default class Detail extends Vue {
   }
 
   &-describe{
+    font-size: 0;
+
     p{
       text-align: center;
       padding: 20px;
       background-color: $--color-white;
       margin-top: 20px;
       font-size: 28px;
+    }
+
+    img{
+      width: 100%;
     }
   }
 
