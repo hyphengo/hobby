@@ -30,15 +30,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Model, Watch } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import { Action } from 'vuex-class'
 
 @Component
 export default class InviteCard extends Vue {
-  @Model('input') value: string
   @Prop() info: any
   @Prop() orderType: any
+  @Prop() value: any
 
-  phone: string = ''
+  @Action('confirm/changePhone') changePhone: any
+
+  phone: string = this.value
 
   get text() {
     switch (this.orderType) {
@@ -51,8 +54,8 @@ export default class InviteCard extends Vue {
   }
 
   @Watch('phone')
-  changePhone(newValue) {
-    this.$emit('input', newValue)
+  inputPhone(newValue) {
+    this.changePhone(newValue)
   }
 }
 </script>

@@ -66,7 +66,7 @@
       @click="handleShippingDate"
     />
     <invite-card
-      v-model="phone"
+      :value="phone"
       v-if="order.shippingGroup && order.shippingGroup.shippingMethod === '2'"
       :info="order.shippingGroup"
       :orderType="order.orderType"
@@ -120,9 +120,11 @@ export default class Confirm extends Vue {
   @Action('confirm/setInit') setInit: Function
   @Getter('confirm/init') init: boolean
 
+  @Getter('confirm/phone') phone: any
+  @Action('confirm/clearPhone') clearPhone: any
+
   order: any = {}
   payLoding: boolean = false
-  phone: string = ''
 
   price = price
 
@@ -188,6 +190,9 @@ export default class Confirm extends Vue {
 
               this.setInit(false)
               this.payLoding = false
+            },
+            complete: () => {
+              this.clearPhone()
             }
           })
         }).catch(() => {

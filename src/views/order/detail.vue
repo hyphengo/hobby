@@ -282,7 +282,11 @@ export default class Confirm extends Vue {
         paySign: data.data.sign, // 支付签名
         complete: (r) => {
           // 支付成功后的回调函数
-          this.reload()
+          if (this.detail.orderType === '2') {
+            this.$router.replace('/order/list#all')
+          } else {
+            this.reload()
+          }
           this.$toast.clear()
         }
       })

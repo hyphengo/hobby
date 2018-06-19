@@ -21,7 +21,7 @@ const mutations = {
   },
   [ActionType.CLEAR_ORDER_LIST](state: StateType) {
     state.list = initListData
-  }
+  },
 }
 
 const actions = {
@@ -38,7 +38,7 @@ const actions = {
   },
   clearOrderList({ commit, dispatch }) {
     commit(ActionType.CLEAR_ORDER_LIST)
-  }
+  },
 }
 
 const getters = {
