@@ -7,7 +7,6 @@ import { setWXTitle } from '../util/util'
 import wxsdk from '@/wxsdk'
 import { wxjsconfig, wxToken } from '@/api'
 import isWeiXin from '@/util/isWeiXin'
-import 'nprogress/nprogress.css'
 
 let isV = true
 

@@ -188,10 +188,11 @@ export default class Index extends Vue {
     font-size: 38px;
     color: $--color-black;
     text-align: center;
-    margin-bottom: 54px;
+    margin-bottom: 20px;
   }
   &-swipe{
     padding: 10px 0;
+    margin: 0 20px;
 
     img{
       border-radius: 10px;
@@ -206,6 +207,11 @@ export default class Index extends Vue {
     justify-content: space-between;
     text-align: center;
     color: #888888;
+
+    img{
+      height: 70px;
+      width: 70px;
+    }
   }
 
   &-card{
@@ -224,6 +230,7 @@ export default class Index extends Vue {
       justify-content: space-between;
       margin-top: 32px;
       overflow-x: auto;
+      text-align: center;
 
       &-item{
         width: 200px;
@@ -240,8 +247,8 @@ export default class Index extends Vue {
       }
 
       img{
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
       }
     }
 
@@ -249,11 +256,12 @@ export default class Index extends Vue {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 10px;
     }
 
     &-price{
       color: $--color-price;
-      font-size: 32px;
+      font-size: 28px;
       font-family: PingFang-SC-Bold;
     }
   }

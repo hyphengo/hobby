@@ -92,11 +92,12 @@ export default class Bind extends Vue {
 <style lang="scss">
   .bind{
     .save-box{
-      padding-top: 30px;
       text-align: center;
       background-color: $--color-body;
+      padding: 30px;
       .save-btn{
-        width: 80%;
+        height: 80px;
+        line-height: 80px;
       }
     }
     .van-button{
