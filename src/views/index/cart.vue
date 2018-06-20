@@ -34,6 +34,7 @@
                   :thumb="item.productImg"
                   :unit="item.unit"
                   :id="item.productId"
+                  :discountActivities="item.discountActivities"
                 />
                 <div class="cart-goods-step">
                   <van-stepper
@@ -78,6 +79,7 @@
                   :thumb="item.productImg"
                   :unit="item.unit"
                   :id="item.productId"
+                  :discountActivities="item.discountActivities"
                 />
                 <div class="cart-goods-step">
                   <van-stepper

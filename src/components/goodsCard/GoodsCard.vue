@@ -1,31 +1,48 @@
 <template>
-  <div class="goodscard" @click="handleToDetail">
-    <div class="goodscard-thumb">
-        <img :src="thumb" class="img" >
+  <div @click="handleToDetail">
+    <div class="goodscard">
+      <div class="goodscard-thumb">
+          <img :src="thumb" class="img" >
+      </div>
+      <div class="goodscard-content">
+          <div class="goodscard-title">
+              {{title}}
+          </div>
+          <div class="goodscard-price">
+            <span class="price">￥{{priceTurn(price)}}</span>
+            <span class="unit">/{{unit}}</span>
+          </div>
+      </div>
     </div>
-    <div class="goodscard-content">
-        <div class="goodscard-title">
-            {{title}}
-        </div>
-        <div class="goodscard-price">
-          <span class="price">￥{{priceTurn(price)}}</span>
-          <span class="unit">/{{unit}}</span>
-        </div>
+    <div
+      class="goodscard-activities"
+      v-for="(dis, index) in discountActivities"
+      :key="index"
+      v-if="discountActivities.length > 0"
+    >
+      <van-tag plain type="danger">优惠</van-tag>
+      <p>{{dis}}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Tag } from 'vant'
 import { price } from '@/util/util'
 
-@Component
+@Component({
+  components: {
+    'van-tag': Tag
+  }
+})
 export default class GoodsCard extends Vue {
   @Prop({ default: '' }) thumb: string
   @Prop({ default: null }) price: Number
   @Prop({ default: '' }) title: string
   @Prop({ default: '' }) unit: string
   @Prop() id: string
+  @Prop() discountActivities: any
 
   priceTurn = price
 
@@ -72,6 +89,18 @@ export default class GoodsCard extends Vue {
       .unit {
         color: #C6C6C6;
       }
+    }
+  }
+
+  &-activities{
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    padding-left: 45px;
+    margin-top: -20px;
+
+    p{
+      margin-left: 10px;
     }
   }
 

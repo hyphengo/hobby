@@ -20,6 +20,7 @@
               :title="item.name"
               :unit="item.minUnit"
               :id="item.productId"
+              :discountActivities="item.discountActivities"
             />
           </ve-col>
           <ve-col :span="3" @click="handleAddCart(item)">

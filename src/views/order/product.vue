@@ -18,6 +18,7 @@
           :thumb="item.productImg"
           :unit="item.unit"
           :id="item.productId"
+          :discountActivities="item.discountActivities"
         />
         <div class="product-info-price">
           <p class="product-info-price-title">{{`×${item.quantity}`}}</p>
@@ -25,10 +26,6 @@
           <p>￥{{priceTurn(item.quantity*item.salePrice)}}</p>
         </div>
       </div>
-      <!--<div class="product-bg-favourable">
-        <p></p>
-        <div><span>优惠</span> 满6元返12%无门槛现金券</div>
-      </div>-->
     </div>
   </div>
 </template>
@@ -76,24 +73,7 @@ export default class Detail extends Vue {
   .product{
     &-bg{
       background-color: $--color-white;
-      &-favourable{
-        display: flex;
-        flex-flow: row;
-        margin-top: -10px;
-        padding-bottom: 29px;
-        p{
-          width: 160px;
-        }
-        div{
-          flex-grow: 1;
-          span{
-            color: $--color-price;
-            padding: 2px 5px;
-            border: 1px solid $--color-price;
-            border-radius: 2px;
-          }
-        }
-      }
+      padding-bottom: 10px;
     }
     &-row{
       padding: 28px 20px;

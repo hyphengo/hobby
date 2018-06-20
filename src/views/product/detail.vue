@@ -35,6 +35,14 @@
         <span class="detail-unit">/{{detail.minUnit}}</span>
       </p>
     </div>
+    <div
+      class="detail-activities"
+      v-for="(dis, index) in detail.discountActivities"
+      :key="index"
+    >
+      <van-tag plain type="danger">优惠</van-tag>
+      <p>{{dis}}</p>
+    </div>
     <div class="detail-describe" v-if="detail.detailImages && detail.detailImages.length > 0">
       <p>- 商品描述 -</p>
       <img
@@ -146,6 +154,18 @@ export default class Detail extends Vue {
     img{
       width: 100%;
       height: 100%;
+    }
+  }
+
+  &-activities{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    background-color: $--color-white;
+    padding: 10px 20px;
+
+    p{
+      margin-left: 10px
     }
   }
 

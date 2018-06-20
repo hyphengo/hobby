@@ -202,7 +202,11 @@ export default class OrderList extends Vue {
         paySign: data.data.sign, // 支付签名
         complete: (r) => {
           // 支付成功后的回调函数
-          this.$router.push(`/order/detail/${order.id}`)
+          if (order.orderType === '2') {
+            this.reload()
+          } else {
+            this.$router.push(`/order/detail/${order.id}`)
+          }
           this.$toast.clear()
         }
       })
