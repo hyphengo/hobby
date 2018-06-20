@@ -84,14 +84,15 @@ export default class Edit extends Vue {
         phoneNumber: this.addressInfo.phoneNumber,
         defaultAddress: this.addressInfo.defaultAddress
       }
-      this.setCommunity({})
       if (params.id) {
         updateAddress(params).then(() => {
           this.$router.push(`/address/list/${this.$route.params.name}`)
+          this.setCommunity({})
         })
       } else {
         addAddress(params).then(() => {
           this.$router.push(`/address/list/${this.$route.params.name}`)
+          this.setCommunity({})
         })
       }
     }
