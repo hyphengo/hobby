@@ -124,11 +124,12 @@ export default class Edit extends Vue {
     padding-left: 120px;
   }
   .save-box{
-    padding-top: 30px;
     text-align: center;
     background-color: $--color-body;
+    padding: 30px 30px 0;
     .save-btn{
-      width: 80%;
+      height: 80px;
+      line-height: 80px;
     }
   }
   .van-button--primary, .van-checkbox--checked{
