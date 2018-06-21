@@ -19,6 +19,7 @@
               'active': day
             }
           ]"
+          v-if="isShowToday"
         >
           今天
         </van-button>
@@ -70,6 +71,8 @@ export default class DateCard extends Vue {
 
   dateSelect = dateSelect
 
+  isShowToday: boolean = true
+
   columns = [
     {
       values: dateSelect,
@@ -116,6 +119,12 @@ export default class DateCard extends Vue {
         this.columns[0].defaultIndex = i
         break
       }
+    }
+
+    const curHour = moment().hour()
+
+    if (curHour >= 22 && curHour <= 23) {
+      this.isShowToday = false
     }
   }
 }
