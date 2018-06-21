@@ -26,13 +26,13 @@
       <van-cell title="设为默认地址" >
         <van-checkbox v-model="addressInfo.defaultAddress" />
       </van-cell>
-      <div class="save-box">
-        <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
-      </div>
-      <div class="save-box" v-if="addressInfo.id">
-        <van-button class="save-btn" size="large" @click="delClick" >删除</van-button>
-      </div>
     </cell-group>
+    <div class="save-box">
+        <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
+    </div>
+    <div class="save-box" v-if="addressInfo.id">
+      <van-button class="save-btn" size="large" @click="delClick" >删除</van-button>
+    </div>
   </div>
 
 </template>

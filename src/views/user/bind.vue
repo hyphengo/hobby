@@ -57,11 +57,7 @@ export default class Bind extends Vue {
   }
   defineClick() {
     bindingMobile({mobile: this.phone, verificationCode: this.sms}).then(res => {
-      if (!res.success) {
-        this.$toast('验证码不对，请换个姿势~')
-      } else {
-        this.$router.back()
-      }
+      this.$router.back()
     })
   }
   get defineBtn() {
