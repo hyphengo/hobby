@@ -36,7 +36,7 @@
           明天
         </van-button>
       </div>
-      <van-picker :columns="columns" @change="(picker, val, index) => {chosseDate = val, columns[0].defaultIndex = index}" />
+      <van-picker v-if="colShow" :columns="columns" @change="(picker, val, index) => {chosseDate = val, columns[0].defaultIndex = index}" />
       <div class="date-card-btns">
         <van-button bottom-action size="small" @click="selectDateShow = false">取消</van-button>
         <van-button bottom-action size="small" @click="confirm">确认</van-button>
@@ -65,20 +65,22 @@ export default class DateCard extends Vue {
   day: boolean = true
 
   // 当前选择时段
-  chosseDate: string = ''
+  chosseDate: any = ''
 
   selectDateShow: boolean = false
 
-  dateSelect = dateSelect
+  dateSelect: any = dateSelect
 
   isShowToday: boolean = true
 
-  columns = [
+  columns: any = [
     {
       values: dateSelect,
       defaultIndex: 0
     }
   ]
+
+  colShow: boolean = true
 
   get date() {
     const today = moment().format('MM月DD日')
@@ -92,6 +94,36 @@ export default class DateCard extends Vue {
 
   handleChangeDay(is) {
     this.day = is
+
+    const date = moment()
+
+    // 年-月-日
+    const dateStr = date.format('YYYY-MM-DD')
+
+    for (let i = 0; i < this.dateSelect.length; i++) {
+      const itemDate = moment(`${dateStr} ${this.dateSelect[i].end}`)
+
+      if (itemDate.isBefore(date) && is) {
+        this.columns[0].values[i].disabled = true
+      } else {
+        this.columns[0].values[i].disabled = false
+      }
+
+      if (is) {
+        this.columns[0].defaultIndex = 0
+      } else {
+        if (this.info.shipHourRange === this.dateSelect[i]) {
+          this.columns[0].defaultIndex = i
+          break
+        }
+      }
+    }
+    this.colShow = false
+
+    Vue.nextTick(() => {
+      this.chosseDate = [this.columns[0].values[0]]
+      this.colShow = true
+    })
   }
 
   confirm() {
@@ -99,15 +131,22 @@ export default class DateCard extends Vue {
 
     this.$emit('click', {
       dateTime,
-      chosseDate: this.chosseDate[0]
+      chosseDate: this.chosseDate[0].text
     })
 
     this.selectDateShow = false
   }
 
   mounted() {
-    const today = moment().format('MM月DD日')
+    const date = moment()
 
+    // 年-月-日
+    const dateStr = date.format('YYYY-MM-DD')
+
+    // 当天 x月x日
+    const today = date.format('MM月DD日')
+
+    // 后端传给的日期
     const ship = moment(this.info.shipOnDate).format('MM月DD日')
 
     if (today !== ship) {
@@ -115,13 +154,20 @@ export default class DateCard extends Vue {
     }
 
     for (let i = 0; i < this.dateSelect.length; i++) {
+      const itemDate = moment(`${dateStr} ${this.dateSelect[i].end}`)
+
+      if (itemDate.isBefore(date)) {
+        this.columns[0].values[i].disabled = true
+      }
+
       if (this.info.shipHourRange === this.dateSelect[i]) {
         this.columns[0].defaultIndex = i
         break
       }
     }
 
-    const curHour = moment().hour()
+    // 当前小时
+    const curHour = date.hour()
 
     if (curHour >= 22 && curHour <= 23) {
       this.isShowToday = false
