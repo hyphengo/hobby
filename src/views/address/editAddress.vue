@@ -86,12 +86,12 @@ export default class Edit extends Vue {
       }
       if (params.id) {
         updateAddress(params).then(() => {
-          this.$router.push(`/address/list/${this.$route.params.name}`)
+          this.$router.back()
           this.setCommunity({})
         })
       } else {
         addAddress(params).then(() => {
-          this.$router.push(`/address/list/${this.$route.params.name}`)
+          this.$router.back()
           this.setCommunity({})
         })
       }
