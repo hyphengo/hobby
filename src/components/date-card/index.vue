@@ -36,7 +36,7 @@
           明天
         </van-button>
       </div>
-      <van-picker v-if="colShow" :columns="columns" @change="(picker, val, index) => {chosseDate = val, columns[0].defaultIndex = index}" />
+      <van-picker v-if="colShow" :columns="columns" @change="(picker, val, index) => {chosseDate = val}" />
       <div class="date-card-btns">
         <van-button bottom-action size="small" @click="selectDateShow = false">取消</van-button>
         <van-button bottom-action size="small" @click="confirm">确认</van-button>
@@ -80,6 +80,8 @@ export default class DateCard extends Vue {
     }
   ]
 
+  todayDefaultIndex: any = 0
+
   colShow: boolean = true
 
   get date() {
@@ -100,6 +102,10 @@ export default class DateCard extends Vue {
     // 年-月-日
     const dateStr = date.format('YYYY-MM-DD')
 
+    if (!is) {
+      this.todayDefaultIndex = this.columns[0].defaultIndex
+    }
+
     for (let i = 0; i < this.dateSelect.length; i++) {
       const itemDate = moment(`${dateStr} ${this.dateSelect[i].end}`)
 
@@ -109,19 +115,20 @@ export default class DateCard extends Vue {
         this.columns[0].values[i].disabled = false
       }
 
-      if (is) {
+      if (!is) {
         this.columns[0].defaultIndex = 0
       } else {
-        if (this.info.shipHourRange === this.dateSelect[i]) {
-          this.columns[0].defaultIndex = i
-          break
-        }
+        this.columns[0].defaultIndex = this.todayDefaultIndex
       }
     }
     this.colShow = false
 
     Vue.nextTick(() => {
-      this.chosseDate = [this.columns[0].values[0]]
+      if (is) {
+        this.chosseDate = [this.columns[0].values[this.todayDefaultIndex]]
+      } else {
+        this.chosseDate = [this.columns[0].values[0]]
+      }
       this.colShow = true
     })
   }
@@ -133,6 +140,8 @@ export default class DateCard extends Vue {
       dateTime,
       chosseDate: this.chosseDate[0].text
     })
+
+    this.columns[0].defaultIndex = this.todayDefaultIndex
 
     this.selectDateShow = false
   }
@@ -160,8 +169,10 @@ export default class DateCard extends Vue {
         this.columns[0].values[i].disabled = true
       }
 
-      if (this.info.shipHourRange === this.dateSelect[i]) {
+      if (this.info.shipHourRange === this.dateSelect[i].text) {
         this.columns[0].defaultIndex = i
+        this.chosseDate = [this.columns[0].values[i]]
+        this.todayDefaultIndex = i
         break
       }
     }
