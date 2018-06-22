@@ -41,7 +41,7 @@
             :key="sales.productId"
             @click="handleToDetail(sales)"
           >
-            <img :src="sales.productImg" />
+            <img :src="sales.productImg || require('assets/images/product.png')" />
             <p class="van-ellipsis">{{sales.productName}}</p>
             <div class="home-card-add">
               <span class="home-card-price">
