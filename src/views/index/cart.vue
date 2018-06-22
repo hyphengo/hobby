@@ -162,6 +162,7 @@ export default class Cart extends Vue {
   @Prop() isShowBar: boolean
 
   @Action('cart/setCartCount') setCartCount: Function
+  @Action('confirm/setInit') setInit: Function
 
   // 购物车是否有商品
   hasgoods: boolean = true
@@ -259,6 +260,7 @@ export default class Cart extends Vue {
     this.subLoding = true
     moveToCheckout({}).then(res => {
       this.subLoding = false
+      this.setInit(false)
 
       if (res.data.mutiGroup === 1) {
         this.single = res.data.selectOrderVoList
