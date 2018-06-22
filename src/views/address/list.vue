@@ -3,7 +3,7 @@
     <div :class="['address-info', {'address-info-click': $route.params.name==='select'}]" v-for="item in list" :key="item.id" @click.stop="selectAddress(item)">
       <div class="info">
         <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
-        <span>详细地址：{{item.communityName}}{{item.detailAddress}}</span>
+        <span>{{item.communityName}}{{item.detailAddress}}</span>
       </div>
       <div class="edit">
         <van-icon name="edit" @click.stop="onEdit(item)"/>
