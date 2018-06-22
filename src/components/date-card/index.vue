@@ -87,9 +87,19 @@ export default class DateCard extends Vue {
   get date() {
     const today = moment().format('MM月DD日')
 
+    const addToDay = moment().add(1, 'days').format('MM月DD日')
+
     const ship = moment(this.info.shipOnDate).format('MM月DD日')
 
-    const text = today === ship ? '(今天)' : '(明天)'
+    let text = ''
+
+    if (today === ship) {
+      text = '(今天)'
+    }
+
+    if (addToDay === ship) {
+      text = '(明天)'
+    }
 
     return `${text}${ship}`
   }
