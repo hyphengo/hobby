@@ -36,7 +36,7 @@
             v-if="index < 5"
             class="order-list-product-item"
           >
-            <img :src="product.productImg" />
+            <img :src="product.productImg || require('assets/images/product.png')" />
           </div>
           <van-icon name="arrow order-list-product-arrow" />
         </div>
