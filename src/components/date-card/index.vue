@@ -165,7 +165,7 @@ export default class DateCard extends Vue {
     for (let i = 0; i < this.dateSelect.length; i++) {
       const itemDate = moment(`${dateStr} ${this.dateSelect[i].end}`)
 
-      if (itemDate.isBefore(date)) {
+      if (itemDate.isBefore(date) && this.day) {
         this.columns[0].values[i].disabled = true
       }
 

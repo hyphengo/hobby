@@ -15,7 +15,7 @@
           v-for="(item) in data.carouselItems"
           :key="item.id"
         >
-          <img :src="item.image" @click="handleJump(item)" />
+          <img :src="item.image || require('assets/images/product.png')" @click="handleJump(item)" />
         </swipe-item>
       </swipe>
       <div class="home-quiki">

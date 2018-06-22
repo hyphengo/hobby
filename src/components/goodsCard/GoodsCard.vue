@@ -2,7 +2,7 @@
   <div @click="handleToDetail">
     <div class="goodscard">
       <div class="goodscard-thumb">
-          <img :src="thumb" class="img" >
+          <img :src="thumb || require('assets/images/product.png')" class="img" >
       </div>
       <div class="goodscard-content">
           <div class="goodscard-title">

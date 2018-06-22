@@ -18,7 +18,7 @@
         v-if="index < 5"
         class="productInfo-list-item"
       >
-        <img :src="item.productImg" />
+        <img :src="item.productImg || require('assets/images/product.png')" />
       </div>
       <van-icon name="arrow productInfo-list-arrow" />
     </div>
@@ -70,7 +70,7 @@
         v-if="index < 5"
         class="productInfo-list-item"
       >
-        <img :src="item.productImg" />
+        <img :src="item.productImg || require('assets/images/product.png')" />
       </div>
       <van-icon name="arrow productInfo-list-arrow" />
     </div>

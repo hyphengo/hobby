@@ -5,10 +5,14 @@
       :autoplay="5000"
     >
       <swipe-item
+        v-if="detail.images.length > 0"
         v-for="(item, index) in detail.images"
         :key="index"
       >
         <img :src="item" />
+      </swipe-item>
+      <swipe-item>
+        <img :src="require('assets/images/product.png')" alt="" />
       </swipe-item>
     </swipe>
     <div class="detail-title">

@@ -39,7 +39,7 @@ export default class Address extends Vue {
     if (this.$route.params.name === 'select') {
       this.setSelectAddress(item).then(() => {
         applyShippingAddress({addressId: item.id}).then(() => {
-          this.$router.push('/order/confirm')
+          this.$router.back()
         })
       })
     }
