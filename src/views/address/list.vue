@@ -12,11 +12,9 @@
         <van-icon name="success"/>
       </div>
     </div>
-    <van-cell class="fix" is-link @click="addEdit">
-      <template slot="title">
-        <span class="cell-text"><van-icon name="add" />新增地址</span>
-      </template>
-    </van-cell>
+    <div class="fix" is-link @click="addEdit">
+      <span>新增地址</span>
+    </div>
   </div>
 </template>
 
@@ -117,16 +115,13 @@ export default class Address extends Vue {
     left: 0;
     bottom: 0;
     z-index: 9999;
-    padding-left: 25px;
-    .cell-text{
-      display: flex;
-      align-items: center;
-      .van-icon-add{
-        color: $--color-base;
-        font-size: 36px;
-        margin-right: 15px;
-      }
-    }
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    background: $--color-base;
+    color: #fff;
+    font-size: 32px;
   }
 }
 </style>
