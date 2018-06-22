@@ -19,6 +19,7 @@
         ]"
         v-for="item in couponList"
         :key="item.id"
+        @click="radioClick(item.id)"
       >
         <div class="coupon-left">
           <div>
@@ -70,6 +71,11 @@ export default class Coupon extends Vue {
     applyCoupon({id: null}).then(res => {
       this.$router.back()
     })
+  }
+  radioClick(id) {
+    if (this.$route.params.name === 'select') {
+      this.couponId = id
+    }
   }
   mounted() {
     if (this.$route.params.name === 'list') {
