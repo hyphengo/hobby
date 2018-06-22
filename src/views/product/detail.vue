@@ -23,7 +23,7 @@
           :span="20"
           class="detail-title-name"
         >
-          {{detail.saleName}}
+          {{detail.name}}
         </ve-col>
         <ve-col
           :span="4"

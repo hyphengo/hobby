@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
 
     // 本地调试 bad code TODO
     if (process.env.CONTEXT === 'test' && !isWeiXin()) {
-      store.dispatch('auth/setUser', '5c1dbe2a-ef6e-4be5-8528-3f9f8880a1c4')
+      store.dispatch('auth/setUser', '9984a941-8eae-40ad-ab87-57db075398ca')
     }
 
     const hackto: any = { ...to, replace: true }
