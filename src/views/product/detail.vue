@@ -11,7 +11,7 @@
       >
         <img :src="item" />
       </swipe-item>
-      <swipe-item v-else>
+      <swipe-item v-if="!detail.images">
         <img :src="require('assets/images/product.png')" alt="" />
       </swipe-item>
     </swipe>
