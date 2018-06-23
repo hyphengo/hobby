@@ -133,10 +133,6 @@ export default class Index extends Vue {
   opacity: 0;
   transform: translate(-60px, 0);
 }
-
-.van-tabbar--fixed{
-  z-index: 100;
-}
 .van-tabbar-item--active{
   color: $--color-base !important;
 }

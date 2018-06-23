@@ -58,7 +58,7 @@ export default class AddressCard extends Vue {
     align-items: center;
 
     img{
-      width: 32px;
+      width: 36px;
       height: 36px;
       margin-right: 16px;
     }
