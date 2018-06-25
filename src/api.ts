@@ -12,7 +12,13 @@ import store from '@/store'
 
 const http = new Http()
 
-http.axios.defaults.baseURL = process.env.API_HOST
+let host = process.env.API_HOST
+
+if (process.env.NODE_ENV === 'production') {
+  host = '/'
+}
+
+http.axios.defaults.baseURL = host
 
 http.request(
   config => {

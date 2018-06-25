@@ -18,7 +18,8 @@ import {
   Toast,
   Checkbox,
   Icon,
-  Button
+  Button,
+  Lazyload
 } from 'vant'
 import Row from '@/components/row'
 import Col from '@/components/col'
@@ -32,6 +33,7 @@ const VanDialog: any = Dialog
 
 // Vue.use(vant)
 Vue.use(VanDialog)
+Vue.use(Lazyload)
 
 Vue.prototype.$toast = Toast
 Vue.prototype.$dialog = Dialog

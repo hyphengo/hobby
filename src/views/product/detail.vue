@@ -5,11 +5,11 @@
       :autoplay="5000"
     >
       <swipe-item
-        v-if="detail.images.length > 0"
-        v-for="(item, index) in detail.images"
-        :key="index"
+        v-if="detail.images.length > 0 && isItemShow"
+        v-for="item in detail.images"
+        :key="item"
       >
-        <img :src="item" />
+        <img v-lazy="item" />
       </swipe-item>
       <swipe-item v-if="!detail.images">
         <img :src="require('assets/images/product.png')" alt="" />
@@ -90,6 +90,8 @@ export default class Detail extends Vue {
 
   btnLoding: boolean = false
 
+  isItemShow: boolean = false
+
   price = price
 
   @ModalRouter.open
@@ -114,7 +116,9 @@ export default class Detail extends Vue {
 
   mounted() {
     this.getCount()
-    this.getProductDetail(this.$route.params.id)
+    this.getProductDetail(this.$route.params.id).then(() => {
+      this.isItemShow = true
+    })
   }
 }
 </script>
