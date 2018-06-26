@@ -165,7 +165,7 @@ export default class Cart extends Vue {
   @Action('confirm/setInit') setInit: Function
 
   // 购物车是否有商品
-  hasgoods: boolean = true
+  hasgoods: boolean = false
   checkedAll: boolean = false
   goods: any = []
   subLoding: boolean = false
