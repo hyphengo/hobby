@@ -209,8 +209,8 @@ export default class Index extends Vue {
     color: #888888;
 
     img{
-      height: 70px;
-      width: 70px;
+      height: 80px;
+      width: 80px;
     }
   }
 

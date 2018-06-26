@@ -15,7 +15,7 @@ const http = new Http()
 let host = process.env.API_HOST
 
 if (process.env.NODE_ENV === 'production') {
-  host = '/'
+  host = '/api'
 }
 
 http.axios.defaults.baseURL = host
