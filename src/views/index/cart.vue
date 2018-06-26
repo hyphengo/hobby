@@ -104,7 +104,7 @@
         </div>
       </div>
     </pull-refresh>
-    <div :class="['cart-goods-btn van-hairline--top', {
+    <div v-if="hasgoods" :class="['cart-goods-btn van-hairline--top', {
       'b-0': !isShowBar
     }]">
       <van-checkbox :value="checkedAll" @input="handleCheckAll">全选</van-checkbox>
@@ -477,7 +477,6 @@ export default class Cart extends Vue {
   text-align: center;
   height: 100%;
   padding-top: 50%;
-  padding-bottom: 100%;
 
   .tips {
     p {
