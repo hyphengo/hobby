@@ -55,7 +55,7 @@
     </pull-refresh>
     <van-popup v-model="registry" :close-on-click-overlay="false">
       <div class="home-modal-img" @click="handleToCoupon">
-        <img :src="require('assets/images/newuser.png')" />
+        <img :src="require('assets/images/newuser@3x.png')" />
       </div>
       <div class="home-modal-close">
         <van-icon name="close" @click="closemodal"/>
@@ -89,12 +89,13 @@ import wxs from '@/wxsdk'
 export default class Index extends Vue {
   @Action('cart/addCart') addCart: any
   @Action('home/setLocation') setLocation: any
+
   @Getter('home/location') location: any
   @Getter('auth/registry') registry: boolean
+  @Action('auth/setRegistry') setRegistry: any
 
   isLoading: boolean = false
   data: Object = {}
-
   // 添加到购物车
   handleToCart(sales) {
     this.addCart({
@@ -119,7 +120,7 @@ export default class Index extends Vue {
 
   // 关闭弹窗
   closemodal() {
-    this.registry = false
+    this.setRegistry()
   }
 
   /**
@@ -294,6 +295,12 @@ export default class Index extends Vue {
     .van-icon-close {
       font-size: 80px;
       color: #E9E9EA;
+    }
+  }
+  &-modal-img {
+    img{
+      width: 608px;
+      height: 859px;
     }
   }
   .van-popup {
