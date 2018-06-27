@@ -77,7 +77,7 @@
     />
     <div v-if="order.returnCouponAmount" class="confirm-returnCoupon">
       <van-tag plain type="danger">{{order.activityName}}</van-tag>
-      <span>订单完成预计可获得无门槛券 <span class="price">{{order.returnCouponAmount}}</span>元</span>
+      <span>订单完成预计可获得现金券 <span class="price">{{order.returnCouponAmount}}</span>元</span>
     </div>
     <div class="confirm-bar" v-if="order.orderPriceInfo">
       <p>付款: <span class="price">￥{{price(order.orderPriceInfo.total)}}</span></p>

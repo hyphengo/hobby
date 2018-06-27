@@ -53,13 +53,21 @@
         </div>
       </div>
     </pull-refresh>
+    <van-popup v-model="registry" :close-on-click-overlay="false">
+      <div class="home-modal-img" @click="handleToCoupon">
+        <img :src="require('assets/images/newuser.png')" />
+      </div>
+      <div class="home-modal-close">
+        <van-icon name="close" @click="closemodal"/>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class'
-import { Swipe, SwipeItem, PullRefresh } from 'vant'
+import { Swipe, SwipeItem, PullRefresh, Popup } from 'vant'
 import { getHome, initLocation, selectCommunity } from '@/api'
 import AddButton from '@/components/add-button/index.vue'
 import Search from '@/components/search/index.vue'
@@ -74,13 +82,15 @@ import wxs from '@/wxsdk'
     SwipeItem,
     PullRefresh,
     AddButton,
-    Search
+    Search,
+    'VanPopup': Popup
   }
 })
 export default class Index extends Vue {
   @Action('cart/addCart') addCart: any
   @Action('home/setLocation') setLocation: any
   @Getter('home/location') location: any
+  @Getter('auth/registry') registry: boolean
 
   isLoading: boolean = false
   data: Object = {}
@@ -100,6 +110,16 @@ export default class Index extends Vue {
   // 跳转至商品详情
   handleToDetail(sales) {
     this.$router.push(`/product/detail/${sales.productId}`)
+  }
+
+  // 跳转至优惠券列表
+  handleToCoupon() {
+    this.$router.push('/my/coupon/list')
+  }
+
+  // 关闭弹窗
+  closemodal() {
+    this.registry = false
   }
 
   /**
@@ -264,6 +284,19 @@ export default class Index extends Vue {
       font-size: 28px;
       font-family: PingFang-SC-Bold;
     }
+  }
+
+  &-modal-close {
+    margin-top: 57px;
+    text-align: center;
+
+    .van-icon-close {
+      font-size: 80px;
+      color: #E9E9EA;
+    }
+  }
+  .van-popup {
+    background: none;
   }
 }
 </style>
