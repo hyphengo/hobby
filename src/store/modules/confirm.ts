@@ -22,7 +22,7 @@ const mutations = {
     state.phone = phone
   },
   [ActionType.CLEAR_PHONE](state: StateType) {
-    state.phone = null
+    state.phone = ''
   }
 }
 

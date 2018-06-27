@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
       code: to.query.code
     }).then(res => {
       // 设置登录状态
-      store.dispatch('auth/setUser', res.data.token)
+      store.dispatch('auth/setUser', res.data)
 
       const hackto: any = { ...to, replace: true }
 
@@ -71,7 +71,9 @@ router.beforeEach((to, from, next) => {
 
     // 本地调试 bad code TODO
     if (process.env.CONTEXT === 'test' && !isWeiXin()) {
-      store.dispatch('auth/setUser', '9984a941-8eae-40ad-ab87-57db075398ca')
+      store.dispatch('auth/setUser', {
+        token: '9984a941-8eae-40ad-ab87-57db075398ca'
+      })
     }
 
     const hackto: any = { ...to, replace: true }
