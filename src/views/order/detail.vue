@@ -59,6 +59,7 @@
           v-if="detail.shippingMethod === '2'"
           :info="detail"
           :orderType="detail.orderType"
+          :disabled="true"
         />
       </div>
       <div class="detail-item">
