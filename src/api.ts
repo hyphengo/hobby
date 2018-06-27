@@ -200,6 +200,9 @@ export const getOrderDetail = (id) => http.get('/order/getOrderDetail', {id})
 // 到店自提时,设置取货码
 export const applyDeliveryCode = (params) => http.post('/checkout/applyDeliveryCode', params)
 
+// 订单备注
+export const applyNote = params => http.post('/checkout/applyNote', params)
+
 // 提交订单
 export const commitOrder = (params) => http.post('/checkout/commitOrder', params)
 

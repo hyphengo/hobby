@@ -14,7 +14,8 @@
         {{text}}时间
       </ve-col>
       <ve-col :span="18">
-        <span v-if="orderType === '2'">商品采购到店之后，</span>请在营业时间内{{text}}到店（07:00-22:00）
+        <span v-if="orderType === '2'">商品采购到店之后，</span>
+        {{info.collectGoodsTime}}
       </ve-col>
     </ve-row>
     <ve-row class="invite-card-item label" align="center">
@@ -22,7 +23,7 @@
         {{text}}手机号
       </ve-col>
       <ve-col :span="18">
-        <span v-if="info.cellphone">{{info.cellphone}}</span>
+        <span v-if="disabled">{{info.cellphone}}</span>
         <input v-else class="invite-card-phone" v-model="phone" type="number" :placeholder="`您${text}到店的验证手机号码`" />
       </ve-col>
     </ve-row>
@@ -38,6 +39,7 @@ export default class InviteCard extends Vue {
   @Prop() info: any
   @Prop() orderType: any
   @Prop() value: any
+  @Prop({default: false}) disabled: any
 
   @Action('confirm/changePhone') changePhone: any
 
@@ -56,6 +58,12 @@ export default class InviteCard extends Vue {
   @Watch('phone')
   inputPhone(newValue) {
     this.changePhone(newValue)
+  }
+
+  mounted() {
+    if (!this.disabled && this.info.cellphone && !this.phone) {
+      this.phone = this.info.cellphone
+    }
   }
 }
 </script>
