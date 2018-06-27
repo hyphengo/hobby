@@ -141,6 +141,7 @@ export default class Index extends Vue {
 
   .van-icon__info{
     top: -.2em;
+    font-size: 22px;
   }
 
   img{
