@@ -145,6 +145,7 @@ export default class Index extends Vue {
   }
 
   handleJump(item) {
+    if (!item.url) return
     this.judgeType(item.url)
   }
 
