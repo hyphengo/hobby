@@ -372,17 +372,16 @@ export default class Confirm extends Vue {
     background: #fff;
 
     .btn {
-      width: 176px;
-      height: 80px;
-      line-height: 80px;
+      height: 70px;
+      line-height: 70px;
       text-align: center;
       background: none;
       border: 1px solid #999;
+      margin-left: 20px;
     }
     .active {
       color: $--color-base;
       border: 1px solid $--color-base;
-      margin-left: 20px;
     }
   }
 }
