@@ -105,8 +105,9 @@
           </ve-col>
         </ve-row>
       </div>
+      <memo-card :note="detail.note" :disabled="true" />
     </pull-refresh>
-    <div  class="detail-btn">
+    <div class="detail-btn">
       <a
         v-if="detail.state !== 10"
         class="btn van-button van-button--default van-button--normal"
@@ -149,6 +150,7 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
+import MemoCard from '@/components/memo-card/index.vue'
 import { getOrderDetail, cancelOrder, buyItemsAgain, prePay } from '@/api'
 import { price } from '@/util/util'
 import moment from 'moment'
@@ -161,6 +163,7 @@ import wxs from '@/wxsdk'
     AddressCard,
     DateCard,
     InviteCard,
+    MemoCard,
     'VanStep': Step,
     'VanSteps': Steps,
     PullRefresh

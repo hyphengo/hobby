@@ -164,7 +164,7 @@ export default class Cart extends Vue {
   @Action('cart/setCartCount') setCartCount: Function
   @Action('confirm/setInit') setInit: Function
 
-  @Action('confirm/clearPhone') clearPhone: any
+  @Action('confirm/clear') clear: any
 
   // 购物车是否有商品
   hasgoods: boolean = true
@@ -272,7 +272,7 @@ export default class Cart extends Vue {
         return
       }
 
-      this.clearPhone()
+      this.clear()
 
       this.$router.push('/order/confirm')
     }).catch(() => {

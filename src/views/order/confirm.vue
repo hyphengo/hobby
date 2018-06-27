@@ -79,6 +79,7 @@
       <van-tag plain type="danger">{{order.activityName}}</van-tag>
       <span>订单完成预计可获得现金券 <span class="price">{{order.returnCouponAmount}}</span>元</span>
     </div>
+    <memo-card :value="note" />
     <div class="confirm-bar" v-if="order.orderPriceInfo">
       <p>付款: <span class="price">￥{{price(order.orderPriceInfo.total)}}</span></p>
       <van-button
@@ -101,7 +102,8 @@ import ProductInfo from '@/components/productInfo/index.vue'
 import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
-import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode, prePay } from '@/api'
+import MemoCard from '@/components/memo-card/index.vue'
+import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode, applyNote, prePay } from '@/api'
 import { price } from '@/util/util'
 import wxs from '@/wxsdk'
 
@@ -112,6 +114,7 @@ import wxs from '@/wxsdk'
     AddressCard,
     DateCard,
     InviteCard,
+    MemoCard,
     'van-tag': Tag
   }
 })
@@ -120,7 +123,8 @@ export default class Confirm extends Vue {
   @Getter('confirm/init') init: boolean
 
   @Getter('confirm/phone') phone: any
-  @Action('confirm/clearPhone') clearPhone: any
+  @Getter('confirm/memo') note: any
+  @Action('confirm/clear') clear: any
 
   order: any = {}
   payLoding: boolean = false
@@ -159,6 +163,18 @@ export default class Confirm extends Vue {
       })
     }
 
+    if (this.note.length > 30) {
+      this.$toast('备注最多30字')
+      this.payLoding = false
+      return
+    }
+
+    await applyNote({
+      note: this.note
+    }).catch(() => {
+      this.payLoding = false
+    })
+
     commitOrder({}).then(res => {
       if (res.code === 200) {
         // 微信支付
@@ -191,7 +207,7 @@ export default class Confirm extends Vue {
               this.payLoding = false
             },
             complete: () => {
-              this.clearPhone()
+              this.clear()
             }
           })
         }).catch(() => {
