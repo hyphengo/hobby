@@ -82,6 +82,11 @@ export default class InviteCard extends Vue {
     display: flex;
     align-items: center;
 
+    img {
+      width: 23px;
+      height: 28px;
+    }
+
     &.label{
       padding-left: 55px;
     }

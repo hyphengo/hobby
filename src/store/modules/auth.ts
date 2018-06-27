@@ -30,9 +30,7 @@ const mutations = {
   },
   // registry
   [ActionType.SET_REGISTRY](state: StateType, registry: boolean) {
-    if (registry) {
-      state.registry = registry
-    }
+    state.registry = registry
   },
   // Clear 所有数据
   [ActionType.CLEAR_USER](state: StateType) {
@@ -55,7 +53,11 @@ const actions = {
   clearAuth({ commit }) {
     commit(ActionType.CLEAR_USER)
     commit(ActionType.IS_AUTH, false)
-  }
+  },
+  setRegistry({ commit }) {
+    commit(ActionType.SET_REGISTRY, false)
+  },
+  
 }
 
 const getters = {

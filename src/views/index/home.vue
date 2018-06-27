@@ -89,8 +89,10 @@ import wxs from '@/wxsdk'
 export default class Index extends Vue {
   @Action('cart/addCart') addCart: any
   @Action('home/setLocation') setLocation: any
+
   @Getter('home/location') location: any
   @Getter('auth/registry') registry: boolean
+  @Action('auth/setRegistry') setRegistry: any
 
   isLoading: boolean = false
   data: Object = {}
@@ -118,7 +120,7 @@ export default class Index extends Vue {
 
   // 关闭弹窗
   closemodal() {
-    this.registry = false
+    this.setRegistry()
   }
 
   /**
