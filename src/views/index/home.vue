@@ -247,8 +247,8 @@ export default class Index extends Vue {
       }
 
       img{
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
       }
     }
 
