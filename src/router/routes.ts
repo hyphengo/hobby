@@ -13,7 +13,7 @@ const asyncRoutes = [
     children: [
       {
         path: 'home',
-        name: '首页',
+        name: '可可蛙',
         meta: {
           wxsdk: true
         },
