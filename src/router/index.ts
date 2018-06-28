@@ -108,7 +108,7 @@ router.afterEach((to, from) => {
       link: window.location.href,
       title: '可可蛙向你扔出一张5元红包，赶紧抓住它',
       desc: '新人满30减5元，配送上门，活动商品消费达6元返15%优惠券，@城南名著的你',
-      imgUrl: require('assets/images/share.jpg'),
+      imgUrl: 'http://img.cocowa.com.cn/activity/couponico.jpg',
     })
   }
 
