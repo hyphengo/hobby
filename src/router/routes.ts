@@ -15,7 +15,8 @@ const asyncRoutes = [
         path: 'home',
         name: '可可蛙',
         meta: {
-          wxsdk: true
+          wxsdk: true,
+          share: true
         },
         component: () => import('@/views/index/home.vue'),
       },

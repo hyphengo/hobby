@@ -10,3 +10,5 @@ declare var window: ExtendsWindow;
 
 declare var PRODUCTION: any;
 declare var process: any;
+
+declare var require: any;

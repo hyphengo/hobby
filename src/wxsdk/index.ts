@@ -37,5 +37,14 @@ export default {
     wx.ready(() => {
       wx.getLocation(params)
     })
+  },
+
+  onMenuShare(params) {
+    wx.ready(() => {
+      // 分享到朋友圈
+      wx.onMenuShareTimeline(params)
+      // 分享给朋友
+      wx.onMenuShareAppMessage(params)
+    })
   }
 }
