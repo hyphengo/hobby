@@ -101,7 +101,7 @@ export default class Index extends Vue {
   @Watch('$route.name')
   changeActive(val) {
     switch (val) {
-      case '首页':
+      case '可可蛙':
         this.active = 0
         break
       case '逛逛':
