@@ -11,7 +11,8 @@
     <div
       v-else
       :class="['browse-list', {
-        'pb': isShowBar
+        'pb': isShowBar,
+        's-p': !isShowBar
       }]"
     >
       <div class="browse-list-left">
@@ -123,6 +124,10 @@ export default class Browse extends Vue {
 
     &.pb{
       padding-bottom: 92px;
+    }
+
+    &.s-p{
+      padding-bottom: 46px;
     }
 
     &-left{
