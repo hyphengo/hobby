@@ -19,6 +19,7 @@
           :unit="item.unit"
           :id="item.productId"
           :discountActivities="item.discountActivities"
+          :disable="true"
         />
         <div class="product-info-price">
           <p class="product-info-price-title">{{`×${item.quantity}`}}</p>

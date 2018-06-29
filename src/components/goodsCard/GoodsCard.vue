@@ -43,10 +43,12 @@ export default class GoodsCard extends Vue {
   @Prop({ default: '' }) unit: string
   @Prop() id: string
   @Prop() discountActivities: any
+  @Prop({ default: false }) disable: boolean
 
   priceTurn = price
 
   handleToDetail() {
+    if (this.disable) return
     this.$router.push(`/product/detail/${this.id}`)
   }
 }
