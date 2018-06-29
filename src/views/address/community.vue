@@ -1,6 +1,6 @@
 <template>
   <div class="community">
-    <van-cell class="van-hairline--bottom" :title="city.regionName" is-link :to="{ path:'/address/city', query: { type:  $route.query.type } }"/>
+    <van-cell class="van-hairline--bottom" replace :title="city.regionName" is-link :to="{ path:'/address/city', query: { type:  $route.query.type } }"/>
     <div class="blank"></div>
     <van-cell v-for="item in communityList" :key="item.id" :value="item.name" @click="selectCommunity(item)"/>
     <p class="more">更多小区开发中~</p>
@@ -25,7 +25,7 @@ export default class Community extends Vue {
   selectCommunity(community) {
     if (this.$route.query.type !== 'main') {
       this.setCommunity(community).then(res => {
-        this.$router.go(-2)
+        this.$router.back()
       })
     } else if (this.$route.query.type === 'main') {
       selectCommunity({communityId: community.id}).then(res => {

@@ -21,7 +21,7 @@ export default class City extends Vue {
   @Action('address/setCity') setCity: Function
   selectCity(item) {
     this.setCity(item).then(res => {
-      this.$router.push(`/address/community?type=${this.$route.query.type}`)
+      this.$router.replace(`/address/community?type=${this.$route.query.type}`)
     })
   }
   mounted() {
