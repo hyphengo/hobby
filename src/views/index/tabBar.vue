@@ -35,6 +35,14 @@
         </template>
       </tabbar-item>
     </tabbar>
+    <van-popup v-model="registry" :close-on-click-overlay="false">
+      <div class="home-modal-img" @click="handleToCoupon">
+        <img :src="require('assets/images/newuser@3x.png')" />
+      </div>
+      <div class="home-modal-close">
+        <van-icon name="close" @click="closemodal"/>
+      </div>
+    </van-popup>
   </div>
 
 </template>
@@ -42,17 +50,21 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
-import { Tabbar, TabbarItem } from 'vant'
+import { Tabbar, TabbarItem, Popup } from 'vant'
 
 @Component({
   components: {
     Tabbar,
-    TabbarItem
+    TabbarItem,
+    'VanPopup': Popup
   }
 })
 export default class Index extends Vue {
   @Getter('cart/count') cartCount: number
   @Action('cart/getCount') getCount: Function
+  @Getter('auth/registry') registry: boolean
+  @Action('auth/setRegistry') setRegistry: any
+
   active: number = 0
   pageTransition: string = 'slide-left'
   isShowBar: boolean = true
@@ -75,6 +87,15 @@ export default class Index extends Vue {
         this.$router.replace('/index/home')
         break
     }
+  }
+  // 跳转至优惠券列表
+  handleToCoupon() {
+    this.$router.push('/my/coupon/list')
+  }
+
+  // 关闭弹窗
+  closemodal() {
+    this.setRegistry()
   }
 
   @Watch('$route.name')
@@ -147,5 +168,9 @@ export default class Index extends Vue {
   img{
     height: 48px !important;
   }
+}
+.van-popup {
+  background: none;
+  z-index: 9999 !important;
 }
 </style>
