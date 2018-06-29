@@ -229,6 +229,10 @@ export default class Confirm extends Vue {
     loadOrder(options).then(res => {
       this.order = res.data
       this.setInit(true)
+    }).catch(res => {
+      setTimeout(() => {
+        this.$router.back()
+      }, 3000)
     })
   }
 }

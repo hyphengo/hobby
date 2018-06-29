@@ -10,10 +10,7 @@
     <p class="browse-tip" v-if="empty">真想不到，竟然没有商品诶~</p>
     <div
       v-else
-      :class="['browse-list', {
-        'pb': isShowBar,
-        's-p': !isShowBar
-      }]"
+      :class="['browse-list', 'pb']"
     >
       <div class="browse-list-left">
         <ul>
@@ -124,10 +121,6 @@ export default class Browse extends Vue {
 
     &.pb{
       padding-bottom: 92px;
-    }
-
-    &.s-p{
-      padding-bottom: 46px;
     }
 
     &-left{
