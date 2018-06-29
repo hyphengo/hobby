@@ -138,7 +138,10 @@ export default class OrderList extends Vue {
         this.$router.replace('/order/list#done')
         break
     }
-    this.clearOrderList()
+
+    if (this.active !== index) {
+      this.clearOrderList()
+    }
   }
 
   @Watch('$route.hash')
