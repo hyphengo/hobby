@@ -37,6 +37,7 @@
                   :discountActivities="item.discountActivities"
                 />
                 <div class="cart-goods-step">
+                  <van-icon name="delete" @click="deleteItem('minus', item, data.groupType)" />
                   <van-stepper
                     :value="item.quantity"
                     @overlimit="(type) => deleteItem(type, item, data.groupType)"
@@ -406,6 +407,7 @@ export default class Cart extends Vue {
     display: flex;
     align-items: center;
     width: 100%;
+    position: relative;
   }
 
   &-failure {
@@ -415,6 +417,16 @@ export default class Cart extends Vue {
 
   &-step {
     flex-shrink: 0;
+    text-align: center;
+    margin-top: 20px;
+
+    .van-icon{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 32px;
+      color: #c6c6c6;
+    }
 
     .van-stepper__minus,
     .van-stepper__plus {

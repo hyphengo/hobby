@@ -169,7 +169,7 @@ export default class Index extends Vue {
     height: 48px !important;
   }
 }
-.van-popup {
+.index .van-popup {
   background: none;
   z-index: 9999 !important;
 }
