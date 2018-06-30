@@ -56,6 +56,7 @@
       />
     </div>
     <goods-action>
+      <goods-action-mini-btn icon="home" text="主页" @click="() => $router.push('/index/home')" />
       <goods-action-mini-btn icon="cart" text="购物车" :info="cartCount" @click="() => $router.push('/index/cart?show=hidden')" />
       <goods-action-big-btn class="detail-button" text="加入购物车" @click="handleAddCart" />
     </goods-action>
