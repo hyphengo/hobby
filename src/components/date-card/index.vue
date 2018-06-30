@@ -190,7 +190,7 @@ export default class DateCard extends Vue {
     // 当前小时
     const curHour = date.hour()
 
-    if (curHour >= 22 && curHour <= 23) {
+    if (curHour >= 23) {
       this.isShowToday = false
     }
   }
