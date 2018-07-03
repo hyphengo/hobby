@@ -112,12 +112,21 @@ import { price } from '@/util/util'
 export default class ProductInfo extends Vue {
   @Prop() order: any
   @Prop() isDetail: boolean
+  @Prop() availableCoupons: number
 
   price = price
 
 
   handleToSelectCoupon() {
     this.$router.push('/my/coupon/select')
+  }
+
+  get coup() {
+    if (this.availableCoupons !== 0 && this.order.couponDiscountAmount === 0) {
+      return `${this.availableCoupons}张券可用`
+    }
+
+    return `-￥${price(this.order.couponDiscountAmount)}`
   }
 
   get orderTypeText() {

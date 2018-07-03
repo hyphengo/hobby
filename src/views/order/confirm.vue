@@ -74,6 +74,7 @@
     <product-info
       class="confirm-product"
       :order="order"
+      :availableCoupons="availableCoupons"
     />
     <div v-if="order.returnCouponAmount" class="confirm-returnCoupon">
       <van-tag plain type="danger">{{order.activityName}}</van-tag>
@@ -103,7 +104,7 @@ import AddressCard from '@/components/address-card/index.vue'
 import DateCard from '@/components/date-card/index.vue'
 import InviteCard from '@/components/invite-card/index.vue'
 import MemoCard from '@/components/memo-card/index.vue'
-import { loadOrder, applyShippingMethod, applyShippingDate, commitOrder, applyDeliveryCode, applyNote, prePay } from '@/api'
+import { loadOrder, applyShippingMethod, applyShippingDate, getAvailableCoupons, commitOrder, applyDeliveryCode, applyNote, prePay } from '@/api'
 import { price } from '@/util/util'
 import wxs from '@/wxsdk'
 
@@ -128,6 +129,7 @@ export default class Confirm extends Vue {
 
   order: any = {}
   payLoding: boolean = false
+  availableCoupons: number = 0
 
   price = price
 
@@ -233,6 +235,10 @@ export default class Confirm extends Vue {
       setTimeout(() => {
         this.$router.back()
       }, 3000)
+    })
+
+    getAvailableCoupons().then(res => {
+      this.availableCoupons = res.data.length
     })
   }
 }
