@@ -26,14 +26,15 @@ export default class FallingTag extends Vue {
 
 <style lang="scss">
 .falling-tag{
-  width: 70px;
-  height: 90px;
+  width: 60px;
+  height: 70px;
   background-image: url('~assets/images/tag@3x.png');
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
   text-align: center;
   box-sizing: border-box;
+  line-height: 1;
 
   > p {
     margin: 0 !important;
