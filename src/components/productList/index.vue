@@ -21,6 +21,8 @@
               :unit="item.minUnit"
               :id="item.productId"
               :discountActivities="item.discountActivities"
+              :onBestPrice="item.onBestPrice"
+              :bestPrice="item.bestPrice"
             />
           </ve-col>
           <ve-col :span="3" @click="handleAddCart(item)">

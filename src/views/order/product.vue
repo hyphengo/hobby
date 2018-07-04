@@ -20,6 +20,8 @@
           :id="item.productId"
           :discountActivities="item.discountActivities"
           :disable="true"
+          :onBestPrice="item.onBestPrice"
+          :bestPrice="item.listPrice"
         />
         <div class="product-info-price">
           <p class="product-info-price-title">{{`×${item.quantity}`}}</p>

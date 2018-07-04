@@ -80,7 +80,7 @@ export function getPropByPath(obj, path, strict) {
   }
 }
 
-const toFixed = function (num, n = 2) {
+export const toFixed = function (num, n = 2) {
   if (n > 20 || n < 0) {
     throw new RangeError('toFixed() digits argument must be between 0 and 20')
   }

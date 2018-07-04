@@ -41,10 +41,16 @@
             :key="sales.productId"
             @click="handleToDetail(sales)"
           >
+            <falling-tag class="home-card-hot-tag" v-if="sales.onBestPrice === '1'">
+              {{toFixed(sales.salePrice - sales.bestPrice, 1)}}元
+            </falling-tag>
             <img :src="sales.productImg || require('assets/images/product.png')" />
             <p class="van-ellipsis">{{sales.productName}}</p>
             <div class="home-card-add">
-              <span class="home-card-price">
+              <span v-if="sales.onBestPrice === '1'" class="home-card-price">
+                {{sales.bestPrice}}元
+              </span>
+              <span v-else class="home-card-price">
                 {{sales.salePrice}}元
               </span>
               <add-button @click.stop="handleToCart(sales)" />
@@ -63,7 +69,8 @@ import { Swipe, SwipeItem, PullRefresh } from 'vant'
 import { getHome, initLocation, selectCommunity } from '@/api'
 import AddButton from '@/components/add-button/index.vue'
 import Search from '@/components/search/index.vue'
-import { IsURL } from '@/util/util'
+import FallingTag from '@/components/falling-tag/index.vue'
+import { IsURL, toFixed } from '@/util/util'
 import ls from '@/util/localStorage'
 import { COCOWO_COMMUNITY_ID } from '@/constants'
 import wxs from '@/wxsdk'
@@ -75,6 +82,7 @@ import wxs from '@/wxsdk'
     PullRefresh,
     AddButton,
     Search,
+    FallingTag,
   }
 })
 export default class Index extends Vue {
@@ -87,6 +95,7 @@ export default class Index extends Vue {
 
   isLoading: boolean = false
   data: Object = {}
+  toFixed = toFixed
   // 添加到购物车
   handleToCart(sales) {
     this.addCart({
@@ -238,10 +247,17 @@ export default class Index extends Vue {
       &-item{
         width: 200px;
         margin-right: 20px;
+        position: relative;
 
         &:last-child{
           margin-right: 0;
         }
+      }
+
+      &-tag{
+        position: absolute !important;
+        top: 0;
+        left: 0;
       }
 
       p{

@@ -1,5 +1,8 @@
 <template>
   <div class="detail">
+    <falling-tag class="detail-tag" v-if="detail.onBestPrice === '1'">
+      {{toFixed(detail.salePrice - detail.bestPrice, 1)}}元
+    </falling-tag>
     <swipe
       class="detail-swipe"
       :autoplay="5000"
@@ -35,8 +38,10 @@
         </ve-col>
       </ve-row>
       <p>
-        <span class="detail-price">￥{{price(detail.salePrice)}}</span>
+        <span v-if="detail.onBestPrice === '1'" class="detail-price">￥{{price(detail.bestPrice)}}</span>
+        <span v-else class="detail-price">￥{{price(detail.salePrice)}}</span>
         <span class="detail-unit">/{{detail.minUnit}}</span>
+        <span v-if="detail.onBestPrice === '1'" class="detail-best">￥{{price(detail.salePrice)}}</span>
       </p>
     </div>
     <div
@@ -68,7 +73,8 @@ import { Component, Vue, Model } from 'vue-property-decorator'
 import { Getter, Action } from 'vuex-class'
 import { Swipe, SwipeItem, Tag, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn } from 'vant'
 import ModalRouter from '@/mixins/ModalRouter'
-import { price } from '@/util/util'
+import FallingTag from '@/components/falling-tag/index.vue'
+import { price, toFixed } from '@/util/util'
 
 @Component({
   components: {
@@ -77,7 +83,8 @@ import { price } from '@/util/util'
     'van-tag': Tag,
     GoodsAction,
     GoodsActionBigBtn,
-    GoodsActionMiniBtn
+    GoodsActionMiniBtn,
+    FallingTag
   }
 })
 export default class Detail extends Vue {
@@ -94,6 +101,8 @@ export default class Detail extends Vue {
   isItemShow: boolean = false
 
   price = price
+
+  toFixed = toFixed
 
   @ModalRouter.open
   open() {
@@ -127,6 +136,14 @@ export default class Detail extends Vue {
 <style lang="scss">
 .detail{
   padding-bottom: 100px;
+  position: relative;
+
+  &-tag{
+    position: absolute !important;
+    top: 50px;
+    left: 50px;
+    z-index: 1000;
+  }
 
   &-title{
     background-color: $--color-white;
@@ -150,6 +167,12 @@ export default class Detail extends Vue {
   &-unit{
     color: $--color-unit;
     font-size: 28px;
+  }
+
+  &-best{
+    color: #C6C6C6;
+    text-decoration: line-through;
+    margin-left: 10px;
   }
 
   &-button{

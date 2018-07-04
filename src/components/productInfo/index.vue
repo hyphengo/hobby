@@ -87,7 +87,7 @@
         优惠券
       </ve-col>
       <ve-col :span="12" textAlign="right" class="productInfo-price">
-        {{`-￥${price(order.couponDiscountAmount)}`}}
+        {{coup}}
       </ve-col>
     </ve-row>
     <ve-row class="productInfo-row van-hairline--bottom">
@@ -122,7 +122,7 @@ export default class ProductInfo extends Vue {
   }
 
   get coup() {
-    if (this.availableCoupons !== 0 && this.order.couponDiscountAmount === 0) {
+    if (this.availableCoupons !== 0 && this.order.couponDiscountAmount === 0 && !this.isDetail) {
       return `${this.availableCoupons}张券可用`
     }
 

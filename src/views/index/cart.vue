@@ -30,11 +30,13 @@
                 <goods-card
                   class="cart-goods-card"
                   :title="item.productName"
-                  :price="item.salePrice"
+                  :price="item.onBestPrice === '1' ? item.listPrice : item.salePrice"
                   :thumb="item.productImg"
                   :unit="item.unit"
                   :id="item.productId"
                   :discountActivities="item.discountActivities"
+                  :onBestPrice="item.onBestPrice"
+                  :bestPrice="item.salePrice"
                 />
                 <div class="cart-goods-step">
                   <van-icon name="delete" @click="deleteItem('minus', item, data.groupType)" />

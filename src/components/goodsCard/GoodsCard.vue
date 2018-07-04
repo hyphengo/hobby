@@ -3,14 +3,19 @@
     <div class="goodscard">
       <div class="goodscard-thumb">
           <img :src="thumb || require('assets/images/product.png')" class="img" >
+          <falling-tag class="goodscard-thumb-tag" v-if="onBestPrice === '1'">
+            {{Math.abs(toFixed(price - bestPrice, 1))}}元
+          </falling-tag>
       </div>
       <div class="goodscard-content">
           <div class="goodscard-title">
               {{title}}
           </div>
           <div class="goodscard-price">
-            <span class="price">￥{{priceTurn(price)}}</span>
+            <span v-if="onBestPrice === '1'" class="price">￥{{priceTurn(bestPrice)}}</span>
+            <span v-else class="price">￥{{priceTurn(price)}}</span>
             <span class="unit">/{{unit}}</span>
+            <span v-if="onBestPrice === '1'" class="best">￥{{priceTurn(price)}}</span>
           </div>
       </div>
     </div>
@@ -29,11 +34,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Tag } from 'vant'
-import { price } from '@/util/util'
+import FallingTag from '../falling-tag/index.vue'
+import { price, toFixed } from '@/util/util'
 
 @Component({
   components: {
-    'van-tag': Tag
+    'van-tag': Tag,
+    FallingTag
   }
 })
 export default class GoodsCard extends Vue {
@@ -44,8 +51,12 @@ export default class GoodsCard extends Vue {
   @Prop() id: string
   @Prop() discountActivities: any
   @Prop({ default: false }) disable: boolean
+  @Prop() onBestPrice: any
+  @Prop() bestPrice: any
 
   priceTurn = price
+
+  toFixed = toFixed
 
   handleToDetail() {
     if (this.disable) return
@@ -66,10 +77,17 @@ export default class GoodsCard extends Vue {
     width: 100px;
     height: 100px;
     margin-right: 20px;
+    position: relative;
 
     img {
       width: 100%;
       height: 100%;
+    }
+
+    &-tag{
+      position: absolute !important;
+      top: 0;
+      left: 0;
     }
   }
   &-title{
@@ -90,6 +108,12 @@ export default class GoodsCard extends Vue {
       }
       .unit {
         color: #C6C6C6;
+      }
+
+      .best{
+        color: #C6C6C6;
+        text-decoration: line-through;
+        margin-left: 10px;
       }
     }
   }
