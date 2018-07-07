@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
     // 本地调试 bad code TODO
     if (process.env.CONTEXT === 'test' && !isWeiXin()) {
       store.dispatch('auth/setUser', {
-        token: '9984a941-8eae-40ad-ab87-57db075398ca'
+        token: 'a7638066-8834-4e72-8de5-5066fd95841a'
       })
     }
 

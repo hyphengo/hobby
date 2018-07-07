@@ -63,7 +63,16 @@
     <goods-action>
       <goods-action-mini-btn icon="home" text="主页" @click="() => $router.push('/index/home')" />
       <goods-action-mini-btn icon="cart" text="购物车" :info="cartCount" @click="() => $router.push('/index/cart?show=hidden')" />
-      <goods-action-big-btn class="detail-button" text="加入购物车" @click="handleAddCart" />
+      <goods-action-big-btn
+        :class="[
+          'detail-button',
+          {
+            disable: isAddCartDisable
+          }
+        ]"
+        text="加入购物车"
+        @click="handleAddCart"
+      />
     </goods-action>
   </div>
 </template>
@@ -100,9 +109,25 @@ export default class Detail extends Vue {
 
   isItemShow: boolean = false
 
+  isAddCartDisable: boolean = false
+
   price = price
 
   toFixed = toFixed
+
+  get cartText() {
+    if (this.detail.shopOnShelves === '0') {
+      this.isAddCartDisable = true
+      return '该商品已下架'
+    }
+
+    if (this.detail.stockLevel < 1) {
+      this.isAddCartDisable = true
+      return '该商品无库存'
+    }
+
+    return '加入购物车'
+  }
 
   @ModalRouter.open
   open() {
@@ -110,6 +135,7 @@ export default class Detail extends Vue {
   }
 
   handleAddCart() {
+    if (this.isAddCartDisable) return
     this.btnLoding = true
 
     this.addCart({
@@ -177,6 +203,10 @@ export default class Detail extends Vue {
 
   &-button{
     background-color: $--color-base;
+
+    &.disable{
+      background-color: #ccc;
+    }
   }
 
   &-swipe{
