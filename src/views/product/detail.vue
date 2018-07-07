@@ -70,7 +70,7 @@
             disable: isAddCartDisable
           }
         ]"
-        text="加入购物车"
+        :text="cartText"
         @click="handleAddCart"
       />
     </goods-action>
