@@ -3,9 +3,11 @@
     <div class="goodscard">
       <div class="goodscard-thumb">
           <img :src="thumb || require('assets/images/product.png')" class="img" >
-          <falling-tag class="goodscard-thumb-tag" v-if="onBestPrice === '1'">
-            {{Math.abs(toFixed(price - bestPrice, 1))}}元
-          </falling-tag>
+          <falling-tag
+            class="goodscard-thumb-tag"
+            v-if="onBestPrice === '1'"
+            :price="price - bestPrice"
+          />
       </div>
       <div class="goodscard-content">
           <div class="goodscard-title">
@@ -35,7 +37,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Tag } from 'vant'
 import FallingTag from '../falling-tag/index.vue'
-import { price, toFixed } from '@/util/util'
+import { price } from '@/util/util'
 
 @Component({
   components: {
@@ -55,8 +57,6 @@ export default class GoodsCard extends Vue {
   @Prop() bestPrice: any
 
   priceTurn = price
-
-  toFixed = toFixed
 
   handleToDetail() {
     if (this.disable) return

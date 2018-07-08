@@ -1,8 +1,10 @@
 <template>
   <div class="detail">
-    <falling-tag class="detail-tag" v-if="detail.onBestPrice === '1'">
-      {{toFixed(detail.salePrice - detail.bestPrice, 1)}}元
-    </falling-tag>
+    <falling-tag
+      class="detail-tag big"
+      v-if="detail.onBestPrice === '1'"
+      :price="detail.salePrice - detail.bestPrice"
+    />
     <swipe
       class="detail-swipe"
       :autoplay="5000"
@@ -83,7 +85,7 @@ import { Getter, Action } from 'vuex-class'
 import { Swipe, SwipeItem, Tag, GoodsAction, GoodsActionBigBtn, GoodsActionMiniBtn } from 'vant'
 import ModalRouter from '@/mixins/ModalRouter'
 import FallingTag from '@/components/falling-tag/index.vue'
-import { price, toFixed } from '@/util/util'
+import { price } from '@/util/util'
 
 @Component({
   components: {
@@ -112,8 +114,6 @@ export default class Detail extends Vue {
   isAddCartDisable: boolean = false
 
   price = price
-
-  toFixed = toFixed
 
   get cartText() {
     if (this.detail.shopOnShelves === '0') {
