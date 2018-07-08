@@ -49,11 +49,13 @@ export default class FallingTag extends Vue {
   img {
     width: 46px !important;
     height: 62px !important;
+    border-radius: 0 !important;
   }
 
   &.big img{
     width: 92px !important;
     height: 123px !important;
+    border-radius: 0 !important;
   }
 }
 </style>
