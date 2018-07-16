@@ -87,7 +87,7 @@
         优惠券
       </ve-col>
       <ve-col :span="12" textAlign="right" class="productInfo-price">
-        {{coup}}
+        {{`-￥${price(order.couponDiscountAmount)}`}}
       </ve-col>
     </ve-row>
     <ve-row class="productInfo-row van-hairline--bottom">
