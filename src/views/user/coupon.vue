@@ -7,37 +7,35 @@
     >
       不用券了
     </div>
-    <checkbox-group v-model="couponId">
-      <div
-        :class="[
-          {
-            'coupon-bg-1': item.status==='active',
-            'coupon-bg-2': item.status==='closed',
-            'coupon-bg-3': item.status==='used'
-          },
-          'coupon-bg'
-        ]"
-        v-for="item in couponList"
-        :key="item.id"
-        @click="radioClick(item.id)"
-      >
-        <div class="coupon-left">
-          <div>
-            <p><span>￥</span>{{item.discount}}</p>
-            <span>{{item.promotionName}}</span>
-          </div>
-        </div>
-        <div class="coupon-right">
-          <div class="coupon-info">
-            <p>{{item.promotionDiscription}}</p>
-            <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
-          </div>
-          <div class="coupon-select" v-show="$route.params.name === 'select'">
-            <van-checkbox :name="item"/>
-          </div>
+    <div
+      :class="[
+        {
+          'coupon-bg-1': item.status==='active',
+          'coupon-bg-2': item.status==='closed',
+          'coupon-bg-3': item.status==='used'
+        },
+        'coupon-bg'
+      ]"
+      v-for="item in couponList"
+      :key="item.id"
+      @click="radioClick(item.id)"
+    >
+      <div class="coupon-left">
+        <div>
+          <p><span>￥</span>{{item.discount}}</p>
+          <span>{{item.promotionName}}</span>
         </div>
       </div>
-    </checkbox-group>
+      <div class="coupon-right">
+        <div class="coupon-info">
+          <p>{{item.promotionDiscription}}</p>
+          <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
+        </div>
+        <div class="coupon-select" v-show="$route.params.name === 'select'">
+          <van-checkbox :value="couponId.has(item.id)" />
+        </div>
+      </div>
+    </div>
     <p v-show="!nullData" class="more">别看了，真的没有了~</p>
     <div class="null-coupon" v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
     <van-button v-show="$route.params.name === 'select' && !nullData" class="fix" size="large" type="primary" @click="deterClick" >确定</van-button>
@@ -60,10 +58,15 @@ import moment from 'moment'
 })
 export default class Coupon extends Vue {
   couponList: any = null
-  couponId: any = []
+  couponId: any = new Set()
   nullData: boolean = false
+
+  getCurCheck(id) {
+    return this.couponId.has(id)
+  }
+
   deterClick() {
-    applyCoupons({id: this.couponId}).then(res => {
+    applyCoupons({id: Array.from(this.couponId)}).then(res => {
       this.$router.back()
     })
   }
@@ -74,12 +77,12 @@ export default class Coupon extends Vue {
   }
   radioClick(id) {
     if (this.$route.params.name === 'select') {
-      const idx = this.couponId.indexOf(id)
-      if (idx === -1) {
-        this.couponId.push(id)
+      if (this.couponId.has(id)) {
+        this.couponId.delete(id)
       } else {
-        this.couponId.splice(idx, 1)
+        this.couponId.add(id)
       }
+      this.couponId = new Set(Array.from(this.couponId))
     }
   }
   mounted() {
@@ -98,7 +101,7 @@ export default class Coupon extends Vue {
         }
         for (let i = 0; i < this.couponList.length; i++) {
           if (this.couponList[i].used) {
-            this.couponId.push(this.couponList[i].id)
+            this.couponId.add(this.couponList[i].id)
           }
         }
       })
