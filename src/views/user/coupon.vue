@@ -7,7 +7,7 @@
     >
       不用券了
     </div>
-    <radio-group v-model="couponId">
+    <checkbox-group v-model="couponId">
       <div
         :class="[
           {
@@ -33,11 +33,11 @@
             <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
           </div>
           <div class="coupon-select" v-show="$route.params.name === 'select'">
-            <van-radio :name="item.id"/>
+            <van-checkbox :name="item"/>
           </div>
         </div>
       </div>
-    </radio-group>
+    </checkbox-group>
     <p v-show="!nullData" class="more">别看了，真的没有了~</p>
     <div class="null-coupon" v-show="nullData">别看了，你并没有券，去搞几张吧~</div>
     <van-button v-show="$route.params.name === 'select' && !nullData" class="fix" size="large" type="primary" @click="deterClick" >确定</van-button>
@@ -46,35 +46,40 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Popup, RadioGroup, Radio, CouponList } from 'vant'
-import { getCoupons, getAvailableCoupons, applyCoupon } from '@/api'
+import { Popup, CheckboxGroup, Checkbox, CouponList } from 'vant'
+import { getCoupons, getAvailableCoupons, applyCoupons } from '@/api'
 import moment from 'moment'
 
 @Component({
   components: {
     'VanPopup': Popup,
-    RadioGroup,
-    'VanRadio': Radio,
+    CheckboxGroup,
+    'VanCheckbox': Checkbox,
     CouponList
   }
 })
 export default class Coupon extends Vue {
   couponList: any = null
-  couponId: any = null
+  couponId: any = []
   nullData: boolean = false
   deterClick() {
-    applyCoupon({id: this.couponId}).then(res => {
+    applyCoupons({id: this.couponId}).then(res => {
       this.$router.back()
     })
   }
   handleAbandon() {
-    applyCoupon({id: null}).then(res => {
+    applyCoupons({id: null}).then(res => {
       this.$router.back()
     })
   }
   radioClick(id) {
     if (this.$route.params.name === 'select') {
-      this.couponId = id
+      const idx = this.couponId.indexOf(id)
+      if (idx === -1) {
+        this.couponId.push(id)
+      } else {
+        this.couponId.splice(idx, 1)
+      }
     }
   }
   mounted() {
@@ -93,7 +98,7 @@ export default class Coupon extends Vue {
         }
         for (let i = 0; i < this.couponList.length; i++) {
           if (this.couponList[i].used) {
-            this.couponId = this.couponList[i].id
+            this.couponId.push(this.couponList[i].id)
           }
         }
       })
@@ -107,6 +112,8 @@ export default class Coupon extends Vue {
 
 <style lang="scss">
   .coupon{
+    padding-bottom: 100px;
+
     .coupon-bg{
       display: flex;
       flex-flow: row;

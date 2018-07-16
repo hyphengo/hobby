@@ -4,7 +4,11 @@
   >
     <pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="home-top">
-        <p class="home-title">可可蛙-{{data.communityName}}</p>
+        <p class="home-title" @click="handleToSelectAddress">
+          <img :src="require('assets/images/address.png')" />
+          可可蛙-{{data.communityName}}
+          <van-icon class="home-title-arrow" name="arrow" />
+        </p>
         <search />
       </div>
       <swipe
@@ -148,6 +152,10 @@ export default class Index extends Vue {
     })
   }
 
+  handleToSelectAddress() {
+    this.$router.push('/address/city?type=main')
+  }
+
   mounted() {
     const communityId = ls.get(COCOWO_COMMUNITY_ID)
 
@@ -203,6 +211,22 @@ export default class Index extends Vue {
     color: $--color-black;
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-arrow{
+      font-size: 32px;
+      margin-left: 20px;
+      transform: rotate(90deg);
+      color: #888888;
+    }
+
+    img{
+      width: 26px;
+      height: 28px;
+      margin-right: 16px;
+    }
   }
   &-swipe{
     padding: 10px 0;
