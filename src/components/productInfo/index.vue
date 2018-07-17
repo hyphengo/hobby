@@ -35,7 +35,7 @@
         优惠券
       </ve-col>
       <ve-col :span="12" textAlign="right" class="productInfo-price">
-        {{coup}}
+        {{`-￥${price(order.orderPriceInfo.couponDiscountAmount)}`}}
       </ve-col>
       <van-icon name="arrow" />
     </ve-row>
@@ -121,15 +121,15 @@ export default class ProductInfo extends Vue {
     this.$router.push('/my/coupon/select')
   }
 
-  get coup() {
-    if (!this.order.orderPriceInfo) return 0
+  // get coup() {
+  //   if (!this.order.orderPriceInfo) return 0
 
-    if (this.availableCoupons !== 0 && this.order.orderPriceInfo.couponDiscountAmount === 0 && !this.isDetail) {
-      return `${this.availableCoupons}张券可用`
-    }
+  //   if (this.availableCoupons !== 0 && this.order.orderPriceInfo.couponDiscountAmount === 0 && !this.isDetail) {
+  //     return `${this.availableCoupons}张券可用`
+  //   }
 
-    return `-￥${price(this.order.orderPriceInfo.couponDiscountAmount)}`
-  }
+  //   return `-￥${price(this.order.orderPriceInfo.couponDiscountAmount)}`
+  // }
 
   get orderTypeText() {
     let type = '普通商品'
