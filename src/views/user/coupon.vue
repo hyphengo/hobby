@@ -32,7 +32,7 @@
           <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
         </div>
         <div class="coupon-select" v-show="$route.params.name === 'select'">
-          <van-checkbox :value="couponId.has(item.id)" />
+          <van-checkbox :disabled="curType !== item.type && curType !== null" :value="couponId.has(item.id)" />
         </div>
       </div>
     </div>
@@ -85,6 +85,24 @@ export default class Coupon extends Vue {
       }
 
       if (this.curType !== item.type) {
+        if (item.type === '1') {
+          this.$toast('请先取消可叠加的券')
+        } else if (item.type === '2') {
+          this.$toast('请先取消不可叠加的券')
+        }
+        return
+      }
+
+      if (this.curType === '1') {
+        if (this.couponId.has(id)) {
+          this.couponId.clear()
+          this.curType = null
+        } else {
+          this.couponId.clear()
+          this.couponId.add(id)
+        }
+
+        this.couponId = new Set(Array.from(this.couponId))
         return
       }
 
