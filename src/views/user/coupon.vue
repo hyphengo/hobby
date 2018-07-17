@@ -18,7 +18,7 @@
       ]"
       v-for="item in couponList"
       :key="item.id"
-      @click="radioClick(item.id)"
+      @click="radioClick(item)"
     >
       <div class="coupon-left">
         <div>
@@ -28,7 +28,7 @@
       </div>
       <div class="coupon-right">
         <div class="coupon-info">
-          <p>{{item.promotionDiscription}}</p>
+          <p>{{item.promotionDiscription}} <span class="coupon-info-super" v-if="item.type === '2'">可叠加</span></p>
           <span>{{dateFilter(item.startDate)}} - {{dateFilter(item.endDate)}}</span>
         </div>
         <div class="coupon-select" v-show="$route.params.name === 'select'">
@@ -60,25 +60,40 @@ export default class Coupon extends Vue {
   couponList: any = null
   couponId: any = new Set()
   nullData: boolean = false
+  curType: any = null
 
   getCurCheck(id) {
     return this.couponId.has(id)
   }
 
   deterClick() {
-    applyCoupons({id: Array.from(this.couponId)}).then(res => {
+    applyCoupons({ids: Array.from(this.couponId)}).then(res => {
       this.$router.back()
     })
   }
   handleAbandon() {
-    applyCoupons({id: null}).then(res => {
+    applyCoupons({ids: null}).then(res => {
       this.$router.back()
     })
   }
-  radioClick(id) {
+  radioClick(item) {
     if (this.$route.params.name === 'select') {
+      const id = item.id
+
+      if (this.couponId.size === 0) {
+        this.curType = item.type
+      }
+
+      if (this.curType !== item.type) {
+        return
+      }
+
       if (this.couponId.has(id)) {
         this.couponId.delete(id)
+
+        if (this.couponId.size === 0) {
+          this.curType = null
+        }
       } else {
         this.couponId.add(id)
       }
@@ -102,6 +117,7 @@ export default class Coupon extends Vue {
         for (let i = 0; i < this.couponList.length; i++) {
           if (this.couponList[i].used) {
             this.couponId.add(this.couponList[i].id)
+            this.curType = this.couponList[i].type
           }
         }
       })
@@ -157,6 +173,11 @@ export default class Coupon extends Vue {
         .coupon-info{
           flex-grow: 1;
           padding-left: 35px;
+
+          &-super{
+            color: $--color-base !important;
+          }
+
           p{
             font-size: 28px;
             padding-bottom: 15px;
