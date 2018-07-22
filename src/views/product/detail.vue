@@ -86,6 +86,7 @@ import { Swipe, SwipeItem, Tag, GoodsAction, GoodsActionBigBtn, GoodsActionMiniB
 import ModalRouter from '@/mixins/ModalRouter'
 import FallingTag from '@/components/falling-tag/index.vue'
 import { price } from '@/util/util'
+import wxsdk from '@/wxsdk'
 
 @Component({
   components: {
@@ -154,6 +155,13 @@ export default class Detail extends Vue {
     this.getCount()
     this.getProductDetail(this.$route.params.id).then(() => {
       this.isItemShow = true
+
+      wxsdk.onMenuShare({
+        link: window.location.href,
+        title: this.detail.name,
+        desc: this.detail.name,
+        imgUrl: this.detail.images[0],
+      })
     })
   }
 }
