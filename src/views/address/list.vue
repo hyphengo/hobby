@@ -8,9 +8,9 @@
       <div class="edit">
         <van-icon name="edit" @click.stop="onEdit(item)"/>
       </div>
-      <div v-if="item.defaultAddress" class="default-type">
+      <!-- <div v-if="item.defaultAddress" class="default-type">
         <van-icon name="success"/>
-      </div>
+      </div> -->
     </div>
     <div class="fix" is-link @click="addEdit">
       <span>新增地址</span>

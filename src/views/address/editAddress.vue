@@ -22,10 +22,10 @@
         label="手机号码"
         placeholder="请填写您的手机号码"
       />
-      <div class="blank"></div>
-      <van-cell title="设为默认地址" >
+      <!-- <div class="blank"></div> -->
+      <!-- <van-cell title="设为默认地址" >
         <van-checkbox v-model="addressInfo.defaultAddress" />
-      </van-cell>
+      </van-cell> -->
     </cell-group>
     <div class="save-box">
         <van-button class="save-btn" size="large" type="primary" @click="saveClick" >保存</van-button>
@@ -82,7 +82,7 @@ export default class Edit extends Vue {
         postcode: '',
         consigneeName: this.addressInfo.consigneeName,
         phoneNumber: this.addressInfo.phoneNumber,
-        defaultAddress: this.addressInfo.defaultAddress
+        // defaultAddress: this.addressInfo.defaultAddress
       }
       if (params.id) {
         updateAddress(params).then(() => {

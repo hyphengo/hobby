@@ -6,7 +6,7 @@
       <div class="home-top">
         <p class="home-title" @click="handleToSelectAddress">
           <img :src="require('assets/images/address.png')" />
-          可可蛙-{{data.communityName}}
+          {{data.communityName}}
           <van-icon class="home-title-arrow" name="arrow" />
         </p>
         <search />
@@ -78,7 +78,7 @@ import Search from '@/components/search/index.vue'
 import FallingTag from '@/components/falling-tag/index.vue'
 import { IsURL } from '@/util/util'
 import ls from '@/util/localStorage'
-import { COCOWO_COMMUNITY_ID } from '@/constants'
+import { COCOWO_COMMUNITY_ID, COCOWO_LOCATION } from '@/constants'
 import wxs from '@/wxsdk'
 
 @Component({
@@ -158,8 +158,9 @@ export default class Index extends Vue {
 
   mounted() {
     const communityId = ls.get(COCOWO_COMMUNITY_ID)
+    const location = ls.get(COCOWO_LOCATION)
 
-    if (!this.location) {
+    if (location) {
       if (communityId) {
         selectCommunity({ communityId }).then(data => {
           ls.set(COCOWO_COMMUNITY_ID, data.data.communityId)
@@ -188,7 +189,7 @@ export default class Index extends Vue {
           }
         })
       }
-      this.setLocation()
+      ls.set(COCOWO_LOCATION, true)
     }
 
     getHome().then(res => {

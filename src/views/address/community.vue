@@ -12,6 +12,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Cell } from 'vant'
 import { Getter, Action } from 'vuex-class'
 import { getCommunities, selectCommunity } from '@/api'
+import ls from '@/util/localStorage'
+import { COCOWO_COMMUNITY_ID } from '@/constants'
 
 @Component({
   components: {
@@ -29,6 +31,7 @@ export default class Community extends Vue {
       })
     } else if (this.$route.query.type === 'main') {
       selectCommunity({communityId: community.id}).then(res => {
+        ls.set(COCOWO_COMMUNITY_ID, res.data.communityId)
         this.$router.replace('/index/home')
       })
     }
