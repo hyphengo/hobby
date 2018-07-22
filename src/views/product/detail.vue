@@ -152,6 +152,8 @@ export default class Detail extends Vue {
   }
 
   mounted() {
+    wxsdk.auth()
+
     this.getCount()
     this.getProductDetail(this.$route.params.id).then(() => {
       this.isItemShow = true

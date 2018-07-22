@@ -1,4 +1,5 @@
 import wx from 'weixin-js-sdk'
+import { wxjsconfig } from '@/api'
 /* eslint-disable */
 
 const defaultParams = {
@@ -11,6 +12,21 @@ const defaultParams = {
 }
 
 export default {
+  auth() {
+    wxjsconfig({
+      url: window.location.href,
+    }).then(res => {
+      const { data } = res
+
+      this.created({
+        appId: data.appId,
+        timestamp: data.timestamp,
+        nonceStr: data.nonceStr,
+        signature: data.signature,
+        jsApiList: ['getLocation', 'chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage'],
+      })
+    })
+  },
   created(data) {
     const params = Object.assign({}, defaultParams, data)
 

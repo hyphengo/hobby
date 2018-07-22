@@ -5,7 +5,7 @@ import constantRoutes, { asyncRoutes } from './routes'
 import store from '../store'
 import { setWXTitle } from '../util/util'
 import wxsdk from '@/wxsdk'
-import { wxjsconfig, wxToken } from '@/api'
+import { wxToken } from '@/api'
 import isWeiXin from '@/util/isWeiXin'
 
 let isV = true
@@ -82,25 +82,9 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-const wxsdkAuth = () => {
-  wxjsconfig({
-    url: window.location.href,
-  }).then(res => {
-    const { data } = res
-
-    wxsdk.created({
-      appId: data.appId,
-      timestamp: data.timestamp,
-      nonceStr: data.nonceStr,
-      signature: data.signature,
-      jsApiList: ['getLocation', 'chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage'],
-    })
-  })
-}
-
 router.afterEach((to, from) => {
   if (to.meta && to.meta.wxsdk) {
-    setTimeout(wxsdkAuth, 300)
+    setTimeout(wxsdk.auth, 300)
   }
 
   if (to.meta && to.meta.share) {
