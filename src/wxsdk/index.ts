@@ -18,26 +18,15 @@ export default {
     }).then(res => {
       const { data } = res
 
-      this.created({
+      const params = Object.assign({}, defaultParams, {
         appId: data.appId,
         timestamp: data.timestamp,
         nonceStr: data.nonceStr,
         signature: data.signature,
         jsApiList: ['getLocation', 'chooseWXPay', 'onMenuShareTimeline', 'onMenuShareAppMessage'],
       })
-    })
-  },
-  created(data) {
-    const params = Object.assign({}, defaultParams, data)
 
-    wx.config(params)
-
-    wx.ready(() => {
-      // console.log('ready: ', 2)
-    })
-
-    wx.error((res) => {
-      // console.log('error: ', res)
+      wx.config(params)
     })
   },
 
