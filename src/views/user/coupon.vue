@@ -151,6 +151,10 @@ export default class Coupon extends Vue {
   .coupon{
     padding-bottom: 100px;
 
+    .van-checkbox--round {
+      border-radius: 20%;
+    }
+
     .coupon-bg{
       display: flex;
       flex-flow: row;
@@ -187,7 +191,9 @@ export default class Coupon extends Vue {
       .coupon-right{
         flex-grow: 1;
         display: flex;
-        align-items:center;
+        align-items: center;
+        justify-content: space-between;
+
         .coupon-info{
           flex-grow: 1;
           padding-left: 35px;
@@ -207,6 +213,9 @@ export default class Coupon extends Vue {
           }
         }
         .coupon-select{
+          text-align: right;
+          padding-right: 20px;
+          flex-grow: 1;
           width: 60px;
         }
       }
