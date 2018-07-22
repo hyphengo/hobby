@@ -96,6 +96,9 @@ const asyncRoutes = [
       {
         path: 'detail/:id',
         name: '商品详情',
+        meta: {
+          wxsdk: true,
+        },
         component: () => import('@/views/product/detail.vue'),
       }
     ]
