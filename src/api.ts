@@ -146,6 +146,9 @@ export const applyCoupon = (params) => http.post('/checkout/applyCoupon', params
 // 应用多张优惠卷到订单上
 export const applyCoupons = (params) => http.post('/checkout/applyCoupons', params)
 
+// 获取可用地址列表
+export const getShippingAddress = () => http.get('/checkout/getShippingAddresses')
+
 // 设置配送地址
 export const applyShippingAddress = (params) => http.post('/checkout/applyShippingAddress', params)
 

@@ -1,16 +1,41 @@
 <template>
   <div class="address">
-    <div :class="['address-info', {'address-info-click': $route.params.name==='select'}]" v-for="item in list" :key="item.id" @click.stop="selectAddress(item)">
-      <div class="info">
-        <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
-        <span>{{item.communityName}}{{item.detailAddress}}</span>
+    <div class="address-wap">
+      <div
+        :class="['address-info', {'address-info-click': $route.params.name==='select'}]"
+        v-for="item in list"
+        :key="item.id"
+        @click.stop="selectAddress(item)"
+      >
+        <div class="info">
+          <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
+          <span>{{item.communityName}}{{item.detailAddress}}</span>
+        </div>
+        <div class="edit">
+          <van-icon name="edit" @click.stop="onEdit(item)"/>
+        </div>
+        <!-- <div v-if="item.defaultAddress" class="default-type">
+          <van-icon name="success"/>
+        </div> -->
       </div>
-      <div class="edit">
-        <van-icon name="edit" @click.stop="onEdit(item)"/>
-      </div>
-      <!-- <div v-if="item.defaultAddress" class="default-type">
-        <van-icon name="success"/>
-      </div> -->
+      <template v-if="$route.params.name === 'select' && filterList.length > 0">
+        <div class="address-tip">
+          当前访问小区不支持以下配送地址
+        </div>
+        <div
+          class="address-info"
+          v-for="item in filterList"
+          :key="item.id"
+        >
+          <div class="info">
+            <p>{{item.consigneeName}}，{{item.phoneNumber}}</p>
+            <span>{{item.communityName}}{{item.detailAddress}}</span>
+          </div>
+          <div class="edit">
+            <van-icon name="edit" @click.stop="onEdit(item)"/>
+          </div>
+        </div>
+      </template>
     </div>
     <div class="fix" is-link @click="addEdit">
       <span>新增地址</span>
@@ -21,7 +46,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Cell } from 'vant'
-import { getAddress, applyShippingAddress } from '@/api'
+import { getShippingAddress, applyShippingAddress } from '@/api'
 import { Action } from 'vuex-class'
 
 @Component({
@@ -32,7 +57,10 @@ import { Action } from 'vuex-class'
 export default class Address extends Vue {
   @Action('address/setEditAddress') setEditAddress: Function
   @Action('address/setSelectAddress') setSelectAddress: Function
+
   list: any = []
+  filterList: any = []
+
   selectAddress(item) {
     if (this.$route.params.name === 'select') {
       this.setSelectAddress(item).then(() => {
@@ -53,8 +81,18 @@ export default class Address extends Vue {
     })
   }
   mounted() {
-    getAddress().then(res => {
-      this.list = res.data
+    getShippingAddress().then(res => {
+      if (this.$route.params.name === 'select') {
+        res.data.forEach(item => {
+          if (item.supportShipping) {
+            this.list.push(item)
+          } else {
+            this.filterList.push(item)
+          }
+        })
+      } else {
+        this.list = res.data
+      }
     })
   }
 }
@@ -62,6 +100,16 @@ export default class Address extends Vue {
 
 <style lang="scss">
 .address{
+  &-wap{
+    padding-bottom: 80px;
+  }
+
+  &-tip{
+    padding: 20px 0px 20px 40px;
+    background-color: #f6f1d7;
+    color: #726f72;
+    margin-top: 20px;
+  }
   .address-info{
     position: relative;
     display: flex;
