@@ -50,7 +50,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Picker, Popup } from 'vant'
 import moment from 'moment'
 import dateSelect from '@/util/dateSelect'
-import dateSelectMin from '@/util/dateSelect-min'
+// import dateSelectMin from '@/util/dateSelect-min'
 
 @Component({
   components: {
@@ -70,7 +70,7 @@ export default class DateCard extends Vue {
 
   selectDateShow: boolean = false
 
-  dateSelect: any = new Date().getDay() > 0 && new Date().getDay() < 5 ? dateSelect : dateSelectMin
+  dateSelect: any = dateSelect
 
   isShowToday: boolean = true
 
